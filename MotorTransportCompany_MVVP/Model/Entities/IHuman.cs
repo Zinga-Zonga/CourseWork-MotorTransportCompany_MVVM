@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using MotorTransportCompany_MVVP.Model.Entities;
+using System;
 
 namespace MotorTransportCompany_MVVP.Model
 {
@@ -13,7 +10,7 @@ namespace MotorTransportCompany_MVVP.Model
         string Patronymic { get; set; }
         DateTime BirthdayDate { get; set; }
         int Age { get; set; }
-        Sex Sex { get; set; }
+        SexType Sex { get; set; }
         int PassportNumber { get; set; }
     }
 }

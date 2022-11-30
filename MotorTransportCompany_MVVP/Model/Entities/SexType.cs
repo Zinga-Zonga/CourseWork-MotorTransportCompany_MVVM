@@ -1,6 +1,6 @@
-﻿namespace MotorTransportCompany_MVVP.Model
+﻿namespace MotorTransportCompany_MVVP.Model.Entities
 {
-    class Department : IEntity
+    internal class SexType : IEntity
     {
         public int Id { get; set; }
         public string Name { get; set; }
