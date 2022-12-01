@@ -1,5 +1,4 @@
-﻿using MotorTransportCompany_MVVP.Model.Entities;
-using MySqlConnector;
+﻿using MySqlConnector;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,23 +7,23 @@ using System.Threading.Tasks;
 
 namespace MotorTransportCompany_MVVP.Model.DAOs
 {
-    internal class MechanicsDAO
+    internal class DriversDAO
     {
         static string connectionString = "server=localhost;port=3306;username=root;password=root;database=motortransportcompany";
 
 
-        public List<Mechanic> GetAll()
+        public List<Driver> GetAll()
         {
-            List<Mechanic> mechanics = new List<Mechanic>();
+            List<Driver> drivers = new List<Driver>();
             MySqlConnection connaction = new MySqlConnection(connectionString);
             connaction.Open();
 
-            MySqlCommand command = new MySqlCommand("SELECT id_mechanic, id_department, name, surname, patronymic, birthday, age, id_sex, passport FROM `mechanics`", connaction);
+            MySqlCommand command = new MySqlCommand("SELECT id_driver, id_department, name, surname, patronymic, birthday, age, id_sex, passport FROM `drivers`", connaction);
             using (MySqlDataReader reader = command.ExecuteReader())
             {
                 while (reader.Read())
                 {
-                    Mechanic mech = new Mechanic
+                    Driver driver = new Driver
                     {
                         Id = reader.GetInt32(0),
                         Department_id = reader.GetInt32(1),
@@ -36,11 +35,11 @@ namespace MotorTransportCompany_MVVP.Model.DAOs
                         IdSex = reader.GetInt32(7),
                         PassportNumber = reader.GetInt32(8)
                     };
-                    mechanics.Add(mech);
+                    drivers.Add(driver);
                 }
             }
             connaction.Close();
-            return  mechanics;
+            return drivers;
         }
     }
 }

@@ -2,6 +2,6 @@
 {
     internal interface IDepartmensWorker
     {
-        Department DepartmentName { get; set; }
+        int Department_id { get; set; }
     }
 }

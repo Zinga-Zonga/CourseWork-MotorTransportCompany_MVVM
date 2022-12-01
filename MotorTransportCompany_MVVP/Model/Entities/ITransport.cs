@@ -2,10 +2,10 @@
 {
     internal interface ITransport
     {
-        TransportSpecifications Model { get; set; }
-        string Number { get; set; }
-        string Department { get; set; }
-        TechnicalCondition TechnicalCondition { get; set; }
+        int Department_ID { get; set; }
+        int TransportSpecification_ID { get; set; }
+        int TechnicalCondition_ID { get; set; }
+        string TransportNumber { get; set; }
 
     }
 }

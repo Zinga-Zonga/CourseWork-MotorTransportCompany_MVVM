@@ -5,6 +5,6 @@
         string Model { get; set; }
         double FuelConsumption { get; set; }
         double TrunkVolume { get; set; }
-        FuelType FuelType { get; set; }
+        int FuelType_ID { get; set; }
     }
 }

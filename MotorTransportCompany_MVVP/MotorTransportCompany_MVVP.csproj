@@ -110,9 +110,20 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Model\DAOs\DepartmentDAO.cs" />
+    <Compile Include="Model\DAOs\DriversCategoriesDAO.cs" />
+    <Compile Include="Model\DAOs\DriversDAO.cs" />
+    <Compile Include="Model\DAOs\FuelTypeDAO.cs" />
+    <Compile Include="Model\DAOs\LicenseCategoriesDAO.cs" />
+    <Compile Include="Model\DAOs\GarageManagerDAO.cs" />
     <Compile Include="Model\DAOs\MechanicsDAO.cs" />
     <Compile Include="Model\DAOs\SexDAO.cs" />
+    <Compile Include="Model\DAOs\TechnicalConditionsDAO.cs" />
+    <Compile Include="Model\DAOs\TransportDAO.cs" />
+    <Compile Include="Model\DAOs\TransportDistributionDAO.cs" />
+    <Compile Include="Model\DAOs\TransportSpecificationsDAO.cs" />
+    <Compile Include="Model\Entities\DriversAndCategories.cs" />
     <Compile Include="Model\Entities\SexType.cs" />
+    <Compile Include="Model\Entities\TransportDistribution.cs" />
     <Compile Include="View\MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -128,7 +139,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Model\Entities\Department.cs" />
-    <Compile Include="Model\Entities\DriverCategory.cs" />
+    <Compile Include="Model\Entities\LicenseCategory.cs" />
     <Compile Include="Model\Entities\Driver.cs" />
     <Compile Include="Model\Entities\FuelType.cs" />
     <Compile Include="Model\Entities\GarageManager.cs" />
@@ -141,7 +152,7 @@
     <Compile Include="Model\Entities\SpecializationsTypes.cs" />
     <Compile Include="Model\Entities\TechnicalCondition.cs" />
     <Compile Include="Model\Entities\Transport.cs" />
-    <Compile Include="Model\Entities\TransportSpecifications.cs" />
+    <Compile Include="Model\Entities\TransportSpecification.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>

@@ -1,10 +1,11 @@
 ﻿namespace MotorTransportCompany_MVVP.Model
 {
-    internal class Transport : ITransport
+    internal class Transport : ITransport, IEntity
     {
-        public TransportSpecifications Model { get; set; }
-        public string Number { get; set; }
-        public string Department { get; set; }
-        public TechnicalCondition TechnicalCondition { get; set; }
+        public int Id { get; set; }
+        public int TransportSpecification_ID { get; set; }
+        public int Department_ID { get; set; }
+        public int TechnicalCondition_ID { get; set; }
+        public string TransportNumber { get; set; }
     }
 }

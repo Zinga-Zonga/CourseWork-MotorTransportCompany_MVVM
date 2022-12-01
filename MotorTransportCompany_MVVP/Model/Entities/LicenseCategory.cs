@@ -1,8 +1,8 @@
 ﻿namespace MotorTransportCompany_MVVP.Model
 {
-    internal class TechnicalCondition
+    internal class LicenseCategory
     {
         public int Id { get; set; }
-        public string Condition { get; set; }
+        public string Category { get; set; }
     }
 }

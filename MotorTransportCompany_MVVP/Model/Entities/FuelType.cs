@@ -1,12 +1,8 @@
 ﻿namespace MotorTransportCompany_MVVP.Model
 {
-    enum FuelType : byte
+    internal class FuelType
     {
-        ДТ,
-        ГАЗ,
-        АИ89,
-        АИ92,
-        АИ95,
-        АИ100
+        public int Id { get; set; }
+        public string Name { get; set; }
     }
 }

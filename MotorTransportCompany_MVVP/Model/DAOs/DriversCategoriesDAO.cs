@@ -6,36 +6,35 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-
-namespace MotorTransportCompany_MVVP.Model
+namespace MotorTransportCompany_MVVP.Model.DAOs
 {
-    internal class SexDAO
+    internal class DriversCategoriesDAO
     {
         static string connectionString = "server=localhost;port=3306;username=root;password=root;database=motortransportcompany";
-        
 
-        public List<SexType> GetAll()
+
+        public List<DriversAndCategories> GetAll()
         {
-            List<SexType> sexTypes = new List<SexType>();
+            List<DriversAndCategories> driversAndCategories = new List<DriversAndCategories>();
             MySqlConnection connaction = new MySqlConnection(connectionString);
             connaction.Open();
 
-            MySqlCommand command = new MySqlCommand("SELECT id_sex, sex FROM `sex_types`", connaction);
+            MySqlCommand command = new MySqlCommand("SELECT id, id_driver, id_category FROM `drivers_categories`", connaction);
             using (MySqlDataReader reader = command.ExecuteReader())
             {
-                while(reader.Read())
+                while (reader.Read())
                 {
-                    SexType sexType = new SexType
+                    DriversAndCategories dac = new DriversAndCategories
                     {
                         Id = reader.GetInt32(0),
-                        Name = reader.GetString(1),
+                        DriverID = reader.GetInt32(1),
+                        CategoryID = reader.GetInt32(2)
                     };
-                    sexTypes.Add(sexType);
+                    driversAndCategories.Add(dac);
                 }
             }
             connaction.Close();
-            return sexTypes;
+            return driversAndCategories;
         }
-
     }
 }

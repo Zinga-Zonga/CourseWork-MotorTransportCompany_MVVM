@@ -7,32 +7,32 @@ using System.Threading.Tasks;
 
 namespace MotorTransportCompany_MVVP.Model.DAOs
 {
-    internal class DepartmentDAO
+    internal class TechnicalConditionsDAO
     {
         static string connectionString = "server=localhost;port=3306;username=root;password=root;database=motortransportcompany";
 
 
-        public List<Department> GetAll()
+        public List<TechnicalCondition> GetAll()
         {
-            List<Department> departments = new List<Department>();
+            List<TechnicalCondition> technicalConditions = new List<TechnicalCondition>();
             MySqlConnection connaction = new MySqlConnection(connectionString);
             connaction.Open();
 
-            MySqlCommand command = new MySqlCommand("SELECT id_department, department FROM `departments`", connaction);
+            MySqlCommand command = new MySqlCommand("SELECT id_transport_specifications, id_fuel, model, trunk_volume, fuel_consumption FROM `transport_specifications`", connaction);
             using (MySqlDataReader reader = command.ExecuteReader())
             {
                 while (reader.Read())
                 {
-                    Department department = new Department
+                    TechnicalCondition tc = new TechnicalCondition
                     {
                         Id = reader.GetInt32(0),
-                        Name = reader.GetString(1)
+                        Condition = reader.GetString(1)
                     };
-                    departments.Add(department);
+                    technicalConditions.Add(tc);
                 }
             }
             connaction.Close();
-            return departments;
+            return technicalConditions;
         }
     }
 }

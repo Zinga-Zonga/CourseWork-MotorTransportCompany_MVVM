@@ -1,5 +1,6 @@
 ﻿using MotorTransportCompany_MVVP.Model;
 using MotorTransportCompany_MVVP.Model.DAOs;
+using MotorTransportCompany_MVVP.Model.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -22,11 +23,11 @@ namespace MotorTransportCompany_MVVP
     /// </summary>
     class WindowContext
     {
-        DepartmentDAO dao = new DepartmentDAO();
-        public List<Department> DAO { get; set; }
+        MechanicsDAO dao = new MechanicsDAO();
+        public List<Mechanic> DAO { get; set; }
         public WindowContext()
         {
-            DAO = dao.getAll();
+            DAO = dao.GetAll();
         }
 
     }
