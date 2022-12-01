@@ -24,10 +24,16 @@ namespace MotorTransportCompany_MVVP
     class WindowContext
     {
         MechanicsDAO dao = new MechanicsDAO();
+        
         public List<Mechanic> DAO { get; set; }
+        
+        public List<Mechanic> DAO2 { get; set; }
         public WindowContext()
         {
-            DAO = dao.GetAll();
+            
+            dao.Delete(3);
+            
+
         }
 
     }

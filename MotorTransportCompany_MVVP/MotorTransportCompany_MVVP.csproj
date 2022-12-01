@@ -113,6 +113,7 @@
     <Compile Include="Model\DAOs\DriversCategoriesDAO.cs" />
     <Compile Include="Model\DAOs\DriversDAO.cs" />
     <Compile Include="Model\DAOs\FuelTypeDAO.cs" />
+    <Compile Include="Model\DAOs\IDAO.cs" />
     <Compile Include="Model\DAOs\LicenseCategoriesDAO.cs" />
     <Compile Include="Model\DAOs\GarageManagerDAO.cs" />
     <Compile Include="Model\DAOs\MechanicsDAO.cs" />

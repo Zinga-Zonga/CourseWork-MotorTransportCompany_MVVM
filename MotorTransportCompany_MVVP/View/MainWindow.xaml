@@ -25,6 +25,8 @@
                 </RowDefinition>
                 <RowDefinition>
                 </RowDefinition>
+                <RowDefinition>
+                </RowDefinition>
             </Grid.RowDefinitions>
             <TextBlock Text="Грузоперевозки"
                        VerticalAlignment="Center"
@@ -71,7 +73,15 @@
                     
                 </DataGrid>
             </ContentControl>
-            
+            <ContentControl BorderThickness="1"
+                            Background="AliceBlue"
+                            Grid.Column="1"
+                            Grid.Row="2">
+                <DataGrid ItemsSource="{Binding DAO2}">
+
+                </DataGrid>
+            </ContentControl>
+
         </Grid>
         
     </Border> 
