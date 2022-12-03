@@ -32,7 +32,7 @@ namespace MotorTransportCompany_MVVP.Model.DAOs
                         Name = reader.GetString(2),
                         Surname = reader.GetString(3),
                         Patronymic = reader.GetString(4),
-                        BirthdayDate = reader.GetDateTime(5),
+                        BirthdayDate = reader.GetString(5),
                         Age = reader.GetInt32(6),
                         IdSex = reader.GetInt32(7),
                         PassportNumber = reader.GetInt32(8)
@@ -61,7 +61,7 @@ namespace MotorTransportCompany_MVVP.Model.DAOs
                         Name = reader.GetString(2),
                         Surname = reader.GetString(3),
                         Patronymic = reader.GetString(4),
-                        BirthdayDate = reader.GetDateTime(5),
+                        BirthdayDate = reader.GetString(5),
                         Age = reader.GetInt32(6),
                         IdSex = reader.GetInt32(7),
                         PassportNumber = reader.GetInt32(8)
@@ -87,13 +87,25 @@ namespace MotorTransportCompany_MVVP.Model.DAOs
             Mechanic nullMech = new Mechanic();
             MySqlConnection connaction = new MySqlConnection(connectionString);
             connaction.Open();
-            MySqlCommand command = new MySqlCommand($"INSERT INTO `mechanics` (`id_mechanic`, `id_department`, `name`, `surname`, `patronymic`, `birthday`, `age`, `id_sex`, `passport`) VALUES('3', '1', 'Test', 'Test', 'Test', '2002-10-18', '20', '2', '3333333')", connaction);
+            MySqlCommand command = new MySqlCommand($"INSERT INTO `mechanics` (`id_mechanic`, `id_department`, `name`, `surname`, `patronymic`, `birthday`, `age`, `id_sex`, `passport`) VALUES(NULL, '1', 'Test', 'Test', 'Test', '2002-10-18', '20', '2', '3333333')", connaction);
             connaction.Close();
         }
 
         public void Update(Mechanic entity)
         {
-            throw new NotImplementedException();
+            try
+            {
+
+                MySqlConnection connaction = new MySqlConnection(connectionString);
+                connaction.Open();
+                MySqlCommand command = new MySqlCommand($"UPDATE mechanics SET id_mechanic = '{entity.Id}', id_department = '{entity.Department_id}', name = '{entity.Name}', surname = '{entity.Surname}', patronymic = '{entity.Patronymic}', birthday = '{entity.BirthdayDate}', age = '{entity.Age}', id_sex = '{entity.IdSex}', passport = '{entity.PassportNumber}' WHERE mechanics.id_mechanic = '{entity.Id}'", connaction);
+                command.ExecuteNonQuery();
+                connaction.Close();
+            }
+            catch (MySqlException ex)
+            {
+                Console.WriteLine("LOL"); ;
+            }
         }
 
         

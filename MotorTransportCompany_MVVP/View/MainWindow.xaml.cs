@@ -24,14 +24,25 @@ namespace MotorTransportCompany_MVVP
     class WindowContext
     {
         MechanicsDAO dao = new MechanicsDAO();
-        
+        Mechanic mech = new Mechanic
+        {
+            Id = 3,
+            Department_id = 2,
+            Name = "FUCKING FAIL",
+            Surname = "FUCKING FAIL",
+            Patronymic = "FUCKING FAIL",
+            IdSex = 2,
+            Age = 13,
+            BirthdayDate = DateTime.Now.ToString("yyyy-MM-dd"),
+            PassportNumber = 6666666
+        };
         public List<Mechanic> DAO { get; set; }
         
         public List<Mechanic> DAO2 { get; set; }
         public WindowContext()
         {
-            
-            dao.Delete(3);
+            dao.Update(mech);
+            DAO = dao.GetAll();
             
 
         }
@@ -44,11 +55,6 @@ namespace MotorTransportCompany_MVVP
         {
             InitializeComponent();
             DataContext = new WindowContext();
-        }
-
-        private void RadioButton_Checked(object sender, RoutedEventArgs e)
-        {
-
         }
     }
 }
