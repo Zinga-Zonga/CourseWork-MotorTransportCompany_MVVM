@@ -24,9 +24,21 @@ namespace MotorTransportCompany_MVVP
     class WindowContext
     {
         MechanicsDAO dao = new MechanicsDAO();
-        Mechanic mech = new Mechanic
+        Mechanic mech1 = new Mechanic
         {
             Id = 3,
+            Department_id = 2,
+            Name = "FUC222KING FAI2222L",
+            Surname = "FUCKING FAIL22222",
+            Patronymic = "FUCKING FAIL",
+            IdSex = 2,
+            Age = 13,
+            BirthdayDate = DateTime.Now.ToString("yyyy-MM-dd"),
+            PassportNumber = 6666666
+        };
+        Mechanic mech2 = new Mechanic
+        {
+            
             Department_id = 2,
             Name = "FUCKING FAIL",
             Surname = "FUCKING FAIL",
@@ -41,7 +53,9 @@ namespace MotorTransportCompany_MVVP
         public List<Mechanic> DAO2 { get; set; }
         public WindowContext()
         {
-            dao.Update(mech);
+            dao.Update(mech1);
+            dao.Add(mech2);
+            dao.Delete(2);
             DAO = dao.GetAll();
             
 

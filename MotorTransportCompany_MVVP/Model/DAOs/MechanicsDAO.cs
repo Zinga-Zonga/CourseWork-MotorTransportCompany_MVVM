@@ -16,43 +16,50 @@ namespace MotorTransportCompany_MVVP.Model.DAOs
 
         public List<Mechanic> GetAll()
         {
-            List<Mechanic> mechanics = new List<Mechanic>();
-            MySqlConnection connaction = new MySqlConnection(connectionString);
-            connaction.Open();
-
-            MySqlCommand command = new MySqlCommand("SELECT id_mechanic, id_department, name, surname, patronymic, birthday, age, id_sex, passport FROM `mechanics`", connaction);
-            using (MySqlDataReader reader = command.ExecuteReader())
+            try
             {
-                while (reader.Read())
+                List<Mechanic> mechanics = new List<Mechanic>();
+                MySqlConnection connaction = new MySqlConnection(connectionString);
+                connaction.Open();
+
+                MySqlCommand command = new MySqlCommand("SELECT id_mechanic, id_department, name, surname, patronymic, birthday, age, id_sex, passport FROM `mechanics`", connaction);
+                using (MySqlDataReader reader = command.ExecuteReader())
                 {
-                    Mechanic mech = new Mechanic
+                    while (reader.Read())
                     {
-                        Id = reader.GetInt32(0),
-                        Department_id = reader.GetInt32(1),
-                        Name = reader.GetString(2),
-                        Surname = reader.GetString(3),
-                        Patronymic = reader.GetString(4),
-                        BirthdayDate = reader.GetString(5),
-                        Age = reader.GetInt32(6),
-                        IdSex = reader.GetInt32(7),
-                        PassportNumber = reader.GetInt32(8)
-                    };
-                    mechanics.Add(mech);
+                        Mechanic mech = new Mechanic
+                        {
+                            Id = reader.GetInt32(0),
+                            Department_id = reader.GetInt32(1),
+                            Name = reader.GetString(2),
+                            Surname = reader.GetString(3),
+                            Patronymic = reader.GetString(4),
+                            BirthdayDate = reader.GetString(5),
+                            Age = reader.GetInt32(6),
+                            IdSex = reader.GetInt32(7),
+                            PassportNumber = reader.GetInt32(8)
+                        };
+                        mechanics.Add(mech);
+                    }
                 }
+                connaction.Close();
+                return mechanics;
             }
-            connaction.Close();
-            return  mechanics;
+            catch(MySqlException ex)
+            {
+                throw ex;
+            }
+            
         }
 
         public Mechanic getEntityById(int id)
         {
-            Mechanic nullMech = new Mechanic();
-            MySqlConnection connaction = new MySqlConnection(connectionString);
-            connaction.Open();
-            MySqlCommand command = new MySqlCommand($"SELECT id_mechanic, id_department, name, surname, patronymic, birthday, age, id_sex, passport FROM `mechanics` WHERE id_mechanic = {id}", connaction);
-            using (MySqlDataReader reader = command.ExecuteReader())
+            try
             {
-                while (reader.Read())
+                MySqlConnection connaction = new MySqlConnection(connectionString);
+                connaction.Open();
+                MySqlCommand command = new MySqlCommand($"SELECT id_mechanic, id_department, name, surname, patronymic, birthday, age, id_sex, passport FROM `mechanics` WHERE id_mechanic = {id}", connaction);
+                using (MySqlDataReader reader = command.ExecuteReader())
                 {
                     Mechanic mech = new Mechanic
                     {
@@ -69,26 +76,45 @@ namespace MotorTransportCompany_MVVP.Model.DAOs
                     return mech;
                 }
             }
-            connaction.Close();
-            return nullMech;
+            catch(MySqlException ex)
+            {
+                throw ex;
+            }
+            
+            
         }
+            
         public void Delete(int id)
         {
-            Mechanic nullMech = new Mechanic();
-            MySqlConnection connaction = new MySqlConnection(connectionString);
-            connaction.Open();
-            MySqlCommand command = new MySqlCommand($"DELETE FROM mechanics WHERE `mechanics`.`id_mechanic` = {id}", connaction);
-            connaction.Close();
-            
+            try
+            {
+                MySqlConnection connaction = new MySqlConnection(connectionString);
+                connaction.Open();
+                MySqlCommand command = new MySqlCommand($"DELETE FROM mechanics WHERE `mechanics`.`id_mechanic` = {id}", connaction);
+                command.ExecuteNonQuery();
+                connaction.Close();
+            }
+            catch (MySqlException ex)
+            {
+                throw ex;
+            }
         }
 
         public void Add(Mechanic entity)
         {
-            Mechanic nullMech = new Mechanic();
-            MySqlConnection connaction = new MySqlConnection(connectionString);
-            connaction.Open();
-            MySqlCommand command = new MySqlCommand($"INSERT INTO `mechanics` (`id_mechanic`, `id_department`, `name`, `surname`, `patronymic`, `birthday`, `age`, `id_sex`, `passport`) VALUES(NULL, '1', 'Test', 'Test', 'Test', '2002-10-18', '20', '2', '3333333')", connaction);
-            connaction.Close();
+            try
+            {
+                MySqlConnection connaction = new MySqlConnection(connectionString);
+                connaction.Open();
+                MySqlCommand command = new MySqlCommand($"INSERT INTO `mechanics` (`id_mechanic`, `id_department`, `name`, `surname`, `patronymic`, `birthday`, `age`, `id_sex`, `passport`)" +
+                            $" VALUES(NULL, '{entity.Department_id}', '{entity.Name}', '{entity.Surname}', '{entity.Patronymic}', '{entity.BirthdayDate}', '{entity.Age}', '{entity.IdSex}', '{entity.PassportNumber}')", connaction);
+                command.ExecuteNonQuery();
+                connaction.Close();
+            }
+            catch (MySqlException ex)
+            {
+                throw;
+            }
         }
 
         public void Update(Mechanic entity)
