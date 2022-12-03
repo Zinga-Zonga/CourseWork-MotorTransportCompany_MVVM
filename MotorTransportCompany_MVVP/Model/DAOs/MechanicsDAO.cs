@@ -18,7 +18,7 @@ namespace MotorTransportCompany_MVVP.Model.DAOs
         {
             try
             {
-                List<Mechanic> mechanics = new List<Mechanic>();
+                List<Mechanic> entities = new List<Mechanic>();
                 MySqlConnection connaction = new MySqlConnection(connectionString);
                 connaction.Open();
 
@@ -27,7 +27,7 @@ namespace MotorTransportCompany_MVVP.Model.DAOs
                 {
                     while (reader.Read())
                     {
-                        Mechanic mech = new Mechanic
+                        Mechanic entity = new Mechanic
                         {
                             Id = reader.GetInt32(0),
                             Department_id = reader.GetInt32(1),
@@ -39,11 +39,11 @@ namespace MotorTransportCompany_MVVP.Model.DAOs
                             IdSex = reader.GetInt32(7),
                             PassportNumber = reader.GetInt32(8)
                         };
-                        mechanics.Add(mech);
+                        entities.Add(entity);
                     }
                 }
                 connaction.Close();
-                return mechanics;
+                return entities;
             }
             catch(MySqlException ex)
             {
@@ -61,7 +61,7 @@ namespace MotorTransportCompany_MVVP.Model.DAOs
                 MySqlCommand command = new MySqlCommand($"SELECT id_mechanic, id_department, name, surname, patronymic, birthday, age, id_sex, passport FROM `mechanics` WHERE id_mechanic = {id}", connaction);
                 using (MySqlDataReader reader = command.ExecuteReader())
                 {
-                    Mechanic mech = new Mechanic
+                    Mechanic entity = new Mechanic
                     {
                         Id = reader.GetInt32(0),
                         Department_id = reader.GetInt32(1),
@@ -73,7 +73,7 @@ namespace MotorTransportCompany_MVVP.Model.DAOs
                         IdSex = reader.GetInt32(7),
                         PassportNumber = reader.GetInt32(8)
                     };
-                    return mech;
+                    return entity;
                 }
             }
             catch(MySqlException ex)
@@ -130,7 +130,7 @@ namespace MotorTransportCompany_MVVP.Model.DAOs
             }
             catch (MySqlException ex)
             {
-                Console.WriteLine("LOL"); ;
+                Console.WriteLine("LOL");
             }
         }
 
