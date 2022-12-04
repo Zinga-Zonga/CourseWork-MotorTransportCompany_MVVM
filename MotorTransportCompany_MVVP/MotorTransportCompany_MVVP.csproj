@@ -169,7 +169,6 @@
     <Compile Include="Model\Entities\IEntity.cs" />
     <Compile Include="Model\Entities\ITransportSpecification.cs" />
     <Compile Include="Model\Entities\Mechanic.cs" />
-    <Compile Include="Model\Entities\SpecializationsTypes.cs" />
     <Compile Include="Model\Entities\TechnicalCondition.cs" />
     <Compile Include="Model\Entities\Transport.cs" />
     <Compile Include="Model\Entities\TransportSpecification.cs" />

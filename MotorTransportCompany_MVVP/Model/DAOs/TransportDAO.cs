@@ -113,7 +113,7 @@ namespace MotorTransportCompany_MVVP.Model.DAOs
 
                 MySqlConnection connaction = new MySqlConnection(connectionString);
                 connaction.Open();
-                MySqlCommand command = new MySqlCommand($"UPDATE transport SET id_transport = '{entity.Id}', id_department = '{entity.Department_ID}', id_transport_specification = '{entity.TransportSpecification_ID}', surname = '{entity.Surname}', patronymic = '{entity.Patronymic}', birthday = '{entity.BirthdayDate}', age = '{entity.Age}', id_sex = '{entity.IdSex}', passport = '{entity.PassportNumber}' WHERE transport.id_transport = '{entity.Id}'", connaction);
+                MySqlCommand command = new MySqlCommand($"UPDATE transport SET id_transport = '{entity.Id}', id_department = '{entity.Department_ID}', id_transport_specification = '{entity.TransportSpecification_ID}', id_condition = '{entity.TechnicalCondition_ID}', number = '{entity.TransportNumber}' WHERE transport.id_transport = '{entity.Id}'", connaction);
                 command.ExecuteNonQuery();
                 connaction.Close();
             }
