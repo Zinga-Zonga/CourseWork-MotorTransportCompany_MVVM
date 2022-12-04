@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace MotorTransportCompany_MVVP.Model.DAOs
 {
-    internal class DriversDAO
+    internal class DriversDAO : IDAO<Driver>
     {
         static string connectionString = "server=localhost;port=3306;username=root;password=root;database=motortransportcompany";
 

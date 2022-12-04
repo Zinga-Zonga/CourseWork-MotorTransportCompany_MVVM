@@ -108,7 +108,7 @@ namespace MotorTransportCompany_MVVP.Model.DAOs
 
                 MySqlConnection connaction = new MySqlConnection(connectionString);
                 connaction.Open();
-                MySqlCommand command = new MySqlCommand($"UPDATE fuel_types SET id_fuel = '{entity.Id}', name = '{entity.Name}' WHERE fuel_types.id_fuel = '{entity.Id}'", connaction);
+                MySqlCommand command = new MySqlCommand($"UPDATE fuel_types SET id_fuel = '{entity.Id}', fuel = '{entity.Name}' WHERE fuel_types.id_fuel = '{entity.Id}'", connaction);
                 command.ExecuteNonQuery();
                 connaction.Close();
             }
