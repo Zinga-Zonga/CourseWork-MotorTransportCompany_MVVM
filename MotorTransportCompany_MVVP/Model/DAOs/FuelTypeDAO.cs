@@ -8,32 +8,114 @@ using System.Threading.Tasks;
 
 namespace MotorTransportCompany_MVVP.Model.DAOs
 {
-    internal class FuelTypeDAO
+    internal class FuelTypeDAO : IDAO<FuelType>
     {
         static string connectionString = "server=localhost;port=3306;username=root;password=root;database=motortransportcompany";
 
-
         public List<FuelType> GetAll()
         {
-            List<FuelType> fuelTypes = new List<FuelType>();
-            MySqlConnection connaction = new MySqlConnection(connectionString);
-            connaction.Open();
-
-            MySqlCommand command = new MySqlCommand("SELECT id_fuel, fuel FROM `fuel_types`", connaction);
-            using (MySqlDataReader reader = command.ExecuteReader())
+            try
             {
-                while (reader.Read())
+                List<FuelType> entities = new List<FuelType>();
+                MySqlConnection connaction = new MySqlConnection(connectionString);
+                connaction.Open();
+
+                MySqlCommand command = new MySqlCommand("SELECT id_fuel, fuel FROM `fuel_types`", connaction);
+                using (MySqlDataReader reader = command.ExecuteReader())
                 {
-                    FuelType fuelType = new FuelType
+                    while (reader.Read())
+                    {
+                        FuelType entity = new FuelType
+                        {
+                            Id = reader.GetInt32(0),
+                            Name = reader.GetString(1)
+                        };
+                        entities.Add(entity);
+                    }
+                }
+                connaction.Close();
+                return entities;
+            }
+            catch (MySqlException ex)
+            {
+                throw ex;
+            }
+
+        }
+
+        public FuelType getEntityById(int id)
+        {
+            try
+            {
+                MySqlConnection connaction = new MySqlConnection(connectionString);
+                connaction.Open();
+                MySqlCommand command = new MySqlCommand($"SELECT id_fuel, fuel FROM `fuel_types` WHERE id_fuel = {id}", connaction);
+                using (MySqlDataReader reader = command.ExecuteReader())
+                {
+                    FuelType entity = new FuelType
                     {
                         Id = reader.GetInt32(0),
-                        Name = reader.GetString(1),
+                        Name = reader.GetString(1)
                     };
-                    fuelTypes.Add(fuelType);
+                    return entity;
                 }
             }
-            connaction.Close();
-            return fuelTypes;
+            catch (MySqlException ex)
+            {
+                throw ex;
+            }
+
+
+        }
+
+        public void Delete(int id)
+        {
+            try
+            {
+                MySqlConnection connaction = new MySqlConnection(connectionString);
+                connaction.Open();
+                MySqlCommand command = new MySqlCommand($"DELETE FROM fuel_types WHERE `fuel_types`.`id_fuel` = {id}", connaction);
+                command.ExecuteNonQuery();
+                connaction.Close();
+            }
+            catch (MySqlException ex)
+            {
+                throw ex;
+            }
+        }
+
+        public void Add(FuelType entity)
+        {
+            try
+            {
+                MySqlConnection connaction = new MySqlConnection(connectionString);
+                connaction.Open();
+                MySqlCommand command = new MySqlCommand($"INSERT INTO `fuel_types` (`id_fuel`, `fuel`)" +
+                            $" VALUES(NULL, '{entity.Name}')", connaction);
+                command.ExecuteNonQuery();
+                connaction.Close();
+            }
+            catch (MySqlException ex)
+            {
+                throw;
+            }
+        }
+
+        public void Update(FuelType entity)
+        {
+            try
+            {
+
+                MySqlConnection connaction = new MySqlConnection(connectionString);
+                connaction.Open();
+                MySqlCommand command = new MySqlCommand($"UPDATE fuel_types SET id_fuel = '{entity.Id}', name = '{entity.Name}' WHERE fuel_types.id_fuel = '{entity.Id}'", connaction);
+                command.ExecuteNonQuery();
+                connaction.Close();
+            }
+            catch (MySqlException ex)
+            {
+                Console.WriteLine("LOL");
+            }
         }
     }
 }
