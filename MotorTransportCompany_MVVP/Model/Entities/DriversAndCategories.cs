@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace MotorTransportCompany_MVVP.Model.Entities
 {
-    internal class DriversAndCategories
+    internal class DriversAndCategories : IEntity
     {
         public int Id { get; set; }
         public int DriverID { get; set; }

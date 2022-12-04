@@ -8,7 +8,7 @@ namespace MotorTransportCompany_MVVP.Model
         string Name { get; set; }
         string Surname { get; set; }
         string Patronymic { get; set; }
-        DateTime BirthdayDate { get; set; }
+        string BirthdayDate { get; set; }
         int Age { get; set; }
         int IdSex { get; set; }
         int PassportNumber { get; set; }
