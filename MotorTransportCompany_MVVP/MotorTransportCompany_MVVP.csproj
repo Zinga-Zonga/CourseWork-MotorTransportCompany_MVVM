@@ -151,8 +151,17 @@
     <Compile Include="Model\Entities\SexType.cs" />
     <Compile Include="Model\Entities\TransportDistribution.cs" />
     <Compile Include="Model\Services\DepartmentService.cs" />
+    <Compile Include="Model\Services\DriversAndCategoriesService.cs" />
+    <Compile Include="Model\Services\DriverService.cs" />
+    <Compile Include="Model\Services\FuelTypeService.cs" />
+    <Compile Include="Model\Services\GarageManagerService.cs" />
     <Compile Include="Model\Services\IService.cs" />
+    <Compile Include="Model\Services\LicenseCategoriesService.cs" />
     <Compile Include="Model\Services\MechanicService.cs" />
+    <Compile Include="Model\Services\SexService.cs" />
+    <Compile Include="Model\Services\TechnicalConditionService.cs" />
+    <Compile Include="Model\Services\TransportDistributionService.cs" />
+    <Compile Include="Model\Services\TransportService.cs" />
     <Compile Include="View\MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
