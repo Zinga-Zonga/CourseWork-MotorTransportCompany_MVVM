@@ -49,7 +49,7 @@ namespace MotorTransportCompany_MVVP.Model.DAOs
 
         }
 
-        public Driver getEntityById(int id)
+        public Driver GetEntityById(int id)
         {
             try
             {
@@ -110,7 +110,7 @@ namespace MotorTransportCompany_MVVP.Model.DAOs
             }
             catch (MySqlException ex)
             {
-                throw;
+                throw ex;
             }
         }
 
@@ -127,7 +127,7 @@ namespace MotorTransportCompany_MVVP.Model.DAOs
             }
             catch (MySqlException ex)
             {
-                Console.WriteLine("LOL");
+                throw ex;
             }
         }
     }

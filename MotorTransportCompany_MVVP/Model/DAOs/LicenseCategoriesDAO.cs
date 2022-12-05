@@ -42,7 +42,7 @@ namespace MotorTransportCompany_MVVP.Model.DAOs
 
         }
 
-        public LicenseCategory getEntityById(int id)
+        public LicenseCategory GetEntityById(int id)
         {
             try
             {
@@ -96,7 +96,7 @@ namespace MotorTransportCompany_MVVP.Model.DAOs
             }
             catch (MySqlException ex)
             {
-                throw;
+                throw ex;
             }
         }
 
@@ -113,7 +113,7 @@ namespace MotorTransportCompany_MVVP.Model.DAOs
             }
             catch (MySqlException ex)
             {
-                Console.WriteLine("LOL");
+                throw ex;
             }
         }
     }

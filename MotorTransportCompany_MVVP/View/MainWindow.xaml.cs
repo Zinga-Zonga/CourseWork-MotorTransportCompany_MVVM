@@ -1,8 +1,10 @@
 ﻿using MotorTransportCompany_MVVP.Model;
 using MotorTransportCompany_MVVP.Model.DAOs;
 using MotorTransportCompany_MVVP.Model.Entities;
+using MotorTransportCompany_MVVP.Model.Services;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -23,14 +25,15 @@ namespace MotorTransportCompany_MVVP
     /// </summary>
     class WindowContext
     {
-        DepartmentDAO dao = new DepartmentDAO();
+        MechanicService dao = new MechanicService();
+        DepartmentService dao2 = new DepartmentService();
+        public ObservableCollection<Mechanic> DAO { get; } = new ObservableCollection<Mechanic>();
+        public ObservableCollection<Department> DAO2 { get; } = new ObservableCollection<Department>();
         
-        public List<Department> DAO { get; set; }
-        
-        public List<Mechanic> DAO2 { get; set; }
         public WindowContext()
         {
-            DAO = dao.GetAll();
+            DAO = new ObservableCollection<Mechanic>(dao.GetAll());
+            DAO2 = new ObservableCollection<Department>(dao2.GetAll());
         }
 
     }

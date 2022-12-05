@@ -49,7 +49,7 @@ namespace MotorTransportCompany_MVVP.Model.DAOs
 
         }
 
-        public GarageManager getEntityById(int id)
+        public GarageManager GetEntityById(int id)
         {
             try
             {

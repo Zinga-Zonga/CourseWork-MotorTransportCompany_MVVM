@@ -43,7 +43,7 @@ namespace MotorTransportCompany_MVVP.Model.DAOs
 
         }
 
-        public FuelType getEntityById(int id)
+        public FuelType GetEntityById(int id)
         {
             try
             {

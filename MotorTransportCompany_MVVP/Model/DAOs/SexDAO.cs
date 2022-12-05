@@ -45,7 +45,7 @@ namespace MotorTransportCompany_MVVP.Model
 
         }
 
-        public SexType getEntityById(int id)
+        public SexType GetEntityById(int id)
         {
             try
             {

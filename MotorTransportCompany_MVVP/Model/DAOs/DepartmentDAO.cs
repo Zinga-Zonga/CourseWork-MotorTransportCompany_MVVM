@@ -42,7 +42,7 @@ namespace MotorTransportCompany_MVVP.Model.DAOs
 
         }
 
-        public Department getEntityById(int id)
+        public Department GetEntityById(int id)
         {
             try
             {

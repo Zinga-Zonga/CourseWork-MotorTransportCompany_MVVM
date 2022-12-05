@@ -41,7 +41,7 @@ namespace MotorTransportCompany_MVVP.Model.DAOs
 
         }
 
-        public TransportDistribution getEntityById(int id)
+        public TransportDistribution GetEntityById(int id)
         {
             try
             {

@@ -42,7 +42,7 @@ namespace MotorTransportCompany_MVVP.Model.DAOs
 
         }
 
-        public TechnicalCondition getEntityById(int id)
+        public TechnicalCondition GetEntityById(int id)
         {
             try
             {

@@ -9,7 +9,7 @@ namespace MotorTransportCompany_MVVP.Model.DAOs
     internal interface IDAO<E> where E : IEntity
     {
         List<E> GetAll();
-        E getEntityById(int id);
+        E GetEntityById(int id);
         void Delete(int id);
         void Add(E entity);
         void Update(E entity);
