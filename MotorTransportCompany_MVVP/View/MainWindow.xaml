@@ -80,11 +80,9 @@
 
                 <Button Style="{StaticResource MinimizeButtonTheme}"
                     Grid.Column="10" Grid.Row="0">
-
                 </Button>
                 <Button Style="{StaticResource CloseButtonTheme}"
-                    Grid.Column="" Grid.Row="0">
-
+                    Grid.Column="11" Grid.Row="0">
                 </Button>
             </Grid>
             <TextBox Width="250"
