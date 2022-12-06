@@ -99,7 +99,7 @@
                             Background="AliceBlue"
                             Grid.Column="1"
                             Grid.Row="1" RenderTransformOrigin="0.52,0.482">
-                <DataGrid ItemsSource="{Binding DAO}"
+                <DataGrid ItemsSource="{Binding Mechanics}"
                           Margin="10, 0, 10, 10">
 
                 </DataGrid>

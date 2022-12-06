@@ -15,18 +15,8 @@ namespace MotorTransportCompany_MVVP.ViewModels
         
         public int Id { get; set; }
         public string Department { get; set; }
-        public string Name { get; set; }
+        //public string FCS { get; set; }
         public string Surname { get; set; }
-        public string Patronymic { get; set; }
-        public string Fcs 
-        {
-            get { return $"{this.Surname} {this.Name} {this.Patronymic}"; }
-            set 
-            {
-                Fcs = value;
-            }
-        }
-        
         public string BirthdayDate { get; set; }
         public int Age { get; set; }
         public int Sex { get; set; }

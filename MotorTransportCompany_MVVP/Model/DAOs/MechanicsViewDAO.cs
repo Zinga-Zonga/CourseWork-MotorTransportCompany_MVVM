@@ -8,16 +8,16 @@ using System.Threading.Tasks;
 
 namespace MotorTransportCompany_MVVP.Model.DAOs
 {
-    internal class MechanicsViewDAO : IViewDAO<MechanicView>
+    internal class MechanicsViewDAO : IViewDAO<MechanicSqlView>
     {
         static string connectionString = "server=localhost;port=3306;username=root;password=root;database=motortransportcompany";
 
-        public List<MechanicView> GetAll()
+        public List<MechanicSqlView> GetAll()
         {
             try
             {
 
-                List<MechanicView> entities = new List<MechanicView>();
+                List<MechanicSqlView> entities = new List<MechanicSqlView>();
                 MySqlConnection connaction = new MySqlConnection(connectionString);
                 connaction.Open();
                 MySqlCommand command = new MySqlCommand($"SELECT id_mechanic, department, name, surname, patronymic, birthday, age, sex, passport FROM `mechanics` JOIN departments ON mechanics.id_department = departments.id_department JOIN sex_types ON mechanics.id_sex = sex_types.id_sex", connaction);
@@ -25,7 +25,7 @@ namespace MotorTransportCompany_MVVP.Model.DAOs
                 {
                     while (reader.Read())
                     {
-                        MechanicView entity = new MechanicView
+                        MechanicSqlView entity = new MechanicSqlView
                         {
                             Id = reader.GetInt32(0),
                             DepartmentName = reader.GetString(1),
@@ -49,7 +49,7 @@ namespace MotorTransportCompany_MVVP.Model.DAOs
             }
         }
 
-        public MechanicView GetEntityById(int id)
+        public MechanicSqlView GetEntityById(int id)
         {
             try
             {
@@ -58,7 +58,7 @@ namespace MotorTransportCompany_MVVP.Model.DAOs
                 MySqlCommand command = new MySqlCommand($"SELECT id_mechanic, department, name, surname, patronymic, birthday, age, sex, passport FROM `mechanics` JOIN departments ON mechanics.id_department = departments.id_department JOIN sex_types ON mechanics.id_sex = sex_types.id_sex", connaction);
                 using (MySqlDataReader reader = command.ExecuteReader())
                 {
-                    MechanicView entity = new MechanicView
+                    MechanicSqlView entity = new MechanicSqlView
                     {
                         Id = reader.GetInt32(0),
                         DepartmentName = reader.GetString(1),

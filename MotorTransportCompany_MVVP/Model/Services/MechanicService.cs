@@ -11,7 +11,7 @@ namespace MotorTransportCompany_MVVP.Model.Services
     internal class MechanicService
     {
         private IDAO<Mechanic> _mechanicDao = new MechanicsDAO();
-        private IViewDAO<MechanicView> _mechanicViewDao = new MechanicsViewDAO();
+        private IViewDAO<MechanicSqlView> _mechanicViewDao = new MechanicsViewDAO();
         public void Add(Mechanic entity)
         {
             _mechanicDao.Add(entity);
@@ -22,12 +22,12 @@ namespace MotorTransportCompany_MVVP.Model.Services
             _mechanicDao.Delete(id);
         }
 
-        public List<MechanicView> GetAll()
+        public List<MechanicSqlView> GetAll()
         {
             return _mechanicViewDao.GetAll();
         }
 
-        public MechanicView GetEntityByID(int id)
+        public MechanicSqlView GetEntityByID(int id)
         {
             return _mechanicViewDao.GetEntityById(id);
         }

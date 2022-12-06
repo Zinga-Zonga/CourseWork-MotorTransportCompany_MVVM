@@ -168,7 +168,7 @@
     <Compile Include="Model\DAOs\TransportDistributionDAO.cs" />
     <Compile Include="Model\DAOs\TransportSpecificationsDAO.cs" />
     <Compile Include="Model\Domain\DriversAndCategories.cs" />
-    <Compile Include="Model\Domain\MechanicView.cs" />
+    <Compile Include="Model\Domain\MechanicSqlView.cs" />
     <Compile Include="Model\Domain\SexType.cs" />
     <Compile Include="Model\Domain\TransportDistribution.cs" />
     <Compile Include="Model\Services\DepartmentService.cs" />
@@ -184,8 +184,9 @@
     <Compile Include="Model\Services\TransportDistributionService.cs" />
     <Compile Include="Model\Services\TransportService.cs" />
     <Compile Include="Model\Services\TransportSpecificationService.cs" />
+    <Compile Include="ViewModels\MainWindowViewModel.cs" />
     <Compile Include="ViewModels\ViewModelBase.cs" />
-    <Compile Include="ViewModels\DriverViewModel.cs" />
+    <Compile Include="ViewModels\MechanicsViewModel.cs" />
     <Compile Include="View\MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
