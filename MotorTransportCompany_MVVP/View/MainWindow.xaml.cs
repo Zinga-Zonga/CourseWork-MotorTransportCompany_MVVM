@@ -45,5 +45,10 @@ namespace MotorTransportCompany_MVVP
             InitializeComponent();
             DataContext = new WindowContext();
         }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }

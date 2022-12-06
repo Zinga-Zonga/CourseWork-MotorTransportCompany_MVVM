@@ -6,6 +6,7 @@ using System.Linq;
 using System.Runtime.Remoting.Messaging;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Controls.Primitives;
 using System.Xml.Linq;
 
 namespace MotorTransportCompany_MVVP.Model.DAOs
@@ -80,8 +81,28 @@ namespace MotorTransportCompany_MVVP.Model.DAOs
             {
                 throw ex;
             }
-            
-            
+        }
+        public Mechanic GetMechanicsWithDepartments()
+        {
+            MySqlConnection connaction = new MySqlConnection(connectionString);
+            connaction.Open();
+            MySqlCommand command = new MySqlCommand($"SELECT id_mechanic, department, name, surname, patronymic, birthday, age, id_sex, passport FROM `mechanics` JOIN departments ON mechanics.id_department = departments.id_department", connaction);
+            using (MySqlDataReader reader = command.ExecuteReader())
+            {
+                Mechanic entity = new Mechanic
+                {
+                    Id = reader.GetInt32(0),
+                    Department_id = reader.GetInt32(1),
+                    Name = reader.GetString(2),
+                    Surname = reader.GetString(3),
+                    Patronymic = reader.GetString(4),
+                    BirthdayDate = reader.GetString(5),
+                    Age = reader.GetInt32(6),
+                    IdSex = reader.GetInt32(7),
+                    PassportNumber = reader.GetInt32(8)
+                };
+                return entity;
+            }
         }
             
         public void Delete(int id)

@@ -38,6 +38,12 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="AutoMapper, Version=10.0.0.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
+      <HintPath>..\packages\AutoMapper.10.0.0\lib\net461\AutoMapper.dll</HintPath>
+    </Reference>
+    <Reference Include="AutoMapper.Collection, Version=7.0.0.0, Culture=neutral, PublicKeyToken=e57c3f0a3d6646db, processorArchitecture=MSIL">
+      <HintPath>..\packages\AutoMapper.Collection.7.0.1\lib\net461\AutoMapper.Collection.dll</HintPath>
+    </Reference>
     <Reference Include="BouncyCastle.Crypto, Version=1.9.0.0, Culture=neutral, PublicKeyToken=0e99375e54769942, processorArchitecture=MSIL">
       <HintPath>..\packages\Portable.BouncyCastle.1.9.0\lib\net40\BouncyCastle.Crypto.dll</HintPath>
     </Reference>
@@ -126,6 +132,18 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Page Include="Themes\CloseButtonTheme.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Themes\MinimizeButtonTheme.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Themes\UIButtonTheme.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="View\MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -147,9 +165,9 @@
     <Compile Include="Model\DAOs\TransportDAO.cs" />
     <Compile Include="Model\DAOs\TransportDistributionDAO.cs" />
     <Compile Include="Model\DAOs\TransportSpecificationsDAO.cs" />
-    <Compile Include="Model\Entities\DriversAndCategories.cs" />
-    <Compile Include="Model\Entities\SexType.cs" />
-    <Compile Include="Model\Entities\TransportDistribution.cs" />
+    <Compile Include="Model\Domain\DriversAndCategories.cs" />
+    <Compile Include="Model\Domain\SexType.cs" />
+    <Compile Include="Model\Domain\TransportDistribution.cs" />
     <Compile Include="Model\Services\DepartmentService.cs" />
     <Compile Include="Model\Services\DriversAndCategoriesService.cs" />
     <Compile Include="Model\Services\DriverService.cs" />
@@ -162,6 +180,9 @@
     <Compile Include="Model\Services\TechnicalConditionService.cs" />
     <Compile Include="Model\Services\TransportDistributionService.cs" />
     <Compile Include="Model\Services\TransportService.cs" />
+    <Compile Include="Model\Services\TransportSpecificationService.cs" />
+    <Compile Include="ViewModels\ViewModelBase.cs" />
+    <Compile Include="ViewModels\DriverViewModel.cs" />
     <Compile Include="View\MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -176,20 +197,20 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Model\Entities\Department.cs" />
-    <Compile Include="Model\Entities\LicenseCategory.cs" />
-    <Compile Include="Model\Entities\Driver.cs" />
-    <Compile Include="Model\Entities\FuelType.cs" />
-    <Compile Include="Model\Entities\GarageManager.cs" />
-    <Compile Include="Model\Entities\IDepartmensWorker.cs" />
-    <Compile Include="Model\Entities\IHuman.cs" />
-    <Compile Include="Model\Entities\ITransport.cs" />
-    <Compile Include="Model\Entities\IEntity.cs" />
-    <Compile Include="Model\Entities\ITransportSpecification.cs" />
-    <Compile Include="Model\Entities\Mechanic.cs" />
-    <Compile Include="Model\Entities\TechnicalCondition.cs" />
-    <Compile Include="Model\Entities\Transport.cs" />
-    <Compile Include="Model\Entities\TransportSpecification.cs" />
+    <Compile Include="Model\Domain\Department.cs" />
+    <Compile Include="Model\Domain\LicenseCategory.cs" />
+    <Compile Include="Model\Domain\Driver.cs" />
+    <Compile Include="Model\Domain\FuelType.cs" />
+    <Compile Include="Model\Domain\GarageManager.cs" />
+    <Compile Include="Model\Domain\IDepartmensWorker.cs" />
+    <Compile Include="Model\Domain\IHuman.cs" />
+    <Compile Include="Model\Domain\ITransport.cs" />
+    <Compile Include="Model\Domain\IEntity.cs" />
+    <Compile Include="Model\Domain\ITransportSpecification.cs" />
+    <Compile Include="Model\Domain\Mechanic.cs" />
+    <Compile Include="Model\Domain\TechnicalCondition.cs" />
+    <Compile Include="Model\Domain\Transport.cs" />
+    <Compile Include="Model\Domain\TransportSpecification.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -218,7 +239,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Fonts\" />
-    <Folder Include="ModelView\" />
     <Folder Include="Model\Data\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
