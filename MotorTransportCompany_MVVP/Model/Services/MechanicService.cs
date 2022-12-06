@@ -1,4 +1,5 @@
 ﻿using MotorTransportCompany_MVVP.Model.DAOs;
+using MotorTransportCompany_MVVP.Model.Domain;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,9 +8,10 @@ using System.Threading.Tasks;
 
 namespace MotorTransportCompany_MVVP.Model.Services
 {
-    internal class MechanicService : IService<Mechanic>
+    internal class MechanicService
     {
         private IDAO<Mechanic> _mechanicDao = new MechanicsDAO();
+        private IViewDAO<MechanicView> _mechanicViewDao = new MechanicsViewDAO();
         public void Add(Mechanic entity)
         {
             _mechanicDao.Add(entity);
@@ -20,14 +22,14 @@ namespace MotorTransportCompany_MVVP.Model.Services
             _mechanicDao.Delete(id);
         }
 
-        public List<Mechanic> GetAll()
+        public List<MechanicView> GetAll()
         {
-            return _mechanicDao.GetAll();
+            return _mechanicViewDao.GetAll();
         }
 
-        public Mechanic GetEntityByID(int id)
+        public MechanicView GetEntityByID(int id)
         {
-            return _mechanicDao.GetEntityById(id);
+            return _mechanicViewDao.GetEntityById(id);
         }
 
         public void Update(Mechanic entity)

@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace MotorTransportCompany_MVVP.ViewModels
 {
-    internal class DriverViewModel : INotifyPropertyChanged
+    internal class MechanicsViewModel : INotifyPropertyChanged
     {
         
         public int Id { get; set; }
@@ -29,7 +29,7 @@ namespace MotorTransportCompany_MVVP.ViewModels
         
         public string BirthdayDate { get; set; }
         public int Age { get; set; }
-        public int IdSex { get; set; }
+        public int Sex { get; set; }
         public int PassportNumber { get; set; }
         public int LicenseNumber { get; set; }
         public event PropertyChangedEventHandler PropertyChanged;
