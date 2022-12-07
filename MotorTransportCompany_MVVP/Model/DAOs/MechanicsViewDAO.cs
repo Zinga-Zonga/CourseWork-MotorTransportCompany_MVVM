@@ -55,7 +55,7 @@ namespace MotorTransportCompany_MVVP.Model.DAOs
             {
                 MySqlConnection connaction = new MySqlConnection(connectionString);
                 connaction.Open();
-                MySqlCommand command = new MySqlCommand($"SELECT id_mechanic, department, name, surname, patronymic, birthday, age, sex, passport FROM `mechanics` JOIN departments ON mechanics.id_department = departments.id_department JOIN sex_types ON mechanics.id_sex = sex_types.id_sex", connaction);
+                MySqlCommand command = new MySqlCommand($"SELECT id_mechanic, department, name, surname, patronymic, birthday, age, sex, passport FROM `mechanics` JOIN departments ON mechanics.id_department = departments.id_department JOIN sex_types ON mechanics.id_sex = sex_types.id_sex WHERE ", connaction);
                 using (MySqlDataReader reader = command.ExecuteReader())
                 {
                     MechanicSqlView entity = new MechanicSqlView
@@ -70,8 +70,9 @@ namespace MotorTransportCompany_MVVP.Model.DAOs
                         Sex = reader.GetString(7),
                         PassportNumber = reader.GetInt32(8)
                     };
-                    return entity;
                     connaction.Close();
+                    return entity;
+                    
                 }
                 
             }

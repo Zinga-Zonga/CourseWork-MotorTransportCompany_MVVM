@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace MotorTransportCompany_MVVP.Model.Domain
 {
-    internal class GarageManagerSqlView : IEntity
+    internal class DriverSqlView : IEntity
     {
         public int Id { get; set; }
         public string DepartmentName { get; set; }

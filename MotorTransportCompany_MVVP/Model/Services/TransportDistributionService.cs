@@ -1,4 +1,5 @@
 ﻿using MotorTransportCompany_MVVP.Model.DAOs;
+using MotorTransportCompany_MVVP.Model.Domain;
 using MotorTransportCompany_MVVP.Model.Entities;
 using System;
 using System.Collections.Generic;
@@ -8,9 +9,12 @@ using System.Threading.Tasks;
 
 namespace MotorTransportCompany_MVVP.Model.Services
 {
-    internal class TransportDistributionService : IService<TransportDistribution>
+    internal class TransportDistributionService
     {
+
+    
         private IDAO<TransportDistribution> _transportDistributionDao = new TransportDistributionDAO();
+        private IViewDAO<TransportDistributionSqlView> _transportDistributionSqlViewDao = new TransportDistributionSqlViewDAO();
         public void Add(TransportDistribution entity)
         {
             _transportDistributionDao.Add(entity);
@@ -21,14 +25,14 @@ namespace MotorTransportCompany_MVVP.Model.Services
             _transportDistributionDao.Delete(id);
         }
 
-        public List<TransportDistribution> GetAll()
+        public List<TransportDistributionSqlView> GetAll()
         {
-            return _transportDistributionDao.GetAll();
+            return _transportDistributionSqlViewDao.GetAll();
         }
 
-        public TransportDistribution GetEntityByID(int id)
+        public TransportDistributionSqlView GetEntityByID(int id)
         {
-            return _transportDistributionDao.GetEntityById(id);
+            return _transportDistributionSqlViewDao.GetEntityById(id);
         }
 
         public void Update(TransportDistribution entity)

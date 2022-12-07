@@ -17,9 +17,14 @@ namespace MotorTransportCompany_MVVP.ViewModels
     internal class MainWindowViewModel : INotifyPropertyChanged
     {
         private readonly MechanicService _mechanicService = new MechanicService();
-        private ObservableCollection<MechanicsViewModel> _mechanics;
+        private readonly GarageManagerService _gmService = new GarageManagerService();
+        private readonly TransportService _transportService = new TransportService();
+        private readonly TransportDistributionService _transportDistributionService = new TransportDistributionService();
         public ObservableCollection<MechanicsViewModel> Mechanics { get; set; }
-        public ObservableCollection<MechanicsViewModel> GarageManagers { get; set; }
+        public ObservableCollection<GarageManagerViewModel> GarageManagers { get; set; }
+        public ObservableCollection<TransportViewModel> Transport { get; set; }
+        public ObservableCollection<TransportDistributionViewModel> TransportDistribution { get; set; }
+
 
 
         private readonly IMapper _mapper;
@@ -27,8 +32,10 @@ namespace MotorTransportCompany_MVVP.ViewModels
         public MainWindowViewModel()
         {
             _mapper = InitMappings();
-            Mechanics = _mapper.Map<ObservableCollection<MechanicsViewModel>>(_mechanicService.GetAll());
+            FillTransportDataGrid();
             FillMechanicsDataGrid();
+            FillGarageManagersDataGrid();
+            FillTransportDistributionDataGrid();
         }
 
 
@@ -40,6 +47,11 @@ namespace MotorTransportCompany_MVVP.ViewModels
 
                 cfg.CreateMap<MechanicSqlView, MechanicsViewModel>()
                     .ForMember(m => m.FCS, opt => opt.MapFrom(f => string.Format("{0} {1} {2}", f.Surname, f.Name, f.Patronymic)));
+                cfg.CreateMap<GarageManagerSqlView, GarageManagerViewModel>()
+                   .ForMember(m => m.FCS, opt => opt.MapFrom(f => string.Format("{0} {1} {2}", f.Surname, f.Name, f.Patronymic)));
+                cfg.CreateMap<TransportSqlView, TransportViewModel>();
+                cfg.CreateMap<TransportDistributionSqlView, TransportDistributionViewModel>()
+                   .ForMember(m => m.FCS, opt => opt.MapFrom(f => string.Format("{0} {1} {2}", f.Surname, f.Name, f.Patronymic)));
             });
 
             return config.CreateMapper();
@@ -49,7 +61,18 @@ namespace MotorTransportCompany_MVVP.ViewModels
         private void FillMechanicsDataGrid()
         {
             Mechanics = _mapper.Map<ObservableCollection<MechanicsViewModel>>(_mechanicService.GetAll());
-            //Mechanics = new ObservableCollection<MechanicSqlView>(_mechanicService.GetAll());
+        }
+        private void FillGarageManagersDataGrid()
+        {
+            GarageManagers = _mapper.Map<ObservableCollection<GarageManagerViewModel>>(_gmService.GetAll());
+        }
+        private void FillTransportDataGrid()
+        {
+            Transport = _mapper.Map<ObservableCollection<TransportViewModel>>(_transportService.GetAll());
+        }
+        private void FillTransportDistributionDataGrid()
+        {
+            TransportDistribution = _mapper.Map<ObservableCollection<TransportDistributionViewModel>>(_transportDistributionService.GetAll());
         }
         public event PropertyChangedEventHandler PropertyChanged;
     }

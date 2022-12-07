@@ -8,24 +8,24 @@ using System.Threading.Tasks;
 
 namespace MotorTransportCompany_MVVP.Model.DAOs
 {
-    internal class GarageManagerViewDAO : IViewDAO<GarageManagerSqlView>
+    internal class DriversSqlViewDAO : IViewDAO<DriverSqlView>
     {
         static string connectionString = "server=localhost;port=3306;username=root;password=root;database=motortransportcompany";
 
-        public List<GarageManagerSqlView> GetAll()
+        public List<DriverSqlView> GetAll()
         {
             try
             {
 
-                List<GarageManagerSqlView> entities = new List<GarageManagerSqlView>();
+                List<DriverSqlView> entities = new List<DriverSqlView>();
                 MySqlConnection connaction = new MySqlConnection(connectionString);
                 connaction.Open();
-                MySqlCommand command = new MySqlCommand($"SELECT id_garagemanager, department, name, surname, patronymic, birthday, age, sex, passport FROM `garage_managers` JOIN departments ON garage_managers.id_department = departments.id_department JOIN sex_types ON garage_managers.id_sex = sex_types.id_sex", connaction);
+                MySqlCommand command = new MySqlCommand($"SELECT id_driver, department, name, surname, patronymic, birthday, age, sex, passport FROM `drivers` JOIN departments ON drivers.id_department = departments.id_department JOIN sex_types ON drivers.id_sex = sex_types.id_sex", connaction);
                 using (MySqlDataReader reader = command.ExecuteReader())
                 {
                     while (reader.Read())
                     {
-                        GarageManagerSqlView entity = new GarageManagerSqlView
+                        DriverSqlView entity = new DriverSqlView
                         {
                             Id = reader.GetInt32(0),
                             DepartmentName = reader.GetString(1),
@@ -49,16 +49,16 @@ namespace MotorTransportCompany_MVVP.Model.DAOs
             }
         }
 
-        public GarageManagerSqlView GetEntityById(int id)
+        public DriverSqlView GetEntityById(int id)
         {
             try
             {
                 MySqlConnection connaction = new MySqlConnection(connectionString);
                 connaction.Open();
-                MySqlCommand command = new MySqlCommand($"SELECT id_garagemanager, department, name, surname, patronymic, birthday, age, sex, passport FROM `garage_managers` JOIN departments ON garage_managers.id_department = departments.id_department JOIN sex_types ON garage_managers.id_sex = sex_types.id_sex", connaction);
+                MySqlCommand command = new MySqlCommand($"SELECT id_driver, department, name, surname, patronymic, birthday, age, sex, passport FROM `drivers` JOIN departments ON drivers.id_department = departments.id_department JOIN sex_types ON drivers.id_sex = sex_types.id_sex", connaction);
                 using (MySqlDataReader reader = command.ExecuteReader())
                 {
-                    GarageManagerSqlView entity = new GarageManagerSqlView
+                    DriverSqlView entity = new DriverSqlView
                     {
                         Id = reader.GetInt32(0),
                         DepartmentName = reader.GetString(1),
@@ -72,7 +72,6 @@ namespace MotorTransportCompany_MVVP.Model.DAOs
                     };
                     connaction.Close();
                     return entity;
-                    
                 }
 
             }

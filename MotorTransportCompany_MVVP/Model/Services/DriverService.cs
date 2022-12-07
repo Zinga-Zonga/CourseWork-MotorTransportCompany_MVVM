@@ -1,4 +1,5 @@
 ﻿using MotorTransportCompany_MVVP.Model.DAOs;
+using MotorTransportCompany_MVVP.Model.Domain;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,9 +8,10 @@ using System.Threading.Tasks;
 
 namespace MotorTransportCompany_MVVP.Model.Services
 {
-    internal class DriverService : IService<Driver>
+    internal class DriverService
     {
         private IDAO<Driver> _driversDao = new DriversDAO();
+        private IViewDAO<DriverSqlView> _driversSqlViewDao = new DriversSqlViewDAO();
         public void Add(Driver entity)
         {
             _driversDao.Add(entity);
@@ -20,14 +22,14 @@ namespace MotorTransportCompany_MVVP.Model.Services
             _driversDao.Delete(id);
         }
 
-        public List<Driver> GetAll()
+        public List<DriverSqlView> GetAll()
         {
-            return _driversDao.GetAll();
+            return _driversSqlViewDao.GetAll();
         }
 
-        public Driver GetEntityByID(int id)
+        public DriverSqlView GetEntityByID(int id)
         {
-            return _driversDao.GetEntityById(id);
+            return _driversSqlViewDao.GetEntityById(id);
         }
 
         public void Update(Driver entity)

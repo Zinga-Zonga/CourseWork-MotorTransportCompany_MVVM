@@ -1,4 +1,5 @@
 ﻿using MotorTransportCompany_MVVP.Model.DAOs;
+using MotorTransportCompany_MVVP.Model.Domain;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,9 +8,12 @@ using System.Threading.Tasks;
 
 namespace MotorTransportCompany_MVVP.Model.Services
 {
-    internal class GarageManagerService : IService<GarageManager>
+    internal class GarageManagerService
     {
         private IDAO<GarageManager> _garageManagerDao = new GarageManagerDAO();
+
+        private IViewDAO<GarageManagerSqlView> _garageManagerViewDao = new GarageManagerViewDAO();
+
         public void Add(GarageManager entity)
         {
             _garageManagerDao.Add(entity);
@@ -20,14 +24,14 @@ namespace MotorTransportCompany_MVVP.Model.Services
             _garageManagerDao.Delete(id);
         }
 
-        public List<GarageManager> GetAll()
+        public List<GarageManagerSqlView> GetAll()
         {
-            return _garageManagerDao.GetAll();
+            return _garageManagerViewDao.GetAll();
         }
 
-        public GarageManager GetEntityByID(int id)
+        public GarageManagerSqlView GetEntityByID(int id)
         {
-            return _garageManagerDao.GetEntityById(id);
+            return _garageManagerViewDao.GetEntityById(id);
         }
 
         public void Update(GarageManager entity)
