@@ -18,37 +18,33 @@ namespace MotorTransportCompany_MVVP.ViewModels
     {
         private readonly MechanicService _mechanicService = new MechanicService();
         private ObservableCollection<MechanicsViewModel> _mechanics;
-        private ObservableCollection<MechanicsViewModel> Mechanics;
+        public ObservableCollection<MechanicsViewModel> Mechanics { get; set; }
+        public ObservableCollection<MechanicsViewModel> GarageManagers { get; set; }
+
 
         private readonly IMapper _mapper;
-        private IMapper InitMapping()
+        
+        public MainWindowViewModel()
+        {
+            _mapper = InitMappings();
+            Mechanics = _mapper.Map<ObservableCollection<MechanicsViewModel>>(_mechanicService.GetAll());
+            FillMechanicsDataGrid();
+        }
+
+
+        private IMapper InitMappings()
         {
             var config = new MapperConfiguration(cfg =>
             {
                 cfg.AddCollectionMappers();
 
                 cfg.CreateMap<MechanicSqlView, MechanicsViewModel>()
-                   .ForMember(m => m.FCS, opt => opt.MapFrom(f => $"{f.Surname} {f.Name} {f.Patronymic}"));
-                   
-                   
-
-                //cfg.CreateMap<Driver, DriverWindowViewModel>()
-                //   .ForMember(m => m.CarNo, opt => opt.MapFrom(f => f.Car.No))
-                //   .ForMember(m => m.CarModel, opt => opt.MapFrom(f => f.Car.Model))
-                //   .ForMember(m => m.CarMake, opt => opt.MapFrom(f => f.Car.Make))
-                //   .ReverseMap();
+                    .ForMember(m => m.FCS, opt => opt.MapFrom(f => string.Format("{0} {1} {2}", f.Surname, f.Name, f.Patronymic)));
             });
 
             return config.CreateMapper();
 
         }
-        public MainWindowViewModel()
-        {
-            _mapper = InitMapping();
-            FillMechanicsDataGrid();
-        }
-
-        
 
         private void FillMechanicsDataGrid()
         {

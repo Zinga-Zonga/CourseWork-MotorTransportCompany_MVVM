@@ -1,28 +1,22 @@
-﻿using AutoMapper;
-using AutoMapper.EquivalencyExpression;
-using MotorTransportCompany_MVVP.Model;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MotorTransportCompany_MVVP.ViewModels
+namespace MotorTransportCompany_MVVP.Model.Domain
 {
-    internal class MechanicsViewModel : INotifyPropertyChanged
+    internal class GarageManagerSqlView
     {
-
         public int Id { get; set; }
         public string DepartmentName { get; set; }
-        public string FCS { get; set; }
-        
+        public string Name { get; set; }
+        public string Surname { get; set; }
+        public string Patronymic { get; set; }
         public string BirthdayDate { get; set; }
         public int Age { get; set; }
         public string Sex { get; set; }
         public int PassportNumber { get; set; }
         public int LicenseNumber { get; set; }
-
-        public event PropertyChangedEventHandler PropertyChanged;
     }
 }
