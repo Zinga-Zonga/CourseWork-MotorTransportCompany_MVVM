@@ -20,10 +20,12 @@ namespace MotorTransportCompany_MVVP.ViewModels
         private readonly GarageManagerService _gmService = new GarageManagerService();
         private readonly TransportService _transportService = new TransportService();
         private readonly TransportDistributionService _transportDistributionService = new TransportDistributionService();
+        private readonly DriverService _driverService = new DriverService();
         public ObservableCollection<MechanicsViewModel> Mechanics { get; set; }
         public ObservableCollection<GarageManagerViewModel> GarageManagers { get; set; }
         public ObservableCollection<TransportViewModel> Transport { get; set; }
         public ObservableCollection<TransportDistributionViewModel> TransportDistribution { get; set; }
+        public ObservableCollection<DriverViewModel> Drivers { get; set; }
 
 
 
@@ -36,6 +38,7 @@ namespace MotorTransportCompany_MVVP.ViewModels
             FillMechanicsDataGrid();
             FillGarageManagersDataGrid();
             FillTransportDistributionDataGrid();
+            FillDriversDataGrid();
         }
 
 
@@ -51,6 +54,8 @@ namespace MotorTransportCompany_MVVP.ViewModels
                    .ForMember(m => m.FCS, opt => opt.MapFrom(f => string.Format("{0} {1} {2}", f.Surname, f.Name, f.Patronymic)));
                 cfg.CreateMap<TransportSqlView, TransportViewModel>();
                 cfg.CreateMap<TransportDistributionSqlView, TransportDistributionViewModel>()
+                   .ForMember(m => m.FCS, opt => opt.MapFrom(f => string.Format("{0} {1} {2}", f.Surname, f.Name, f.Patronymic)));
+                cfg.CreateMap<DriverSqlView, DriverViewModel>()
                    .ForMember(m => m.FCS, opt => opt.MapFrom(f => string.Format("{0} {1} {2}", f.Surname, f.Name, f.Patronymic)));
             });
 
@@ -73,6 +78,10 @@ namespace MotorTransportCompany_MVVP.ViewModels
         private void FillTransportDistributionDataGrid()
         {
             TransportDistribution = _mapper.Map<ObservableCollection<TransportDistributionViewModel>>(_transportDistributionService.GetAll());
+        }
+        private void FillDriversDataGrid()
+        {
+            Drivers = _mapper.Map<ObservableCollection<DriverViewModel>>(_driverService.GetAll());
         }
         public event PropertyChangedEventHandler PropertyChanged;
     }

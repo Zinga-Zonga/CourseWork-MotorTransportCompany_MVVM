@@ -30,7 +30,7 @@ namespace MotorTransportCompany_MVVP.Model.Services
             return _transportDistributionSqlViewDao.GetAll();
         }
 
-        public TransportDistributionSqlView GetEntityByID(int id)
+        public List<TransportDistributionSqlView> GetEntityByID(int id)
         {
             return _transportDistributionSqlViewDao.GetEntityById(id);
         }

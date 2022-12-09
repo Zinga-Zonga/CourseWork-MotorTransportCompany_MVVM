@@ -19,7 +19,7 @@ namespace MotorTransportCompany_MVVP.ViewModels
         public string Sex { get; set; }
         public int PassportNumber { get; set; }
         public int LicenseNumber { get; set; }
-        public List<LicenseCategory> DriversCategories { get; set; }
+        public List<string> DriversCategories { get; set; }
 
         public event PropertyChangedEventHandler PropertyChanged;
     }

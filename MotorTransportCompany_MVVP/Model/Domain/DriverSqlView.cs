@@ -18,6 +18,6 @@ namespace MotorTransportCompany_MVVP.Model.Domain
         public string Sex { get; set; }
         public int PassportNumber { get; set; }
         public int LicenseNumber { get; set; }
-        public List<string> Categories { get; set; }
+        public List<string> Categories { get; set; } = new List<string>();
     }
 }

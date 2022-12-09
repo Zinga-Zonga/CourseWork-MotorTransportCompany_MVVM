@@ -37,8 +37,8 @@ namespace MotorTransportCompany_MVVP.Model.DAOs
                             Sex = reader.GetString(7),
                             PassportNumber = reader.GetInt32(8),
                             
-                            
                         };
+                        entity.Categories.Add(reader.GetString(10));
                         entities.Add(entity);
                     }
                 }
@@ -59,7 +59,7 @@ namespace MotorTransportCompany_MVVP.Model.DAOs
                 List<DriverSqlView> entities = new List<DriverSqlView>();
                 MySqlConnection connaction = new MySqlConnection(connectionString);
                 connaction.Open();
-                MySqlCommand command = new MySqlCommand($"SELECT drivers.id_driver, departments.department, drivers.name, drivers.surname, drivers.patronymic, drivers.birthday, drivers.age, sex_types.sex, drivers.passport, drivers.license, (SELECT GROUP_CONCAT(license_categories.category SEPARATOR ', ')) FROM drivers INNER JOIN departments ON drivers.id_department = departments.id_department INNER JOIN drivers_categories ON drivers.id_driver = drivers_categories.id_driver INNER JOIN license_categories ON drivers_categories.id_category = license_categories.id_category INNER JOIN sex_types ON drivers.id_sex = sex_types.id_sex group by drivers.id_driver WHERE id_driver = {id}", connaction);
+                MySqlCommand command = new MySqlCommand($"SELECT drivers.id_driver, departments.department, drivers.name, drivers.surname, drivers.patronymic, drivers.birthday, drivers.age, sex_types.sex, drivers.passport, drivers.license, (SELECT GROUP_CONCAT(license_categories.category SEPARATOR ', ')) FROM drivers INNER JOIN departments ON drivers.id_department = departments.id_department INNER JOIN drivers_categories ON drivers.id_driver = drivers_categories.id_driver INNER JOIN license_categories ON drivers_categories.id_category = license_categories.id_category INNER JOIN sex_types ON drivers.id_sex = sex_types.id_sex WHERE drivers.id_driver = {id} group by drivers.id_driver", connaction);
                 using (MySqlDataReader reader = command.ExecuteReader())
                 {
                     while (reader.Read())
@@ -74,8 +74,10 @@ namespace MotorTransportCompany_MVVP.Model.DAOs
                             BirthdayDate = reader.GetString(5),
                             Age = reader.GetInt32(6),
                             Sex = reader.GetString(7),
-                            PassportNumber = reader.GetInt32(8)
+                            PassportNumber = reader.GetInt32(8),
+                            
                         };
+                        entity.Categories.Add(reader.GetString(9));
                         entities.Add(entity);
                     }
                 }
