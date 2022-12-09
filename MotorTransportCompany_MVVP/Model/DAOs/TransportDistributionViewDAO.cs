@@ -48,30 +48,34 @@ namespace MotorTransportCompany_MVVP.Model.DAOs
             }
         }
 
-        public TransportDistributionSqlView GetEntityById(int id)
+        public List<TransportDistributionSqlView> GetEntityById(int id)
         {
             try
             {
+
+                List<TransportDistributionSqlView> entities = new List<TransportDistributionSqlView>();
                 MySqlConnection connaction = new MySqlConnection(connectionString);
                 connaction.Open();
                 MySqlCommand command = new MySqlCommand($"SELECT transport_distribution.id, departments.department, drivers.name, drivers.surname, drivers.patronymic, transport.number, transport_specifications.model FROM transport_distribution INNER JOIN transport ON transport_distribution.id_transport = transport.id_transport INNER JOIN drivers ON transport_distribution.id_driver = drivers.id_driver INNER JOIN departments ON drivers.id_department = departments.id_department AND transport.id_department = departments.id_department INNER JOIN transport_specifications ON transport.id_transport_specification = transport_specifications.id_transport_specifications WHERE transport_distribution.id = {id}", connaction);
                 using (MySqlDataReader reader = command.ExecuteReader())
                 {
-                    TransportDistributionSqlView entity = new TransportDistributionSqlView
+                    while (reader.Read())
                     {
-                        Id = reader.GetInt32(0),
-                        Department = reader.GetString(1),
-                        Name = reader.GetString(2),
-                        Surname = reader.GetString(3),
-                        Patronymic = reader.GetString(4),
-                        Number = reader.GetString(5),
-                        Model = reader.GetString(6)
-                    };
-                    connaction.Close();
-                    return entity;
-
+                        TransportDistributionSqlView entity = new TransportDistributionSqlView
+                        {
+                            Id = reader.GetInt32(0),
+                            Department = reader.GetString(1),
+                            Name = reader.GetString(2),
+                            Surname = reader.GetString(3),
+                            Patronymic = reader.GetString(4),
+                            Number = reader.GetString(5),
+                            Model = reader.GetString(6)
+                        };
+                        entities.Add(entity);
+                    }
                 }
-
+                connaction.Close();
+                return entities;
             }
             catch (MySqlException ex)
             {

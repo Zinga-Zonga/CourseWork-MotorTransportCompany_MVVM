@@ -29,7 +29,7 @@ namespace MotorTransportCompany_MVVP.Model.Services
             return _garageManagerViewDao.GetAll();
         }
 
-        public GarageManagerSqlView GetEntityByID(int id)
+        public List<GarageManagerSqlView> GetEntityByID(int id)
         {
             return _garageManagerViewDao.GetEntityById(id);
         }

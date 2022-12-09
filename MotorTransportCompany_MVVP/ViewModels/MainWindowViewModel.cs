@@ -68,7 +68,7 @@ namespace MotorTransportCompany_MVVP.ViewModels
         }
         private void FillTransportDataGrid()
         {
-            Transport = _mapper.Map<ObservableCollection<TransportViewModel>>(_transportService.GetAll());
+            Transport = _mapper.Map<ObservableCollection<TransportViewModel>>(_transportService.GetEntityByID(2));
         }
         private void FillTransportDistributionDataGrid()
         {

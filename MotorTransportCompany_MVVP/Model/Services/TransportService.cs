@@ -11,7 +11,7 @@ namespace MotorTransportCompany_MVVP.Model.Services
     internal class TransportService
     {
         private IDAO<Transport> _transportDao = new TransportDAO();
-        private IViewDAO<TransportSqlView> _transportSqlViewDao = new TransportSqlViewDAO();
+        private TransportSqlViewDAO _transportSqlViewDao = new TransportSqlViewDAO();
         public void Add(Transport entity)
         {
             _transportDao.Add(entity);
@@ -27,7 +27,7 @@ namespace MotorTransportCompany_MVVP.Model.Services
             return _transportSqlViewDao.GetAll();
         }
 
-        public TransportSqlView GetEntityByID(int id)
+        public List<TransportSqlView> GetEntityByID(int id)
         {
             return _transportSqlViewDao.GetEntityById(id);
         }

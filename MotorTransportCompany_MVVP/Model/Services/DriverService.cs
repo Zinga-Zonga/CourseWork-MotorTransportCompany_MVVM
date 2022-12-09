@@ -27,7 +27,7 @@ namespace MotorTransportCompany_MVVP.Model.Services
             return _driversSqlViewDao.GetAll();
         }
 
-        public DriverSqlView GetEntityByID(int id)
+        public List<DriverSqlView> GetEntityByID(int id)
         {
             return _driversSqlViewDao.GetEntityById(id);
         }

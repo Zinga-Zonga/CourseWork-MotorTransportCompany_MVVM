@@ -27,7 +27,7 @@ namespace MotorTransportCompany_MVVP.Model.Services
             return _mechanicViewDao.GetAll();
         }
 
-        public MechanicSqlView GetEntityByID(int id)
+        public List<MechanicSqlView> GetEntityByID(int id)
         {
             return _mechanicViewDao.GetEntityById(id);
         }

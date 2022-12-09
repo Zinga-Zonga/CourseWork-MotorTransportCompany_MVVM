@@ -49,32 +49,36 @@ namespace MotorTransportCompany_MVVP.Model.DAOs
             }
         }
 
-        public GarageManagerSqlView GetEntityById(int id)
+        public List<GarageManagerSqlView> GetEntityById(int id)
         {
             try
             {
+
+                List<GarageManagerSqlView> entities = new List<GarageManagerSqlView>();
                 MySqlConnection connaction = new MySqlConnection(connectionString);
                 connaction.Open();
-                MySqlCommand command = new MySqlCommand($"SELECT id_garagemanager, department, name, surname, patronymic, birthday, age, sex, passport FROM `garage_managers` JOIN departments ON garage_managers.id_department = departments.id_department JOIN sex_types ON garage_managers.id_sex = sex_types.id_sex", connaction);
+                MySqlCommand command = new MySqlCommand($"SELECT id_garagemanager, department, name, surname, patronymic, birthday, age, sex, passport FROM `garage_managers` JOIN departments ON garage_managers.id_department = departments.id_department JOIN sex_types ON garage_managers.id_sex = sex_types.id_sex WHERE id_garagemanager = {id}", connaction);
                 using (MySqlDataReader reader = command.ExecuteReader())
                 {
-                    GarageManagerSqlView entity = new GarageManagerSqlView
+                    while (reader.Read())
                     {
-                        Id = reader.GetInt32(0),
-                        DepartmentName = reader.GetString(1),
-                        Name = reader.GetString(2),
-                        Surname = reader.GetString(3),
-                        Patronymic = reader.GetString(4),
-                        BirthdayDate = reader.GetString(5),
-                        Age = reader.GetInt32(6),
-                        Sex = reader.GetString(7),
-                        PassportNumber = reader.GetInt32(8)
-                    };
-                    connaction.Close();
-                    return entity;
-                    
+                        GarageManagerSqlView entity = new GarageManagerSqlView
+                        {
+                            Id = reader.GetInt32(0),
+                            DepartmentName = reader.GetString(1),
+                            Name = reader.GetString(2),
+                            Surname = reader.GetString(3),
+                            Patronymic = reader.GetString(4),
+                            BirthdayDate = reader.GetString(5),
+                            Age = reader.GetInt32(6),
+                            Sex = reader.GetString(7),
+                            PassportNumber = reader.GetInt32(8)
+                        };
+                        entities.Add(entity);
+                    }
                 }
-
+                connaction.Close();
+                return entities;
             }
             catch (MySqlException ex)
             {

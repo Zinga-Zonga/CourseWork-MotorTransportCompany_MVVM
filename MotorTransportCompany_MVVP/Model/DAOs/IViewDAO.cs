@@ -9,6 +9,6 @@ namespace MotorTransportCompany_MVVP.Model.DAOs
     internal interface IViewDAO<T> where T : IEntity
     {
         List<T> GetAll();
-        T GetEntityById(int id);
+        List<T> GetEntityById(int id);
     }
 }
