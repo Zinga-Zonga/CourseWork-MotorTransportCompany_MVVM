@@ -25,7 +25,7 @@ namespace MotorTransportCompany_MVVP.Model.Services
         public List<DriverSqlView> GetAll()
         {
 
-            return SplitCategories(_driversSqlViewDao.GetAll());
+            return _driversSqlViewDao.GetAll();
         }
 
         public List<DriverSqlView> GetEntityByID(int id)
@@ -37,17 +37,17 @@ namespace MotorTransportCompany_MVVP.Model.Services
         {
             _driversDao.Update(entity);
         }
-        private List<DriverSqlView> SplitCategories(List<DriverSqlView> dsv)
-        {
-            List<string> newCategories = new List<string>();
-            foreach(DriverSqlView driver in dsv)
-            {
-                foreach(string categories in driver.Categories)
-                {
-                    categories.Split(',');
-                }
-            }
-            return dsv;
-        }
+        //private List<DriverSqlView> SplitCategories(List<DriverSqlView> dsv)
+        //{
+        //    List<string> newCategories = new List<string>();
+        //    foreach(DriverSqlView driver in dsv)
+        //    {
+        //        foreach(string categories in driver.Categories)
+        //        {
+        //            driver.Categories = categories.Split(',').ToList();
+        //        }
+        //    }
+        //    return dsv;
+        //}
     }
 }

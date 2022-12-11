@@ -36,9 +36,10 @@ namespace MotorTransportCompany_MVVP.Model.DAOs
                             Age = reader.GetInt32(6),
                             Sex = reader.GetString(7),
                             PassportNumber = reader.GetInt32(8),
-                            
+                            LicenseNumber = reader.GetInt32(9),
+                            Categories = reader.GetString(10)
                         };
-                        entity.Categories.Add(reader.GetString(10));
+                        
                         entities.Add(entity);
                     }
                 }
@@ -75,9 +76,10 @@ namespace MotorTransportCompany_MVVP.Model.DAOs
                             Age = reader.GetInt32(6),
                             Sex = reader.GetString(7),
                             PassportNumber = reader.GetInt32(8),
-                            
+                            LicenseNumber = reader.GetInt32(9),
+                            Categories = reader.GetString(10)
                         };
-                        entity.Categories.Add(reader.GetString(9));
+                        
                         entities.Add(entity);
                     }
                 }
