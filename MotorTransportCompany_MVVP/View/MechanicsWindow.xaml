@@ -4,7 +4,10 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:MotorTransportCompany_MVVP.View"
+        xmlns:utils="clr-namespace:MotorTransportCompany_MVVP.Util"
         mc:Ignorable="d"
+        utils:DialogResultHelper.DialogResult ="{Binding DialogResult}"
+        
         Title="MechanicsWindow" Height="700" Width="300">
     <Border Background="#272522"
             CornerRadius="20">
@@ -18,57 +21,91 @@
                        IsEnabled="False"
                        IsHitTestVisible="False"/>
             <TextBox Text="{Binding Id}"
-                     Style="{StaticResource DialogTextBox}"/>
+                     Background="#353300"
+                     BorderThickness="0"
+                     IsReadOnly="True"
+                     Height="25"
+                     VerticalContentAlignment="Center"/>
             <TextBlock Text="Department"
                        Foreground="White"
                        Margin="0,5,0,5"/>
             <!--<TextBox Text="{Binding DepartmentName}"
                      Style="{StaticResource DialogTextBox}"/>-->
-            <ComboBox ItemsSource="{Binding DepartmentsNames}">
-                
+            <ComboBox ItemsSource="{Binding DepartmentsNames}"
+                      SelectedItem="{Binding DepartmentName}"
+                      Background="#353300"
+                      BorderThickness="0"
+                      VerticalContentAlignment="Center"
+                      >
+
+
             </ComboBox>
             <TextBlock Text="Name"
                        Foreground="White"
-                       Margin="0,5,0,5"/>
+                       Margin="0,5,0,5"
+                       />
             <TextBox Text="{Binding Name}"
-                     Style="{StaticResource DialogTextBox}"/>
+                     Height="25"
+                     Background="#353300"
+                     BorderThickness="0"
+                     Foreground="White"
+                     VerticalContentAlignment="Center"/>
             <TextBlock Text="Surname"
                        Foreground="White"
                        Margin="0,5,0,5"/>
             <TextBox Text="{Binding Surname}"
-                     Style="{StaticResource DialogTextBox}"/>
+                     Height="25"
+                     Background="#353300"
+                     BorderThickness="0"
+                     Foreground="White"
+                     VerticalContentAlignment="Center"/>
             <TextBlock Text="Patronymic"
                        Foreground="White"
                        Margin="0,5,0,5"/>
             <TextBox Text="{Binding Patronymic}"
-                     Style="{StaticResource DialogTextBox}"/>
+                     Height="25"
+                     Background="#353300"
+                     BorderThickness="0"
+                     Foreground="White"
+                     VerticalContentAlignment="Center"/>
             <TextBlock Text="BirthdayDate"
                        Foreground="White"
                        Margin="0,5,0,5"/>
             <TextBox Text="{Binding BirthdayDate}"
-                     Style="{StaticResource DialogTextBox}"/>
+                     Height="25"
+                     Background="#353300"
+                     BorderThickness="0"
+                     Foreground="White"
+                     VerticalContentAlignment="Center"/>
             <TextBlock Text="Age"
                        Foreground="White"
                        Margin="0,5,0,5"/>
             <TextBox Text="{Binding Age}"
-                     Style="{StaticResource DialogTextBox}"/>
+                     Height="25"
+                     Background="#353300"
+                     BorderThickness="0"
+                     Foreground="White"
+                     VerticalContentAlignment="Center"/>
             <TextBlock Text="Sex"
                        Foreground="White"
                        Margin="0,5,0,5"/>
-            <ComboBox ItemsSource="{Binding SexTypes}">
-
+            <ComboBox ItemsSource="{Binding SexTypes}"
+                      SelectedItem="{Binding Sex}"
+                      Height="25">
+                        
             </ComboBox>
             <TextBlock Text="PassportNumber"
                        Foreground="White"
                        Margin="0,5,0,5"/>
             <TextBox Text="{Binding PassportNumber}"
-                     Style="{StaticResource DialogTextBox}"/>
-            <TextBlock Text="LicenseNumber"
-                       Foreground="White"
-                       Margin="0,5,0,5"/>
-            <TextBox Text="{Binding LicenseNumber}"
-                     Style="{StaticResource DialogTextBox}"/>
-            <Button Command=""
+                     Height="25"
+                     Background="#353300"
+                     BorderThickness="0"
+                     Foreground="White"
+                     VerticalContentAlignment="Center"
+                     />
+            
+            <Button Command="{Binding AddCommand}"
                     Style="{StaticResource UIButtonTheme}"
                     Margin="0,15,0,0"
                     Content="Edit"

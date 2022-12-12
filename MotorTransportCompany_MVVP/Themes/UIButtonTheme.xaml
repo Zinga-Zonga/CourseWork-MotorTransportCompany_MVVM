@@ -9,7 +9,7 @@
                     <ControlTemplate TargetType="{x:Type Button}">
                         <Border CornerRadius="20"
                                 Width="200"
-                                Height="40"
+                                Height="50"
                                 Background="{TemplateBinding Background}">
                             <ContentPresenter VerticalAlignment="Center"
                                               HorizontalAlignment="Center"/>

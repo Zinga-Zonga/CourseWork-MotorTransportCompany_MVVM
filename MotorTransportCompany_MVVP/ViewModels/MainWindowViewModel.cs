@@ -38,6 +38,8 @@ namespace MotorTransportCompany_MVVP.ViewModels
         private readonly TransportService _transportService = new TransportService();
         private readonly TransportDistributionService _transportDistributionService = new TransportDistributionService();
         private readonly DriverService _driverService = new DriverService();
+        private readonly DepartmentService _departmentService = new DepartmentService();
+        private readonly SexService _sexService = new SexService();
         public ObservableCollection<MechanicsViewModel> Mechanics { get; set; }
         public ObservableCollection<GarageManagerViewModel> GarageManagers { get; set; }
         public ObservableCollection<TransportViewModel> Transport { get; set; }
@@ -76,10 +78,12 @@ namespace MotorTransportCompany_MVVP.ViewModels
                 // Из таблицы  в окошко редактирования/добавления
                 cfg.CreateMap<MechanicsViewModel, MechanicsWindowViewModel>().ReverseMap();
                 // Из ВьюМодели в базовую таблицу механиков
-                cfg.CreateMap<MechanicsViewModel, Mechanic>()
-                .ForMember(m => m.Name, opt => opt.MapFrom(f => f.FCS.Split(' ')[0]))
-                .ForMember(m => m.Surname, opt => opt.MapFrom(f => f.FCS.Split(' ')[1]))
-                .ForMember(m => m.Patronymic, opt => opt.MapFrom(f => f.FCS.Split(' ')[2]))
+                cfg.CreateMap<MechanicsWindowViewModel, Mechanic>()
+                .ForMember(m => m.Department_id, opt => opt.MapFrom
+                    (f => _departmentService.GetAll().Find(c => c.Name == f.DepartmentName).Id))
+                .ForMember(m => m.IdSex, opt => opt.MapFrom
+                    (f => _sexService.GetAll().Find(c => c.Name == f.Sex).Id
+                    ))
                 .ReverseMap();
             });
 
@@ -110,15 +114,40 @@ namespace MotorTransportCompany_MVVP.ViewModels
         #endregion
         private void AddMechanics()
         {
+            //MechanicsWindowViewModel mechanic1 = new MechanicsWindowViewModel()
+            //{
+            //    Id = 0,
+            //    DepartmentName = "Межгородний",
+            //    Sex = "Мужчина",
+            //    Age = 20,
+            //    BirthdayDate = "22-12-2013",
+            //    Name = "Maks",
+            //    Surname = "Bobik",
+            //    Patronymic = "Dayb",
+            //    PassportNumber = 22222
+
+            //};
+            //var viewModel = _mapper.Map<MechanicsWindowViewModel>(new MechanicsViewModel());
+            //var res = _dialogService.OpenDialog(mechanic1);
+
+            //if (res != true) return;
+
+            //var mechanic = _mapper.Map<Mechanic>(mechanic1);
+
+            //_mechanicService.Add(mechanic);
+
+            //FillMechanicsDataGrid();
+            
             var viewModel = _mapper.Map<MechanicsWindowViewModel>(new MechanicsViewModel());
             var res = _dialogService.OpenDialog(viewModel);
 
             if (res != true) return;
 
-            var mechanic = _mapper.Map<Mechanic>(new MechanicsViewModel());
+            var mechanic = _mapper.Map<Mechanic>(viewModel);
+
             _mechanicService.Add(mechanic);
+
             FillMechanicsDataGrid();
-            
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
