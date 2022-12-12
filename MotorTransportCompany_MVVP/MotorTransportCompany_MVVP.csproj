@@ -132,7 +132,16 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Util\RelayCommand.cs" />
+    <Compile Include="ViewModels\MechanicsWindowViewModel.cs" />
+    <Compile Include="View\MechanicsWindow.xaml.cs">
+      <DependentUpon>MechanicsWindow.xaml</DependentUpon>
+    </Compile>
     <Page Include="Themes\CloseButtonTheme.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Themes\DialogTextBox.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -192,6 +201,11 @@
     <Compile Include="Model\Services\TransportDistributionService.cs" />
     <Compile Include="Model\Services\TransportService.cs" />
     <Compile Include="Model\Services\TransportSpecificationService.cs" />
+    <Compile Include="Util\DialogResultHelper.cs" />
+    <Compile Include="Util\Dialogs\DialogService.cs" />
+    <Compile Include="Util\Dialogs\DialogViewLocator.cs" />
+    <Compile Include="Util\Dialogs\IDialogService.cs" />
+    <Compile Include="Util\Dialogs\IDialogViewModel.cs" />
     <Compile Include="ViewModels\DriverViewModel.cs" />
     <Compile Include="ViewModels\GarageManagerViewModel.cs" />
     <Compile Include="ViewModels\MainWindowViewModel.cs" />
@@ -207,6 +221,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Themes\TextBoxTheme.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\MechanicsWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

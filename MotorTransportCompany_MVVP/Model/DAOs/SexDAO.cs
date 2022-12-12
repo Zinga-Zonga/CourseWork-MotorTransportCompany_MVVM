@@ -22,7 +22,7 @@ namespace MotorTransportCompany_MVVP.Model
                 MySqlConnection connaction = new MySqlConnection(connectionString);
                 connaction.Open();
 
-                MySqlCommand command = new MySqlCommand("SELECT id_sex, fuel FROM `sex_types`", connaction);
+                MySqlCommand command = new MySqlCommand("SELECT id_sex, sex FROM `sex_types`", connaction);
                 using (MySqlDataReader reader = command.ExecuteReader())
                 {
                     while (reader.Read())

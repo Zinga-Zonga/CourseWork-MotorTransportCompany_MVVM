@@ -11,6 +11,7 @@
                 <ResourceDictionary Source="Themes/UIButtonTheme.xaml"/>
                 <ResourceDictionary Source="Themes/MinimizeButtonTheme.xaml"/>
                 <ResourceDictionary Source="Themes/CloseButtonTheme.xaml"/>
+                <ResourceDictionary Source="Themes/DialogTextBox.xaml"/>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Application.Resources>

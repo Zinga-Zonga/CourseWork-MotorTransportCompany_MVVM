@@ -99,7 +99,7 @@
                             Background="AliceBlue"
                             Grid.Column="1"
                             Grid.Row="1" RenderTransformOrigin="0.52,0.482">
-                <DataGrid ItemsSource="{Binding Drivers}"
+                <DataGrid ItemsSource="{Binding Mechanics}"
                           Margin="10, 0, 10, 10">
 
                 </DataGrid>
@@ -113,7 +113,7 @@
                         FontSize="14"
                         Style="{StaticResource UIButtonTheme}"
                         Content="Add Drivers"
-                        Command="">
+                        Command="{Binding AddMechanicCommand}">
                 </Button>
                 <Button Width="250"
                         BorderThickness="0"

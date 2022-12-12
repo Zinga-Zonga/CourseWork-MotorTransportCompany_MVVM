@@ -1,5 +1,8 @@
-﻿using MotorTransportCompany_MVVP.Model.DAOs;
+﻿using AutoMapper;
+using AutoMapper.EquivalencyExpression;
+using MotorTransportCompany_MVVP.Model.DAOs;
 using MotorTransportCompany_MVVP.Model.Domain;
+using MotorTransportCompany_MVVP.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -29,12 +32,15 @@ namespace MotorTransportCompany_MVVP.Model.Services
 
         public List<MechanicSqlView> GetEntityByID(int id)
         {
+
             return _mechanicViewDao.GetEntityById(id);
         }
 
         public void Update(Mechanic entity)
         {
+
             _mechanicDao.Update(entity);
         }
+        
     }
 }
