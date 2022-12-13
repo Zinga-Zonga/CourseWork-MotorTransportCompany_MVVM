@@ -133,9 +133,18 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Util\RelayCommand.cs" />
+    <Compile Include="ViewModels\GarageManagerWindowViewModel.cs" />
     <Compile Include="ViewModels\MechanicsWindowViewModel.cs" />
+    <Compile Include="ViewModels\TransportDistributionWindowViewModel.cs" />
+    <Compile Include="ViewModels\TransportWindowViewModel.cs" />
+    <Compile Include="View\GarageManagerWindow.xaml.cs">
+      <DependentUpon>GarageManagerWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\MechanicsWindow.xaml.cs">
       <DependentUpon>MechanicsWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\TransportDistributionWindow.xaml.cs">
+      <DependentUpon>TransportDistributionWindow.xaml</DependentUpon>
     </Compile>
     <Page Include="Themes\CloseButtonTheme.xaml">
       <SubType>Designer</SubType>
@@ -150,6 +159,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Themes\UIButtonTheme.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\GarageManagerWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -225,6 +238,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\MechanicsWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\TransportDistributionWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

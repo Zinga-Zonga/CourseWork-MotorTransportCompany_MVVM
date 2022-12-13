@@ -99,8 +99,12 @@
                             Background="AliceBlue"
                             Grid.Column="1"
                             Grid.Row="1" RenderTransformOrigin="0.52,0.482">
-                <DataGrid ItemsSource="{Binding Mechanics}"
-                          Margin="10, 0, 10, 10">
+                <DataGrid x:Name="MTC" 
+                          ItemsSource= "{Binding TransportDistribution}"
+                          IsReadOnly="True"
+                          SelectedItem="{Binding SelectedEntity, Mode=TwoWay}"
+                          SelectionMode="Single"
+                          SelectionUnit="FullRow">
 
                 </DataGrid>
             </ContentControl>
@@ -120,8 +124,17 @@
                         Foreground="White"
                         FontSize="14"
                         Style="{StaticResource UIButtonTheme}"
-                        Content="Help"
-                        Command="">
+                        Content="Edit"
+                        Command="{Binding EditMechanicCommand}">
+
+                </Button>
+                <Button Width="250"
+                        BorderThickness="0"
+                        Foreground="White"
+                        FontSize="14"
+                        Style="{StaticResource UIButtonTheme}"
+                        Content="Delete"
+                        Command="{Binding DeleteMechanicCommand}">
 
                 </Button>
             </StackPanel>

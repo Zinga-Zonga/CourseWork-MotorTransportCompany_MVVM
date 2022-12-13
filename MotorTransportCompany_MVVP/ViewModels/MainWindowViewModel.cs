@@ -1,24 +1,19 @@
 ﻿using AutoMapper;
-using AutoMapper.Collection;
 using AutoMapper.EquivalencyExpression;
 using MotorTransportCompany_MVVP.Model;
 using MotorTransportCompany_MVVP.Model.Domain;
+using MotorTransportCompany_MVVP.Model.Entities;
 using MotorTransportCompany_MVVP.Model.Services;
 using MotorTransportCompany_MVVP.Util;
 using MotorTransportCompany_MVVP.Util.Dialogs;
-using MotorTransportCompany_MVVP.View;
-using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace MotorTransportCompany_MVVP.ViewModels
 {
     internal class MainWindowViewModel : INotifyPropertyChanged
     {
+        // Если обьект к которому мы при привязываемся имеет Такую-то вью модель, то мы даём такой-то функционал
         public MainWindowViewModel()
         {
             _mapper = InitMappings();
@@ -29,10 +24,14 @@ namespace MotorTransportCompany_MVVP.ViewModels
             FillDriversDataGrid();
 
             AddMechanicCommand = new RelayCommand(AddMechanics, () => true);
+            EditMechanicCommand = new RelayCommand(EditMechanic, () => true);
+            DeleteMechanicCommand = new RelayCommand(DeleteMechanics, () => true);
         }
 
         public RelayCommand AddMechanicCommand { get; }
-
+        public RelayCommand EditMechanicCommand { get; }
+        public RelayCommand DeleteMechanicCommand { get; }
+        #region initiationOfServices and entities
         private readonly MechanicService _mechanicService = new MechanicService();
         private readonly GarageManagerService _gmService = new GarageManagerService();
         private readonly TransportService _transportService = new TransportService();
@@ -45,10 +44,18 @@ namespace MotorTransportCompany_MVVP.ViewModels
         public ObservableCollection<TransportViewModel> Transport { get; set; }
         public ObservableCollection<TransportDistributionViewModel> TransportDistribution { get; set; }
         public ObservableCollection<DriverViewModel> Drivers { get; set; }
-
+        #endregion
         private readonly IDialogService _dialogService = new DialogService();
 
-
+        private MechanicsViewModel _selectedEntity;
+        public MechanicsViewModel SelectedEntity
+        {
+            get { return _selectedEntity; }
+            set
+            {
+                _selectedEntity = value;
+            }
+        }
 
         private readonly IMapper _mapper;
 
@@ -57,33 +64,72 @@ namespace MotorTransportCompany_MVVP.ViewModels
             var config = new MapperConfiguration(cfg =>
             {
                 cfg.AddCollectionMappers();
-                // Механик из SQL в Табличного механика
-                cfg.CreateMap<MechanicSqlView, MechanicsViewModel>()
-                    .ForMember(m => m.FCS, opt => opt.MapFrom(f => string.Format("{0} {1} {2}", f.Surname, f.Name, f.Patronymic)))
-                    .ReverseMap();
+
+                #region GarageManager
                 // Завгар из SQL в Табличного завгара
                 cfg.CreateMap<GarageManagerSqlView, GarageManagerViewModel>()
                    .ForMember(m => m.FCS, opt => opt.MapFrom(f => string.Format("{0} {1} {2}", f.Surname, f.Name, f.Patronymic)))
                    .ReverseMap();
+
+                // Из таблицы  в окошко редактирования/добавления
+                cfg.CreateMap<GarageManagerViewModel, GarageManagerWindowViewModel>()
+                .ForMember(m => m.Surname, opt => opt.MapFrom(f => f.FCS.Split(' ')[0]))
+                .ForMember(m => m.Name, opt => opt.MapFrom(f => f.FCS.Split(' ')[1]))
+                .ForMember(m => m.Patronymic, opt => opt.MapFrom(f => f.FCS.Split(' ')[2]))
+                .ReverseMap();
+
+                // Из ВьюМодели в базовую таблицу механиков
+                cfg.CreateMap<GarageManagerWindowViewModel, GarageManager>()
+                .ForMember(m => m.Department_id, opt => opt.MapFrom
+                    (f => _departmentService.GetAll().Find(c => c.Name == f.DepartmentName).Id))
+                .ForMember(m => m.IdSex, opt => opt.MapFrom
+                    (f => _sexService.GetAll().Find(c => c.Name == f.Sex).Id))
+                .ReverseMap();
+                #endregion
                 // Транспорт из SQL в Табличный транспорт
                 cfg.CreateMap<TransportSqlView, TransportViewModel>().ReverseMap();
+                #region TransportDistribution
                 // Таблица из SQL водителей и автом в таблицу водителей и авто
                 cfg.CreateMap<TransportDistributionSqlView, TransportDistributionViewModel>()
                    .ForMember(m => m.FCS, opt => opt.MapFrom(f => string.Format("{0} {1} {2}", f.Surname, f.Name, f.Patronymic)))
                    .ReverseMap();
-                //Водители и категории
+
+                cfg.CreateMap<TransportDistributionViewModel, TransportDistributionWindowViewModel>()
+                    .ForMember(m => m.NumberAndModel, opt => opt.MapFrom(f => string.Format("{0}|{1}", f.Number, f.Model)))
+                    .ReverseMap();
+
+                cfg.CreateMap<TransportDistributionWindowViewModel, TransportDistribution>()
+                    .ForMember(m => m.Transport_ID, opt => opt.MapFrom
+                        (f => _transportService.GetAll().Find(c => c.Model == f.NumberAndModel.Split('|')[1] && c.Number == f.NumberAndModel.Split('|')[0]).Id))
+                    .ForMember(m => m.Driver_ID, opt => opt.MapFrom
+                        (f => _driverService.GetAll().Find(c => c.Surname == f.FCS.Split(' ')[0] && c.Name == f.FCS.Split(' ')[1] && c.Patronymic == f.FCS.Split(' ')[2]).Id))
+                    .ReverseMap();
+
+                #endregion
+                //Водители и категории SQL
                 cfg.CreateMap<DriverSqlView, DriverViewModel>()
                    .ForMember(m => m.FCS, opt => opt.MapFrom(f => string.Format("{0} {1} {2}", f.Surname, f.Name, f.Patronymic)))
                    .ReverseMap();
+
+
+                // Механик из SQL в Табличного механика
+                cfg.CreateMap<MechanicSqlView, MechanicsViewModel>()
+                    .ForMember(m => m.FCS, opt => opt.MapFrom(f => string.Format("{0} {1} {2}", f.Surname, f.Name, f.Patronymic)))
+                    .ReverseMap();
+
                 // Из таблицы  в окошко редактирования/добавления
-                cfg.CreateMap<MechanicsViewModel, MechanicsWindowViewModel>().ReverseMap();
+                cfg.CreateMap<MechanicsViewModel, MechanicsWindowViewModel>()
+                .ForMember(m => m.Surname, opt => opt.MapFrom(f => f.FCS.Split(' ')[0]))
+                .ForMember(m => m.Name, opt => opt.MapFrom(f => f.FCS.Split(' ')[1]))
+                .ForMember(m => m.Patronymic, opt => opt.MapFrom(f => f.FCS.Split(' ')[2]))
+                .ReverseMap();
+
                 // Из ВьюМодели в базовую таблицу механиков
                 cfg.CreateMap<MechanicsWindowViewModel, Mechanic>()
                 .ForMember(m => m.Department_id, opt => opt.MapFrom
                     (f => _departmentService.GetAll().Find(c => c.Name == f.DepartmentName).Id))
                 .ForMember(m => m.IdSex, opt => opt.MapFrom
-                    (f => _sexService.GetAll().Find(c => c.Name == f.Sex).Id
-                    ))
+                    (f => _sexService.GetAll().Find(c => c.Name == f.Sex).Id))
                 .ReverseMap();
             });
 
@@ -112,32 +158,11 @@ namespace MotorTransportCompany_MVVP.ViewModels
             Drivers = _mapper.Map<ObservableCollection<DriverViewModel>>(_driverService.GetAll());
         }
         #endregion
+        #region MechanicsCommands
         private void AddMechanics()
-        {
-            //MechanicsWindowViewModel mechanic1 = new MechanicsWindowViewModel()
-            //{
-            //    Id = 0,
-            //    DepartmentName = "Межгородний",
-            //    Sex = "Мужчина",
-            //    Age = 20,
-            //    BirthdayDate = "22-12-2013",
-            //    Name = "Maks",
-            //    Surname = "Bobik",
-            //    Patronymic = "Dayb",
-            //    PassportNumber = 22222
 
-            //};
-            //var viewModel = _mapper.Map<MechanicsWindowViewModel>(new MechanicsViewModel());
-            //var res = _dialogService.OpenDialog(mechanic1);
 
-            //if (res != true) return;
-
-            //var mechanic = _mapper.Map<Mechanic>(mechanic1);
-
-            //_mechanicService.Add(mechanic);
-
-            //FillMechanicsDataGrid();
-            
+        {   
             var viewModel = _mapper.Map<MechanicsWindowViewModel>(new MechanicsViewModel());
             var res = _dialogService.OpenDialog(viewModel);
 
@@ -149,6 +174,54 @@ namespace MotorTransportCompany_MVVP.ViewModels
 
             FillMechanicsDataGrid();
         }
+        private void EditMechanic()
+        {
+            var viewModel = _mapper.Map<MechanicsWindowViewModel>(SelectedEntity);
+            
+            var res = _dialogService.OpenDialog(viewModel);
+
+            if (res != true) return;
+
+            var mechanic = _mapper.Map<Mechanic>(viewModel);
+
+            _mechanicService.Update(mechanic);
+
+            FillMechanicsDataGrid();
+        }
+        private void DeleteMechanics()
+        {
+            var viewModel = _mapper.Map<MechanicsWindowViewModel>(SelectedEntity);
+
+            var mechanic = _mapper.Map<Mechanic>(viewModel);
+
+            _mechanicService.Delete(mechanic.Id);
+
+            FillMechanicsDataGrid();
+        }
+        #endregion
+        #region GarageManagersCommands
+        private void AddGarageManager()
+        {
+            var viewModel = _mapper.Map<GarageManagerWindowViewModel>(new GarageManagerViewModel());
+            var res = _dialogService.OpenDialog(viewModel);
+
+            if (res != true) return;
+
+            var mechanic = _mapper.Map<Mechanic>(viewModel);
+
+            _mechanicService.Add(mechanic);
+
+            FillMechanicsDataGrid();
+        }
+
+
+
+        #endregion
+        static public ObservableCollection<object> DataGridEntities { get; set; }
+        
+        
+
+
 
         public event PropertyChangedEventHandler PropertyChanged;
 

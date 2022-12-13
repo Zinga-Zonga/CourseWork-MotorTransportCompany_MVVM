@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -13,5 +14,8 @@ namespace MotorTransportCompany_MVVP.ViewModels
         public string FCS { get; set; }
         public string Number { get; set; }
         public string Model { get; set; }
+        public event PropertyChangedEventHandler PropertyChanged;
+        
+
     }
 }

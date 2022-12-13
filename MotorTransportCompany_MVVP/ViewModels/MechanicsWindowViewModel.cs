@@ -32,7 +32,8 @@ namespace MotorTransportCompany_MVVP.ViewModels
 
         public event PropertyChangedEventHandler PropertyChanged;
 
-        public ICommand AddCommand { get; }
+        public ICommand OkCommand { get; }
+        
         
         public bool? DialogResult { get; set; }
 
@@ -63,7 +64,7 @@ namespace MotorTransportCompany_MVVP.ViewModels
         }
         public MechanicsWindowViewModel()
         {
-            AddCommand = new RelayCommand(Ok, CanOk);
+            OkCommand = new RelayCommand(Ok, CanOk);
             FillDepartmentsNames(_departmentService.GetAll());
             FillSexTypes(_sexService.GetAll());
         }

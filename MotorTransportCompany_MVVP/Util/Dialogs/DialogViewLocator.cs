@@ -15,7 +15,10 @@ namespace MotorTransportCompany_MVVP.Util.Dialogs
         {
             if (viewModel is MechanicsWindowViewModel)
                 return new MechanicsWindow();
-
+            if (viewModel is GarageManagerViewModel)
+                return new GarageManagerWindow();
+            if (viewModel is TransportDistributionViewModel)
+                return new TransportDistributionWindow();
             return null;
         }
     }
