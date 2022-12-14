@@ -23,7 +23,7 @@ namespace MotorTransportCompany_MVVP.ViewModels
             FillTransportDistributionDataGrid();
             FillDriversDataGrid();
 
-            AddMechanicCommand = new RelayCommand(AddMechanics, () => true);
+            AddMechanicCommand = new RelayCommand(AddTransportDistribution, () => true);
             EditMechanicCommand = new RelayCommand(EditMechanic, () => true);
             DeleteMechanicCommand = new RelayCommand(DeleteMechanics, () => true);
         }
@@ -86,8 +86,7 @@ namespace MotorTransportCompany_MVVP.ViewModels
                     (f => _sexService.GetAll().Find(c => c.Name == f.Sex).Id))
                 .ReverseMap();
                 #endregion
-                // Транспорт из SQL в Табличный транспорт
-                cfg.CreateMap<TransportSqlView, TransportViewModel>().ReverseMap();
+              
                 #region TransportDistribution
                 // Таблица из SQL водителей и автом в таблицу водителей и авто
                 cfg.CreateMap<TransportDistributionSqlView, TransportDistributionViewModel>()
@@ -106,12 +105,8 @@ namespace MotorTransportCompany_MVVP.ViewModels
                     .ReverseMap();
 
                 #endregion
-                //Водители и категории SQL
-                cfg.CreateMap<DriverSqlView, DriverViewModel>()
-                   .ForMember(m => m.FCS, opt => opt.MapFrom(f => string.Format("{0} {1} {2}", f.Surname, f.Name, f.Patronymic)))
-                   .ReverseMap();
 
-
+                #region Mechanics
                 // Механик из SQL в Табличного механика
                 cfg.CreateMap<MechanicSqlView, MechanicsViewModel>()
                     .ForMember(m => m.FCS, opt => opt.MapFrom(f => string.Format("{0} {1} {2}", f.Surname, f.Name, f.Patronymic)))
@@ -131,6 +126,17 @@ namespace MotorTransportCompany_MVVP.ViewModels
                 .ForMember(m => m.IdSex, opt => opt.MapFrom
                     (f => _sexService.GetAll().Find(c => c.Name == f.Sex).Id))
                 .ReverseMap();
+                #endregion
+
+
+                // Транспорт из SQL в Табличный транспорт
+                cfg.CreateMap<TransportSqlView, TransportViewModel>().ReverseMap();
+
+                //Водители и категории SQL
+                cfg.CreateMap<DriverSqlView, DriverViewModel>()
+                   .ForMember(m => m.FCS, opt => opt.MapFrom(f => string.Format("{0} {1} {2}", f.Surname, f.Name, f.Patronymic)))
+                   .ReverseMap();
+
             });
 
             return config.CreateMapper();
@@ -217,9 +223,24 @@ namespace MotorTransportCompany_MVVP.ViewModels
 
 
         #endregion
-        static public ObservableCollection<object> DataGridEntities { get; set; }
-        
-        
+        private void AddTransportDistribution()
+        {
+            var viewModel = _mapper.Map<TransportDistributionWindowViewModel>(new TransportDistributionViewModel());
+            var res = _dialogService.OpenDialog(viewModel);
+
+            if (res != true) return;
+
+            var transportDistribution = _mapper.Map<TransportDistribution>(viewModel);
+
+            _transportDistributionService.Add(transportDistribution);
+
+            FillTransportDistributionDataGrid();
+        }
+
+
+        //static public ObservableCollection<object> DataGridEntities { get; set; }
+
+
 
 
 

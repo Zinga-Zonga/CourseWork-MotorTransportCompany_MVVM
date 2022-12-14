@@ -7,6 +7,7 @@ using MotorTransportCompany_MVVP.Util.Dialogs;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Text;
@@ -40,8 +41,8 @@ namespace MotorTransportCompany_MVVP.ViewModels
         static DepartmentService _departmentService = new DepartmentService();
         static SexService _sexService = new SexService();
         
-        public List<string> DepartmentsNames { get; set; } = new List<string>();
-        public List<string> SexTypes { get; set; } = new List<string>();
+        public ObservableCollection<string> DepartmentsNames { get; set; } = new ObservableCollection<string>();
+        public ObservableCollection<string> SexTypes { get; set; } = new ObservableCollection<string>();
         private void FillDepartmentsNames(List<Department> departments)
         {
             if(departments.Count != 0)
