@@ -152,25 +152,29 @@ namespace MotorTransportCompany_MVVP.ViewModels
                     
                 #endregion
 
-                #region Drivers
-                cfg.CreateMap<DriverSqlView, DriverViewModel>()
-                   .ForMember(m => m.FCS, opt => opt.MapFrom(f => string.Format("{0} {1} {2}", f.Surname, f.Name, f.Patronymic)))
-                   .ReverseMap();
-
-                // Из таблицы  в окошко редактирования/добавления
-                cfg.CreateMap<DriverViewModel, DriverWindowViewModel>()
-                .ForMember(m => m.Surname, opt => opt.MapFrom(f => f.FCS.Split(' ')[0]))
-                .ForMember(m => m.Name, opt => opt.MapFrom(f => f.FCS.Split(' ')[1]))
-                .ForMember(m => m.Patronymic, opt => opt.MapFrom(f => f.FCS.Split(' ')[2]))
+            #region Drivers
+            cfg.CreateMap<DriverSqlView, DriverViewModel>()
+                .ForMember(m => m.FCS, opt => opt.MapFrom(f => string.Format("{0} {1} {2}", f.Surname, f.Name, f.Patronymic)))
                 .ReverseMap();
 
-                // Из ВьюМодели в базовую таблицу механиков
-                cfg.CreateMap<DriverWindowViewModel, Driver>()
-                .ForMember(m => m.Department_id, opt => opt.MapFrom
-                    (f => _departmentService.GetAll().Find(c => c.Name == f.DepartmentName).Id))
-                .ForMember(m => m.IdSex, opt => opt.MapFrom
-                    (f => _sexService.GetAll().Find(c => c.Name == f.Sex).Id))
-                .ReverseMap();
+            // Из таблицы  в окошко редактирования/добавления
+            cfg.CreateMap<DriverViewModel, DriverWindowViewModel>()
+            .ForMember(m => m.Surname, opt => opt.MapFrom(f => f.FCS.Split(' ')[0]))
+            .ForMember(m => m.Name, opt => opt.MapFrom(f => f.FCS.Split(' ')[1]))
+            .ForMember(m => m.Patronymic, opt => opt.MapFrom(f => f.FCS.Split(' ')[2]))
+            .ReverseMap();
+
+            // Из ВьюМодели в базовую таблицу механиков
+            cfg.CreateMap<DriverWindowViewModel, Driver>()
+            .ForMember(m => m.Department_id, opt => opt.MapFrom
+                (f => _departmentService.GetAll().Find(c => c.Name == f.DepartmentName).Id))
+            .ForMember(m => m.IdSex, opt => opt.MapFrom
+                (f => _sexService.GetAll().Find(c => c.Name == f.Sex).Id))
+            .ReverseMap();
+                #endregion
+
+                #region TransportSpecification
+
                 #endregion
             });
 
