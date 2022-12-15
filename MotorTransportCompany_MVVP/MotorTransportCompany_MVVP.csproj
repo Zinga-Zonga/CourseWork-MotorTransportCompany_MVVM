@@ -165,6 +165,9 @@
     <Compile Include="View\TransportDistributionWindow.xaml.cs">
       <DependentUpon>TransportDistributionWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\TransportWindow.xaml.cs">
+      <DependentUpon>TransportWindow.xaml</DependentUpon>
+    </Compile>
     <Page Include="Themes\CloseButtonTheme.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -265,6 +268,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\TransportDistributionWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\TransportWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

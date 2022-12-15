@@ -8,6 +8,7 @@ using MotorTransportCompany_MVVP.Util;
 using MotorTransportCompany_MVVP.Util.Dialogs;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Linq;
 
 namespace MotorTransportCompany_MVVP.ViewModels
 {
@@ -39,6 +40,9 @@ namespace MotorTransportCompany_MVVP.ViewModels
         private readonly DriverService _driverService = new DriverService();
         private readonly DepartmentService _departmentService = new DepartmentService();
         private readonly SexService _sexService = new SexService();
+        private readonly TransportSpecificationService _transportSpecificationService = new TransportSpecificationService();
+        private readonly TechnicalConditionService _technicalConditionService = new TechnicalConditionService();
+        private readonly FuelTypeService _fuelTypeService = new FuelTypeService();
         public ObservableCollection<MechanicsViewModel> Mechanics { get; set; }
         public ObservableCollection<GarageManagerViewModel> GarageManagers { get; set; }
         public ObservableCollection<TransportViewModel> Transport { get; set; }
@@ -63,80 +67,111 @@ namespace MotorTransportCompany_MVVP.ViewModels
         {
             var config = new MapperConfiguration(cfg =>
             {
-                cfg.AddCollectionMappers();
+            cfg.AddCollectionMappers();
 
-                #region GarageManager
-                // Завгар из SQL в Табличного завгара
-                cfg.CreateMap<GarageManagerSqlView, GarageManagerViewModel>()
-                   .ForMember(m => m.FCS, opt => opt.MapFrom(f => string.Format("{0} {1} {2}", f.Surname, f.Name, f.Patronymic)))
-                   .ReverseMap();
+            #region GarageManager
+            // Завгар из SQL в Табличного завгара
+            cfg.CreateMap<GarageManagerSqlView, GarageManagerViewModel>()
+               .ForMember(m => m.FCS, opt => opt.MapFrom(f => string.Format("{0} {1} {2}", f.Surname, f.Name, f.Patronymic)))
+               .ReverseMap();
 
-                // Из таблицы  в окошко редактирования/добавления
-                cfg.CreateMap<GarageManagerViewModel, GarageManagerWindowViewModel>()
-                .ForMember(m => m.Surname, opt => opt.MapFrom(f => f.FCS.Split(' ')[0]))
-                .ForMember(m => m.Name, opt => opt.MapFrom(f => f.FCS.Split(' ')[1]))
-                .ForMember(m => m.Patronymic, opt => opt.MapFrom(f => f.FCS.Split(' ')[2]))
+            // Из таблицы  в окошко редактирования/добавления
+            cfg.CreateMap<GarageManagerViewModel, GarageManagerWindowViewModel>()
+            .ForMember(m => m.Surname, opt => opt.MapFrom(f => f.FCS.Split(' ')[0]))
+            .ForMember(m => m.Name, opt => opt.MapFrom(f => f.FCS.Split(' ')[1]))
+            .ForMember(m => m.Patronymic, opt => opt.MapFrom(f => f.FCS.Split(' ')[2]))
+            .ReverseMap();
+
+            // Из ВьюМодели в базовую таблицу механиков
+            cfg.CreateMap<GarageManagerWindowViewModel, GarageManager>()
+            .ForMember(m => m.Department_id, opt => opt.MapFrom
+                (f => _departmentService.GetAll().Find(c => c.Name == f.DepartmentName).Id))
+            .ForMember(m => m.IdSex, opt => opt.MapFrom
+                (f => _sexService.GetAll().Find(c => c.Name == f.Sex).Id))
+            .ReverseMap();
+            #endregion
+
+            #region TransportDistribution
+            // Таблица из SQL водителей и автом в таблицу водителей и авто
+            cfg.CreateMap<TransportDistributionSqlView, TransportDistributionViewModel>()
+               .ForMember(m => m.FCS, opt => opt.MapFrom(f => string.Format("{0} {1} {2}", f.Surname, f.Name, f.Patronymic)))
+               .ReverseMap();
+
+            cfg.CreateMap<TransportDistributionViewModel, TransportDistributionWindowViewModel>()
+                .ForMember(m => m.NumberAndModel, opt => opt.MapFrom(f => string.Format("{0}|{1}", f.Number, f.Model)))
                 .ReverseMap();
 
-                // Из ВьюМодели в базовую таблицу механиков
-                cfg.CreateMap<GarageManagerWindowViewModel, GarageManager>()
-                .ForMember(m => m.Department_id, opt => opt.MapFrom
-                    (f => _departmentService.GetAll().Find(c => c.Name == f.DepartmentName).Id))
-                .ForMember(m => m.IdSex, opt => opt.MapFrom
-                    (f => _sexService.GetAll().Find(c => c.Name == f.Sex).Id))
+            cfg.CreateMap<TransportDistributionWindowViewModel, TransportDistribution>()
+                .ForMember(m => m.Transport_ID, opt => opt.MapFrom
+                    (f => _transportService.GetAll().Find(c => c.Model == f.NumberAndModel.Split('|')[1] && c.Number == f.NumberAndModel.Split('|')[0]).Id))
+                .ForMember(m => m.Driver_ID, opt => opt.MapFrom
+                    (f => _driverService.GetAll().Find(c => c.Surname == f.FCS.Split(' ')[0] && c.Name == f.FCS.Split(' ')[1] && c.Patronymic == f.FCS.Split(' ')[2]).Id))
                 .ReverseMap();
+
+            #endregion
+
+            #region Mechanics
+            // Механик из SQL в Табличного механика
+            cfg.CreateMap<MechanicSqlView, MechanicsViewModel>()
+                .ForMember(m => m.FCS, opt => opt.MapFrom(f => string.Format("{0} {1} {2}", f.Surname, f.Name, f.Patronymic)))
+                .ReverseMap();
+
+            // Из таблицы  в окошко редактирования/добавления
+            cfg.CreateMap<MechanicsViewModel, MechanicsWindowViewModel>()
+            .ForMember(m => m.Surname, opt => opt.MapFrom(f => f.FCS.Split(' ')[0]))
+            .ForMember(m => m.Name, opt => opt.MapFrom(f => f.FCS.Split(' ')[1]))
+            .ForMember(m => m.Patronymic, opt => opt.MapFrom(f => f.FCS.Split(' ')[2]))
+            .ReverseMap();
+
+            // Из ВьюМодели в базовую таблицу механиков
+            cfg.CreateMap<MechanicsWindowViewModel, Mechanic>()
+            .ForMember(m => m.Department_id, opt => opt.MapFrom
+                (f => _departmentService.GetAll().Find(c => c.Name == f.DepartmentName).Id))
+            .ForMember(m => m.IdSex, opt => opt.MapFrom
+                (f => _sexService.GetAll().Find(c => c.Name == f.Sex).Id))
+            .ReverseMap();
+            #endregion
+
+            #region Transport
+            // Таблица из SQL водителей и автом в таблицу водителей и авто
+            cfg.CreateMap<TransportSqlView, TransportViewModel>()
+               .ReverseMap();
+
+            cfg.CreateMap<TransportViewModel, TransportWindowViewModel>()
+                .ReverseMap();
+
+            cfg.CreateMap<TransportWindowViewModel, Transport>()
+                .ForMember(m => m.Department_ID, opt => opt.MapFrom
+                    (f => _departmentService.GetAll().Find(c => c.Name == f.Department).Id))
+                .ForMember(m => m.TransportSpecification_ID, opt => opt.MapFrom
+                    (f => _transportSpecificationService.GetAll()
+                        .Find(c => c.TrunkVolume == f.TrunkVolume && c.FuelConsumption == f.FuelConsumption && c.Model == f.Model)))
+                .ForMember(m => m.TechnicalCondition_ID, opt => opt.MapFrom(f => _technicalConditionService.GetAll().Find(c => c.Condition == f.TechnicalCondition).Id))
+                .ForMember(m => m.TransportNumber, opt => opt.MapFrom(f => f.Number))
+                .ReverseMap();
+                    
                 #endregion
-              
-                #region TransportDistribution
-                // Таблица из SQL водителей и автом в таблицу водителей и авто
-                cfg.CreateMap<TransportDistributionSqlView, TransportDistributionViewModel>()
-                   .ForMember(m => m.FCS, opt => opt.MapFrom(f => string.Format("{0} {1} {2}", f.Surname, f.Name, f.Patronymic)))
-                   .ReverseMap();
 
-                cfg.CreateMap<TransportDistributionViewModel, TransportDistributionWindowViewModel>()
-                    .ForMember(m => m.NumberAndModel, opt => opt.MapFrom(f => string.Format("{0}|{1}", f.Number, f.Model)))
-                    .ReverseMap();
-
-                cfg.CreateMap<TransportDistributionWindowViewModel, TransportDistribution>()
-                    .ForMember(m => m.Transport_ID, opt => opt.MapFrom
-                        (f => _transportService.GetAll().Find(c => c.Model == f.NumberAndModel.Split('|')[1] && c.Number == f.NumberAndModel.Split('|')[0]).Id))
-                    .ForMember(m => m.Driver_ID, opt => opt.MapFrom
-                        (f => _driverService.GetAll().Find(c => c.Surname == f.FCS.Split(' ')[0] && c.Name == f.FCS.Split(' ')[1] && c.Patronymic == f.FCS.Split(' ')[2]).Id))
-                    .ReverseMap();
-
-                #endregion
-
-                #region Mechanics
-                // Механик из SQL в Табличного механика
-                cfg.CreateMap<MechanicSqlView, MechanicsViewModel>()
-                    .ForMember(m => m.FCS, opt => opt.MapFrom(f => string.Format("{0} {1} {2}", f.Surname, f.Name, f.Patronymic)))
-                    .ReverseMap();
-
-                // Из таблицы  в окошко редактирования/добавления
-                cfg.CreateMap<MechanicsViewModel, MechanicsWindowViewModel>()
-                .ForMember(m => m.Surname, opt => opt.MapFrom(f => f.FCS.Split(' ')[0]))
-                .ForMember(m => m.Name, opt => opt.MapFrom(f => f.FCS.Split(' ')[1]))
-                .ForMember(m => m.Patronymic, opt => opt.MapFrom(f => f.FCS.Split(' ')[2]))
-                .ReverseMap();
-
-                // Из ВьюМодели в базовую таблицу механиков
-                cfg.CreateMap<MechanicsWindowViewModel, Mechanic>()
-                .ForMember(m => m.Department_id, opt => opt.MapFrom
-                    (f => _departmentService.GetAll().Find(c => c.Name == f.DepartmentName).Id))
-                .ForMember(m => m.IdSex, opt => opt.MapFrom
-                    (f => _sexService.GetAll().Find(c => c.Name == f.Sex).Id))
-                .ReverseMap();
-                #endregion
-
-
-                // Транспорт из SQL в Табличный транспорт
-                cfg.CreateMap<TransportSqlView, TransportViewModel>().ReverseMap();
-
-                //Водители и категории SQL
+                #region Drivers
                 cfg.CreateMap<DriverSqlView, DriverViewModel>()
                    .ForMember(m => m.FCS, opt => opt.MapFrom(f => string.Format("{0} {1} {2}", f.Surname, f.Name, f.Patronymic)))
                    .ReverseMap();
 
+                // Из таблицы  в окошко редактирования/добавления
+                cfg.CreateMap<DriverViewModel, DriverWindowViewModel>()
+                .ForMember(m => m.Surname, opt => opt.MapFrom(f => f.FCS.Split(' ')[0]))
+                .ForMember(m => m.Name, opt => opt.MapFrom(f => f.FCS.Split(' ')[1]))
+                .ForMember(m => m.Patronymic, opt => opt.MapFrom(f => f.FCS.Split(' ')[2]))
+                .ReverseMap();
+
+                // Из ВьюМодели в базовую таблицу механиков
+                cfg.CreateMap<DriverWindowViewModel, Driver>()
+                .ForMember(m => m.Department_id, opt => opt.MapFrom
+                    (f => _departmentService.GetAll().Find(c => c.Name == f.DepartmentName).Id))
+                .ForMember(m => m.IdSex, opt => opt.MapFrom
+                    (f => _sexService.GetAll().Find(c => c.Name == f.Sex).Id))
+                .ReverseMap();
+                #endregion
             });
 
             return config.CreateMapper();
@@ -153,7 +188,8 @@ namespace MotorTransportCompany_MVVP.ViewModels
         }
         private void FillTransportDataGrid()
         {
-            Transport = _mapper.Map<ObservableCollection<TransportViewModel>>(_transportService.GetEntityByID(2));
+            //Transport = _transportService.GetAll();
+            Transport = _mapper.Map<ObservableCollection<TransportViewModel>>(_transportService.GetAll());
         }
         private void FillTransportDistributionDataGrid()
         {
@@ -289,6 +325,7 @@ namespace MotorTransportCompany_MVVP.ViewModels
         #endregion
 
         //Drivers
+
         //Transport
 
         //static public ObservableCollection<object> DataGridEntities { get; set; }
