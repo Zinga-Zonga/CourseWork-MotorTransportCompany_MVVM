@@ -7,6 +7,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Input;
 
 namespace MotorTransportCompany_MVVP.ViewModels
 {
@@ -29,9 +30,19 @@ namespace MotorTransportCompany_MVVP.ViewModels
                 FuelTypes.Add(ft.Name);
             }
         }
+        public ICommand OkCommand { get; }
+        public bool? DialogResult { get; set; }
         TransportSpecificationWindowViewModel()
         {
             FillFuelTypes();
+        }
+        public void Ok()
+        {
+            DialogResult = true;
+        }
+        public bool CanOk()
+        {
+            return true;
         }
     }
 }

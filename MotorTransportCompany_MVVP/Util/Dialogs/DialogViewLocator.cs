@@ -24,8 +24,12 @@ namespace MotorTransportCompany_MVVP.Util.Dialogs
 
             if (viewModel is DriverWindowViewModel)
                 return new DriversWindow();
+
             if (viewModel is TransportWindowViewModel)
                 return new TransportWindow();
+
+            if (viewModel is TransportSpecificationWindowViewModel)
+                return new TransportSpecificationWindow();
 
 
             return null;
