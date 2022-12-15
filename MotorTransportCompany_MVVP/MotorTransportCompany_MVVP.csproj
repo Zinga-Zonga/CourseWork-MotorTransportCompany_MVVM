@@ -148,10 +148,14 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Util\RelayCommand.cs" />
+    <Compile Include="ViewModels\DriverWindowViewModel.cs" />
     <Compile Include="ViewModels\GarageManagerWindowViewModel.cs" />
     <Compile Include="ViewModels\MechanicsWindowViewModel.cs" />
     <Compile Include="ViewModels\TransportDistributionWindowViewModel.cs" />
     <Compile Include="ViewModels\TransportWindowViewModel.cs" />
+    <Compile Include="View\DriversWindow.xaml.cs">
+      <DependentUpon>DriversWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\GarageManagerWindow.xaml.cs">
       <DependentUpon>GarageManagerWindow.xaml</DependentUpon>
     </Compile>
@@ -174,6 +178,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Themes\UIButtonTheme.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\DriversWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

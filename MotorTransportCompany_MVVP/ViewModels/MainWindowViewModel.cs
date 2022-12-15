@@ -24,8 +24,8 @@ namespace MotorTransportCompany_MVVP.ViewModels
             FillDriversDataGrid();
 
             AddMechanicCommand = new RelayCommand(AddTransportDistribution, () => true);
-            EditMechanicCommand = new RelayCommand(EditMechanic, () => true);
-            DeleteMechanicCommand = new RelayCommand(DeleteMechanics, () => true);
+            EditMechanicCommand = new RelayCommand(EditTransportDistribution, () => true);
+            DeleteMechanicCommand = new RelayCommand(DeleteTransportDistribution, () => true);
         }
 
         public RelayCommand AddMechanicCommand { get; }
@@ -33,7 +33,7 @@ namespace MotorTransportCompany_MVVP.ViewModels
         public RelayCommand DeleteMechanicCommand { get; }
         #region initiationOfServices and entities
         private readonly MechanicService _mechanicService = new MechanicService();
-        private readonly GarageManagerService _gmService = new GarageManagerService();
+        private readonly GarageManagerService _garageManagerService = new GarageManagerService();
         private readonly TransportService _transportService = new TransportService();
         private readonly TransportDistributionService _transportDistributionService = new TransportDistributionService();
         private readonly DriverService _driverService = new DriverService();
@@ -47,8 +47,8 @@ namespace MotorTransportCompany_MVVP.ViewModels
         #endregion
         private readonly IDialogService _dialogService = new DialogService();
 
-        private MechanicsViewModel _selectedEntity;
-        public MechanicsViewModel SelectedEntity
+        private TransportDistributionViewModel _selectedEntity;
+        public TransportDistributionViewModel SelectedEntity
         {
             get { return _selectedEntity; }
             set
@@ -149,7 +149,7 @@ namespace MotorTransportCompany_MVVP.ViewModels
         }
         private void FillGarageManagersDataGrid()
         {
-            GarageManagers = _mapper.Map<ObservableCollection<GarageManagerViewModel>>(_gmService.GetAll());
+            GarageManagers = _mapper.Map<ObservableCollection<GarageManagerViewModel>>(_garageManagerService.GetAll());
         }
         private void FillTransportDataGrid()
         {
@@ -164,6 +164,7 @@ namespace MotorTransportCompany_MVVP.ViewModels
             Drivers = _mapper.Map<ObservableCollection<DriverViewModel>>(_driverService.GetAll());
         }
         #endregion
+
         #region MechanicsCommands
         private void AddMechanics()
 
@@ -213,16 +214,40 @@ namespace MotorTransportCompany_MVVP.ViewModels
 
             if (res != true) return;
 
-            var mechanic = _mapper.Map<Mechanic>(viewModel);
+            var mechanic = _mapper.Map<GarageManager>(viewModel);
 
-            _mechanicService.Add(mechanic);
+            _garageManagerService.Add(mechanic);
 
-            FillMechanicsDataGrid();
+            FillGarageManagersDataGrid();
         }
 
+        private void EditGarageManager()
+        {
+            var viewModel = _mapper.Map<GarageManagerWindowViewModel>(SelectedEntity);
 
+            var res = _dialogService.OpenDialog(viewModel);
+
+            if (res != true) return;
+
+            var mechanic = _mapper.Map<GarageManager>(viewModel);
+
+            _garageManagerService.Update(mechanic);
+
+            FillGarageManagersDataGrid();
+        }
+        private void DeleteGarageManager()
+        {
+            var viewModel = _mapper.Map<GarageManagerWindowViewModel>(SelectedEntity);
+
+            var mechanic = _mapper.Map<GarageManager>(viewModel);
+
+            _mechanicService.Delete(mechanic.Id);
+
+            FillGarageManagersDataGrid();
+        }
 
         #endregion
+        #region TransportDistributionCommands
         private void AddTransportDistribution()
         {
             var viewModel = _mapper.Map<TransportDistributionWindowViewModel>(new TransportDistributionViewModel());
@@ -236,7 +261,35 @@ namespace MotorTransportCompany_MVVP.ViewModels
 
             FillTransportDistributionDataGrid();
         }
+        private void EditTransportDistribution()
+        {
+            var viewModel = _mapper.Map<TransportDistributionWindowViewModel>(SelectedEntity);
 
+            var res = _dialogService.OpenDialog(viewModel);
+
+            if (res != true) return;
+
+            var mechanic = _mapper.Map<TransportDistribution>(viewModel);
+
+            _transportDistributionService.Update(mechanic);
+
+            FillTransportDistributionDataGrid();
+        }
+
+        private void DeleteTransportDistribution()
+        {
+            var viewModel = _mapper.Map<TransportDistributionWindowViewModel>(SelectedEntity);
+
+            var mechanic = _mapper.Map<TransportDistribution>(viewModel);
+
+            _mechanicService.Delete(mechanic.Id);
+
+            FillTransportDistributionDataGrid();
+        }
+        #endregion
+
+        //Drivers
+        //Transport
 
         //static public ObservableCollection<object> DataGridEntities { get; set; }
 
