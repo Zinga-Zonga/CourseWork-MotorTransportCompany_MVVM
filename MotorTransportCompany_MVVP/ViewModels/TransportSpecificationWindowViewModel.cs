@@ -1,5 +1,7 @@
 ﻿using MotorTransportCompany_MVVP.Model;
 using MotorTransportCompany_MVVP.Model.Services;
+using MotorTransportCompany_MVVP.Util;
+using MotorTransportCompany_MVVP.Util.Dialogs;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -11,17 +13,17 @@ using System.Windows.Input;
 
 namespace MotorTransportCompany_MVVP.ViewModels
 {
-    internal class TransportSpecificationWindowViewModel : INotifyPropertyChanged
+    internal class TransportSpecificationWindowViewModel : INotifyPropertyChanged, IDialogViewModel
     {
         public int Id { get; set; }
-        public int FuelType { get; set; }
+        public string FuelType { get; set; }
         public string Model { get; set; }
         public double FuelConsumption { get; set; }
         public double TrunkVolume { get; set; }
 
         public event PropertyChangedEventHandler PropertyChanged;
         private FuelTypeService _fuelTypeService = new FuelTypeService();
-        private ObservableCollection<string> FuelTypes { get; set; } = new ObservableCollection<string>();
+        public ObservableCollection<string> FuelTypes { get; set; } = new ObservableCollection<string>();
 
         private void FillFuelTypes()
         {
@@ -34,6 +36,7 @@ namespace MotorTransportCompany_MVVP.ViewModels
         public bool? DialogResult { get; set; }
         TransportSpecificationWindowViewModel()
         {
+            OkCommand = new RelayCommand(Ok, CanOk);
             FillFuelTypes();
         }
         public void Ok()

@@ -23,10 +23,11 @@ namespace MotorTransportCompany_MVVP.ViewModels
             FillGarageManagersDataGrid();
             FillTransportDistributionDataGrid();
             FillDriversDataGrid();
+            FillTransportSpecificationDataGrid();
 
-            AddMechanicCommand = new RelayCommand(AddTransportDistribution, () => true);
-            EditMechanicCommand = new RelayCommand(EditTransportDistribution, () => true);
-            DeleteMechanicCommand = new RelayCommand(DeleteTransportDistribution, () => true);
+            AddMechanicCommand = new RelayCommand(AddTransportSpecification, () => true);
+            EditMechanicCommand = new RelayCommand(EditTransportSpecification, () => true);
+            DeleteMechanicCommand = new RelayCommand(DeleteTransportSpecification, () => true);
         }
 
         public RelayCommand AddMechanicCommand { get; }
@@ -48,11 +49,12 @@ namespace MotorTransportCompany_MVVP.ViewModels
         public ObservableCollection<TransportViewModel> Transport { get; set; }
         public ObservableCollection<TransportDistributionViewModel> TransportDistribution { get; set; }
         public ObservableCollection<DriverViewModel> Drivers { get; set; }
+        public ObservableCollection<TransportSpecificationViewModel> TransportSpecifications { get; set; }
         #endregion
         private readonly IDialogService _dialogService = new DialogService();
 
-        private TransportDistributionViewModel _selectedEntity;
-        public TransportDistributionViewModel SelectedEntity
+        private TransportSpecificationViewModel _selectedEntity;
+        public TransportSpecificationViewModel SelectedEntity
         {
             get { return _selectedEntity; }
             set
@@ -173,8 +175,16 @@ namespace MotorTransportCompany_MVVP.ViewModels
             .ReverseMap();
                 #endregion
 
-                #region TransportSpecification
+            #region TransportSpecification
+                cfg.CreateMap<TransportSpecificationSqlView, TransportSpecificationViewModel>()
+                .ReverseMap();
 
+                cfg.CreateMap<TransportSpecificationViewModel, TransportSpecificationWindowViewModel>()
+                    .ReverseMap();
+
+                cfg.CreateMap<TransportSpecificationWindowViewModel, TransportSpecification>()
+                    .ForMember(m => m.FuelType_ID, opt => opt.MapFrom(f => _fuelTypeService.GetAll().Find(c => c.Name == f.FuelType).Id))
+                    .ReverseMap();
                 #endregion
             });
 
@@ -202,6 +212,10 @@ namespace MotorTransportCompany_MVVP.ViewModels
         private void FillDriversDataGrid()
         {
             Drivers = _mapper.Map<ObservableCollection<DriverViewModel>>(_driverService.GetAll());
+        }
+        private void FillTransportSpecificationDataGrid()
+        {
+            TransportSpecifications = _mapper.Map<ObservableCollection<TransportSpecificationViewModel>>(_transportSpecificationService.GetAll());
         }
         #endregion
 
@@ -327,7 +341,44 @@ namespace MotorTransportCompany_MVVP.ViewModels
             FillTransportDistributionDataGrid();
         }
         #endregion
+        #region TransportSpecificationCommands
+        private void AddTransportSpecification()
+        {
+            var viewModel = _mapper.Map<TransportSpecificationWindowViewModel>(new TransportSpecificationViewModel());
+            var res = _dialogService.OpenDialog(viewModel);
 
+            if (res != true) return;
+
+            var mechanic = _mapper.Map<TransportSpecification>(viewModel);
+
+            _transportSpecificationService.Add(mechanic);
+
+            FillTransportSpecificationDataGrid();
+        }
+        private void EditTransportSpecification()
+        {
+            var viewModel = _mapper.Map<TransportSpecificationWindowViewModel>(SelectedEntity);
+            var res = _dialogService.OpenDialog(viewModel);
+
+            if (res != true) return;
+
+            var mechanic = _mapper.Map<TransportSpecification>(viewModel);
+
+            _transportSpecificationService.Update(mechanic);
+
+            FillTransportSpecificationDataGrid();
+        }
+        private void DeleteTransportSpecification()
+        {
+            var viewModel = _mapper.Map<TransportSpecificationWindowViewModel>(SelectedEntity);
+
+            var mechanic = _mapper.Map<TransportSpecification>(viewModel);
+
+            _transportSpecificationService.Delete(mechanic.Id);
+
+            FillTransportSpecificationDataGrid();
+        }
+        #endregion
         //Drivers
 
         //Transport

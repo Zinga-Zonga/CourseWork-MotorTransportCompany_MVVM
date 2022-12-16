@@ -147,11 +147,15 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Model\DAOs\TransportSpecificationViewDAO.cs" />
+    <Compile Include="Model\Domain\TransportSpecificationSqlView.cs" />
     <Compile Include="Util\RelayCommand.cs" />
     <Compile Include="ViewModels\DriverWindowViewModel.cs" />
     <Compile Include="ViewModels\GarageManagerWindowViewModel.cs" />
     <Compile Include="ViewModels\MechanicsWindowViewModel.cs" />
     <Compile Include="ViewModels\TransportDistributionWindowViewModel.cs" />
+    <Compile Include="ViewModels\TransportSpecificationViewModel.cs" />
+    <Compile Include="ViewModels\TransportSpecificationWindowViewModel.cs" />
     <Compile Include="ViewModels\TransportWindowViewModel.cs" />
     <Compile Include="View\DriversWindow.xaml.cs">
       <DependentUpon>DriversWindow.xaml</DependentUpon>
@@ -164,6 +168,9 @@
     </Compile>
     <Compile Include="View\TransportDistributionWindow.xaml.cs">
       <DependentUpon>TransportDistributionWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\TransportSpecificationWindow.xaml.cs">
+      <DependentUpon>TransportSpecificationWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\TransportWindow.xaml.cs">
       <DependentUpon>TransportWindow.xaml</DependentUpon>
@@ -268,6 +275,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\TransportDistributionWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\TransportSpecificationWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

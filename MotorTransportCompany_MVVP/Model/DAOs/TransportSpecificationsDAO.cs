@@ -1,4 +1,5 @@
 ﻿using MySqlConnector;
+using Senparc.CO2NET.Utilities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -95,8 +96,7 @@ namespace MotorTransportCompany_MVVP.Model.DAOs
             {
                 MySqlConnection connaction = new MySqlConnection(connectionString);
                 connaction.Open();
-                MySqlCommand command = new MySqlCommand($"INSERT INTO `transport_specifications` (`id_transport_specifications`, 'id_transport_specifications', 'id_fuel', 'model', 'trunk_volume', 'fuel_consumption')" +
-                            $" VALUES(NULL, '{entity.FuelType_ID}', '{entity.Model}', '{entity.TrunkVolume}', '{entity.FuelConsumption}')", connaction);
+                MySqlCommand command = new MySqlCommand($"INSERT INTO `transport_specifications` (`id_transport_specifications`, `id_fuel`, `model`, `trunk_volume`, `fuel_consumption`) VALUES (NULL, '{entity.FuelType_ID}', '{entity.Model}', '{entity.TrunkVolume}', '{entity.FuelConsumption}')", connaction);
                 command.ExecuteNonQuery();
                 connaction.Close();
             }
@@ -113,7 +113,7 @@ namespace MotorTransportCompany_MVVP.Model.DAOs
 
                 MySqlConnection connaction = new MySqlConnection(connectionString);
                 connaction.Open();
-                MySqlCommand command = new MySqlCommand($"UPDATE transport_specifications SET id_transport_specifications = '{entity.Id}', id_fuel = '{entity.FuelType_ID}', mode; = '{entity.Model}', trunk_volume = '{entity.TrunkVolume}', fuel_consumption = '{entity.FuelConsumption}' WHERE transport_specifications.id_transport_specifications = '{entity.Id}'", connaction);
+                MySqlCommand command = new MySqlCommand($"UPDATE `transport_specifications` SET `id_fuel` = '{entity.FuelType_ID}', `model` = '{entity.Model}', `trunk_volume` = '{entity.TrunkVolume.ToString().Replace(',','.')}', `fuel_consumption` = '{entity.FuelConsumption.ToString().Replace(',', '.')}' WHERE `transport_specifications`.`id_transport_specifications` = {entity.Id}", connaction);
                 command.ExecuteNonQuery();
                 connaction.Close();
             }
