@@ -1,10 +1,4 @@
-﻿using MotorTransportCompany_MVVP.Model;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.ComponentModel;
 
 namespace MotorTransportCompany_MVVP.ViewModels
 {
@@ -19,7 +13,6 @@ namespace MotorTransportCompany_MVVP.ViewModels
         public string Sex { get; set; }
         public int PassportNumber { get; set; }
         public int LicenseNumber { get; set; }
-        public string Categories { get; set; }
 
         public event PropertyChangedEventHandler PropertyChanged;
     }

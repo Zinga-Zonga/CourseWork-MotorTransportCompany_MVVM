@@ -147,9 +147,13 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Model\DAOs\DriversCategoriesSqlViewDAO.cs" />
     <Compile Include="Model\DAOs\TransportSpecificationViewDAO.cs" />
+    <Compile Include="Model\Domain\DriversAndCategoriesSqlView.cs" />
     <Compile Include="Model\Domain\TransportSpecificationSqlView.cs" />
     <Compile Include="Util\RelayCommand.cs" />
+    <Compile Include="ViewModels\DriversAndCategoriesViewModel.cs" />
+    <Compile Include="ViewModels\DriversAndCategoriesWindowViewModel.cs" />
     <Compile Include="ViewModels\DriverWindowViewModel.cs" />
     <Compile Include="ViewModels\GarageManagerWindowViewModel.cs" />
     <Compile Include="ViewModels\MechanicsWindowViewModel.cs" />
@@ -157,6 +161,9 @@
     <Compile Include="ViewModels\TransportSpecificationViewModel.cs" />
     <Compile Include="ViewModels\TransportSpecificationWindowViewModel.cs" />
     <Compile Include="ViewModels\TransportWindowViewModel.cs" />
+    <Compile Include="View\DriversAndCategoriesWindow.xaml.cs">
+      <DependentUpon>DriversAndCategoriesWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\DriversWindow.xaml.cs">
       <DependentUpon>DriversWindow.xaml</DependentUpon>
     </Compile>
@@ -188,6 +195,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Themes\UIButtonTheme.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\DriversAndCategoriesWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

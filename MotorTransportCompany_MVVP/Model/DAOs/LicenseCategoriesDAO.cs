@@ -19,7 +19,7 @@ namespace MotorTransportCompany_MVVP.Model.DAOs
                 MySqlConnection connaction = new MySqlConnection(connectionString);
                 connaction.Open();
 
-                MySqlCommand command = new MySqlCommand("SELECT id_category, fuel FROM `license_categories`", connaction);
+                MySqlCommand command = new MySqlCommand("SELECT id_category, category FROM `license_categories`", connaction);
                 using (MySqlDataReader reader = command.ExecuteReader())
                 {
                     while (reader.Read())
@@ -89,8 +89,7 @@ namespace MotorTransportCompany_MVVP.Model.DAOs
             {
                 MySqlConnection connaction = new MySqlConnection(connectionString);
                 connaction.Open();
-                MySqlCommand command = new MySqlCommand($"INSERT INTO `license_categories` (`id_category`, `category`)" +
-                            $" VALUES(NULL, '{entity.Category}')", connaction);
+                MySqlCommand command = new MySqlCommand($"INSERT INTO `license_categories` (`id_category`, `category`) VALUES (NULL, '{entity.Category}')", connaction);
                 command.ExecuteNonQuery();
                 connaction.Close();
             }

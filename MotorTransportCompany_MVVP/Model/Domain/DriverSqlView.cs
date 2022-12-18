@@ -18,6 +18,5 @@ namespace MotorTransportCompany_MVVP.Model.Domain
         public string Sex { get; set; }
         public int PassportNumber { get; set; }
         public int LicenseNumber { get; set; }
-        public string Categories { get; set; }
     }
 }

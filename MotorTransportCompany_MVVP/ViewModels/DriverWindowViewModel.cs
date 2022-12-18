@@ -1,19 +1,18 @@
 ﻿using MotorTransportCompany_MVVP.Model.Entities;
 using MotorTransportCompany_MVVP.Model;
-using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Input;
 using MotorTransportCompany_MVVP.Model.Services;
-using System.Collections.Specialized;
+using MotorTransportCompany_MVVP.Util.Dialogs;
+using MotorTransportCompany_MVVP.Util;
+using System.ComponentModel;
 
 namespace MotorTransportCompany_MVVP.ViewModels
 {
-    internal class DriverWindowViewModel : INotifyCollectionChanged
+    internal class DriverWindowViewModel : INotifyPropertyChanged, IDialogViewModel
     {
+        // Что касается Dirvera
         public int Id { get; set; }
         public string DepartmentName { get; set; }
         public string Name { get; set; }
@@ -24,9 +23,10 @@ namespace MotorTransportCompany_MVVP.ViewModels
         public string Sex { get; set; }
         public int PassportNumber { get; set; }
         public int LicenseNumber { get; set; }
-        public string Categories { get; set; }
+        // что касается DriverCategories
+        
 
-        public ObservableCollection<CheckComboCategories> CheckComboCategoriesList { get; set; }
+        public List<CheckComboCategories> CheckComboCategoriesList { get; set; } = new List<CheckComboCategories>();
         public class CheckComboCategories
         {
             public string Categs { get; set; }
@@ -35,14 +35,16 @@ namespace MotorTransportCompany_MVVP.ViewModels
         public LicenseCategoriesService _licenseCategoriesService = new LicenseCategoriesService();
         static DepartmentService _departmentService = new DepartmentService();
         static SexService _sexService = new SexService();
+        public DriversAndCategoriesService _driversAndCategoriesService = new DriversAndCategoriesService();
 
-        public event NotifyCollectionChangedEventHandler CollectionChanged;
+        public event PropertyChangedEventHandler PropertyChanged;
 
         DriverWindowViewModel()
         {
+            OkCommand = new RelayCommand(Ok, CanOk);
             FillDepartmentsNames(_departmentService.GetAll());
             FillSexTypes(_sexService.GetAll());
-            FillCheckComboCategories();
+            
         }
         public ICommand OkCommand { get; }
         public bool? DialogResult { get; set; }
@@ -68,21 +70,14 @@ namespace MotorTransportCompany_MVVP.ViewModels
                 }
             }
         }
-        private void FillCheckComboCategories()
+        
+        public void Ok()
         {
-            foreach(var category in _licenseCategoriesService.GetAll())
-            {
-                bool check = false;
-                if (Categories.Split(',').Contains(category.Category))
-                {
-                    check = true;
-                }
-                new CheckComboCategories()
-                {
-                    Categs = category.Category,
-                    Check_Status = check
-                };
-            }
+            DialogResult = true;
+        }
+        public bool CanOk()
+        {
+            return true;
         }
     }
 }

@@ -103,8 +103,7 @@ namespace MotorTransportCompany_MVVP.Model.DAOs
             {
                 MySqlConnection connaction = new MySqlConnection(connectionString);
                 connaction.Open();
-                MySqlCommand command = new MySqlCommand($"INSERT INTO `drivers` (`id_driver`, `id_department`, `name`, `surname`, `patronymic`, `birthday`, `age`, `id_sex`, `passport`)" +
-                            $" VALUES(NULL, '{entity.Department_id}', '{entity.Name}', '{entity.Surname}', '{entity.Patronymic}', '{entity.BirthdayDate}', '{entity.Age}', '{entity.IdSex}', '{entity.PassportNumber}')", connaction);
+                MySqlCommand command = new MySqlCommand($"INSERT INTO `drivers` (`id_driver`, `id_department`, `name`, `surname`, `patronymic`, `birthday`, `age`, `id_sex`, `passport`, `license`) VALUES (NULL, '{entity.Department_id}', '{entity.Name}', '{entity.Surname}', '{entity.Patronymic}', '{entity.BirthdayDate}', '{entity.Age}', '{entity.IdSex}', '{entity.PassportNumber}', '{entity.LicenseNumber}')", connaction);
                 command.ExecuteNonQuery();
                 connaction.Close();
             }

@@ -100,7 +100,8 @@
                             Grid.Column="1"
                             Grid.Row="1" RenderTransformOrigin="0.52,0.482">
                 <DataGrid x:Name="MTC" 
-                          ItemsSource= "{Binding TransportSpecifications}"
+                          ItemsSource= "{Binding DriversAndCategories
+                    }"
                           IsReadOnly="True"
                           SelectedItem="{Binding SelectedEntity, Mode=TwoWay}"
                           SelectionMode="Single"

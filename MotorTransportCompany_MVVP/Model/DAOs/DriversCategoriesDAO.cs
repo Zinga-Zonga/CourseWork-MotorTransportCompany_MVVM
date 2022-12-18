@@ -92,8 +92,7 @@ namespace MotorTransportCompany_MVVP.Model.DAOs
             {
                 MySqlConnection connaction = new MySqlConnection(connectionString);
                 connaction.Open();
-                MySqlCommand command = new MySqlCommand($"INSERT INTO `drivers_categories` (`id`, 'id_driver', 'id_category')" +
-                            $" VALUES(NULL, '{entity.DriverID}', '{entity.CategoryID}')", connaction);
+                MySqlCommand command = new MySqlCommand($"INSERT INTO `drivers_categories` (`id`, `id_driver`, `id_category`) VALUES (NULL, '{entity.DriverID}', '{entity.CategoryID}')", connaction);
                 command.ExecuteNonQuery();
                 connaction.Close();
             }

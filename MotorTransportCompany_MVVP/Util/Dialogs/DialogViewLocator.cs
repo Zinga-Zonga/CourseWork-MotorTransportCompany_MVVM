@@ -31,7 +31,8 @@ namespace MotorTransportCompany_MVVP.Util.Dialogs
             if (viewModel is TransportSpecificationWindowViewModel)
                 return new TransportSpecificationWindow();
 
-
+            if (viewModel is DriversAndCategoriesWindowViewModel)
+                return new DriversAndCategoriesWindow();
             return null;
         }
     }
