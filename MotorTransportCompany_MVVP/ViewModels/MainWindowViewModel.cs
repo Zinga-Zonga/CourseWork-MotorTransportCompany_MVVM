@@ -27,9 +27,9 @@ namespace MotorTransportCompany_MVVP.ViewModels
             FillTransportSpecificationDataGrid();
             FillDriversAndCategoriesDataGrid();
 
-            AddMechanicCommand = new RelayCommand(AddDriverAndCategory, () => true);
-            EditMechanicCommand = new RelayCommand(EditDriverAndCategory, () => true);
-            DeleteMechanicCommand = new RelayCommand(DeleteDriverAndCategory, () => true);
+            AddMechanicCommand = new RelayCommand(AddTransport, () => true);
+            EditMechanicCommand = new RelayCommand(EditTransport, () => true);
+            DeleteMechanicCommand = new RelayCommand(DeleteTransport, () => true);
         }
 
         public RelayCommand AddMechanicCommand { get; }
@@ -58,8 +58,8 @@ namespace MotorTransportCompany_MVVP.ViewModels
         #endregion
         private readonly IDialogService _dialogService = new DialogService();
 
-        private DriversAndCategoriesViewModel _selectedEntity;
-        public DriversAndCategoriesViewModel SelectedEntity
+        private TransportViewModel _selectedEntity;
+        public TransportViewModel SelectedEntity
         {
             get { return _selectedEntity; }
             set
@@ -140,7 +140,7 @@ namespace MotorTransportCompany_MVVP.ViewModels
                 #endregion
 
                 #region Transport
-                // Таблица из SQL водителей и автом в таблицу водителей и авто
+                
                 cfg.CreateMap<TransportSqlView, TransportViewModel>()
                    .ReverseMap();
 
@@ -150,13 +150,11 @@ namespace MotorTransportCompany_MVVP.ViewModels
                 cfg.CreateMap<TransportWindowViewModel, Transport>()
                     .ForMember(m => m.Department_ID, opt => opt.MapFrom
                         (f => _departmentService.GetAll().Find(c => c.Name == f.Department).Id))
-                    .ForMember(m => m.TransportSpecification_ID, opt => opt.MapFrom
-                        (f => _transportSpecificationService.GetAll()
-                            .Find(c => c.TrunkVolume == f.TrunkVolume && c.FuelConsumption == f.FuelConsumption && c.Model == f.Model)))
+                    .ForMember(m => m.TransportSpecification_ID, opt => opt.MapFrom(f => _transportSpecificationService.GetAll().Find(c => c.Model == f.Model && c.FuelType == f.Fuel).Id))
                     .ForMember(m => m.TechnicalCondition_ID, opt => opt.MapFrom(f => _technicalConditionService.GetAll().Find(c => c.Condition == f.TechnicalCondition).Id))
                     .ForMember(m => m.TransportNumber, opt => opt.MapFrom(f => f.Number))
                     .ReverseMap();
-                    
+
                     #endregion
 
                 #region Drivers

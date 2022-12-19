@@ -5,6 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:MotorTransportCompany_MVVP.View"
         mc:Ignorable="d"
+        xmlns:utils="clr-namespace:MotorTransportCompany_MVVP.Util"
+        utils:DialogResultHelper.DialogResult ="{Binding DialogResult}"
         Title="TransportWindow" Height="650" Width="400">
     <Border Background="#272522"
             CornerRadius="20">
@@ -28,7 +30,7 @@
                        Margin="0,5,0,5"/>
             
             <ComboBox ItemsSource="{Binding DepartmentsNames}"
-                      SelectedItem="{Binding DepartmentName}"
+                      SelectedItem="{Binding Department}"
                       Background="#353300"
                       BorderThickness="0"
                       VerticalContentAlignment="Center"

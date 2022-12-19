@@ -19,7 +19,7 @@ namespace MotorTransportCompany_MVVP.Model.DAOs
                 MySqlConnection connaction = new MySqlConnection(connectionString);
                 connaction.Open();
 
-                MySqlCommand command = new MySqlCommand("SELECT id_condition, fuel FROM `technical_conditions`", connaction);
+                MySqlCommand command = new MySqlCommand("SELECT id_condition, technical_condition FROM `technical_conditions`", connaction);
                 using (MySqlDataReader reader = command.ExecuteReader())
                 {
                     while (reader.Read())
@@ -48,7 +48,7 @@ namespace MotorTransportCompany_MVVP.Model.DAOs
             {
                 MySqlConnection connaction = new MySqlConnection(connectionString);
                 connaction.Open();
-                MySqlCommand command = new MySqlCommand($"SELECT id_condition, fuel FROM `technical_conditions` WHERE id_condition = {id}", connaction);
+                MySqlCommand command = new MySqlCommand($"SELECT id_condition, technical_condition FROM `technical_conditions` WHERE id_condition = {id}", connaction);
                 using (MySqlDataReader reader = command.ExecuteReader())
                 {
                     TechnicalCondition entity = new TechnicalCondition
