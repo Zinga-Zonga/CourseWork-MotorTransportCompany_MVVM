@@ -1,4 +1,5 @@
 ﻿using MotorTransportCompany_MVVP.Model;
+using MotorTransportCompany_MVVP.Model.Domain;
 using MotorTransportCompany_MVVP.Model.Services;
 using MotorTransportCompany_MVVP.Util;
 using MotorTransportCompany_MVVP.Util.Dialogs;
@@ -29,8 +30,9 @@ namespace MotorTransportCompany_MVVP.ViewModels
         static DepartmentService _departmentService = new DepartmentService();
         static TechnicalConditionService _technicalConditionService = new TechnicalConditionService();
         static FuelTypeService _fuelTypeService = new FuelTypeService();
+        static TransportSpecificationService _transportSpecificationService = new TransportSpecificationService();
         public List<string> DepartmentsNames { get; set; } = new List<string>();
-        public List<string> FuelTypes { get; set; } = new List<string>();
+        public List<string> Models { get; set; } = new List<string>();
         public List<string> TechnicalConditions { get; set; } = new List<string>();
         private void FillDepartmentsNames(List<Department> departments)
         {
@@ -42,16 +44,7 @@ namespace MotorTransportCompany_MVVP.ViewModels
                 }
             }
         }
-        private void FillFuelTypes(List<FuelType> fuelTypes)
-        {
-            if (fuelTypes.Count != 0)
-            {
-                foreach (FuelType dep in fuelTypes)
-                {
-                    FuelTypes.Add(dep.Name);
-                }
-            }
-        }
+        
         private void FillTechnicalConditions(List<TechnicalCondition> technicalConditions)
         {
             if(technicalConditions.Count != 0)
@@ -62,12 +55,22 @@ namespace MotorTransportCompany_MVVP.ViewModels
                 }
             }
         }
+        private void FillModels(List<TransportSpecificationSqlView> transportSpecifications)
+        {
+            if (transportSpecifications.Count != 0)
+            {
+                foreach (TransportSpecificationSqlView ft in transportSpecifications)
+                {
+                    Models.Add(ft.Model);
+                }
+            }
+        }
         public TransportWindowViewModel()
         {
             OkCommand = new RelayCommand(Ok, CanOk);
             FillDepartmentsNames(_departmentService.GetAll());
-            FillFuelTypes(_fuelTypeService.GetAll());
             FillTechnicalConditions(_technicalConditionService.GetAll());
+            FillModels(_transportSpecificationService.GetAll());
         }
         public void Ok()
         {

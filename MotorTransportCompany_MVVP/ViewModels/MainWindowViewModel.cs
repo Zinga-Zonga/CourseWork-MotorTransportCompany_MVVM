@@ -290,6 +290,7 @@ namespace MotorTransportCompany_MVVP.ViewModels
             FillMechanicsDataGrid();
         }
         #endregion
+
         #region GarageManagersCommands
         private void AddGarageManager()
         {
@@ -331,6 +332,7 @@ namespace MotorTransportCompany_MVVP.ViewModels
         }
 
         #endregion
+
         #region TransportDistributionCommands
         private void AddTransportDistribution()
         {
@@ -371,6 +373,7 @@ namespace MotorTransportCompany_MVVP.ViewModels
             FillTransportDistributionDataGrid();
         }
         #endregion
+
         #region TransportSpecificationCommands
         private void AddTransportSpecification()
         {
@@ -409,7 +412,8 @@ namespace MotorTransportCompany_MVVP.ViewModels
             FillTransportSpecificationDataGrid();
         }
         #endregion
-        //Drivers проблема категорий и вставки в таблицу
+
+        #region DirverCommands
         private void AddDriver()
         {   
             var viewModel = _mapper.Map<DriverWindowViewModel>(new DriverViewModel());
@@ -420,21 +424,6 @@ namespace MotorTransportCompany_MVVP.ViewModels
             var mechanic = _mapper.Map<Driver>(viewModel);
 
             _driverService.Add(mechanic);
-
-            //var driverAndCategory = _mapper.Map<DriversAndCategories>(viewModel);
-            //var lastDriver = _driverService.GetAll().Last();
-            //foreach(var category in viewModel.CheckComboCategoriesList)
-            //{
-            //    if(_driversAndCategoriesService.GetAll().Find(c => c.DriverID == viewModel.Id && c.CategoryID == _licenseCategoriesService.GetAll().Find(f => f.Category == category.Categs).Id) == null)
-            //    {
-            //        _driversAndCategoriesService.Add(new DriversAndCategories
-            //        {
-            //            DriverID = lastDriver.Id,
-            //            CategoryID = _licenseCategoriesService.GetAll().Find(f => f.Category == category.Categs).Id
-            //        }); ;
-            //    }
-
-            //}
 
             FillDriversDataGrid();
         }
@@ -462,6 +451,9 @@ namespace MotorTransportCompany_MVVP.ViewModels
 
             FillDriversDataGrid();
         }
+        #endregion
+
+        #region DriverAndCategoriesCommands
         private void AddDriverAndCategory()
         {
             var viewModel = _mapper.Map<DriversAndCategoriesWindowViewModel>(new DriversAndCategoriesViewModel());
@@ -556,15 +548,54 @@ namespace MotorTransportCompany_MVVP.ViewModels
                 }
             }
         }
-    //Transport 
+        #endregion
+        //Transport 
+        #region TransportCommands
+        private void AddTransport()
+        {
+            var viewModel = _mapper.Map<TransportWindowViewModel>(new TransportViewModel());
+            var res = _dialogService.OpenDialog(viewModel);
 
-    //static public ObservableCollection<object> DataGridEntities { get; set; }
+            if (res != true) return;
+
+            var mechanic = _mapper.Map<Transport>(viewModel);
+
+            _transportService.Add(mechanic);
+
+            FillTransportDataGrid();
+        }
+        private void EditTransport()
+        {
+            var viewModel = _mapper.Map<TransportWindowViewModel>(SelectedEntity);
+
+            var res = _dialogService.OpenDialog(viewModel);
+
+            if (res != true) return;
+
+            var mechanic = _mapper.Map<Transport>(viewModel);
+
+            _transportService.Update(mechanic);
+
+            FillTransportDataGrid();
+        }
+        private void DeleteTransport()
+        {
+            var viewModel = _mapper.Map<TransportWindowViewModel>(SelectedEntity);
+
+            var mechanic = _mapper.Map<Transport>(viewModel);
+
+            _transportService.Delete(mechanic.Id);
+
+            FillTransportDataGrid();
+        }
+        #endregion
+        //static public ObservableCollection<object> DataGridEntities { get; set; }
 
 
 
 
 
-    public event PropertyChangedEventHandler PropertyChanged;
+        public event PropertyChangedEventHandler PropertyChanged;
 
     }
 
