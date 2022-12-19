@@ -4,6 +4,9 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:MotorTransportCompany_MVVP"
+        xmlns:viewmodel="clr-namespace:MotorTransportCompany_MVVP.ViewModels"
+        xmlns:view="clr-namespace:MotorTransportCompany_MVVP.View"
+        
         mc:Ignorable="d"
         Title="MainWindow" Height="600" Width="950"
         WindowStyle="None"
@@ -11,6 +14,11 @@
         Background="Transparent"
         AllowsTransparency="True"
         >
+    <Window.Resources>
+        <DataTemplate DataType="{x:Type viewmodel:MainWindowDriverViewModel}">
+            <view:MainWindowDriverView/>
+        </DataTemplate>
+    </Window.Resources>
     <Border Background="#272537"
             CornerRadius="20">
         <Grid>
@@ -25,8 +33,7 @@
                 </RowDefinition>
                 <RowDefinition>
                 </RowDefinition>
-                <RowDefinition Height="100">
-                </RowDefinition>
+                
             </Grid.RowDefinitions>
             <TextBlock Text="Грузоперевозки"
                        VerticalAlignment="Center"
@@ -98,17 +105,31 @@
             <ContentControl BorderThickness="1"
                             Background="AliceBlue"
                             Grid.Column="1"
-                            Grid.Row="1" RenderTransformOrigin="0.52,0.482">
-                <DataGrid x:Name="MTC" 
-                          ItemsSource= "{Binding Transport
-                    }"
+                            Grid.Row="1" RenderTransformOrigin="0.52,0.482"
+                            x:Name="Pages" Content="{Binding SelectedViewModel}">
+                
+                <!--<DataGrid x:Name="MTC" 
+                          ItemsSource= "{Binding Transport}"
                           IsReadOnly="True"
                           SelectedItem="{Binding SelectedEntity, Mode=TwoWay}"
                           SelectionMode="Single"
-                          SelectionUnit="FullRow">
+                          SelectionUnit="FullRow"
+                          Margin="10,0,10,0">
+                            
 
-                </DataGrid>
+                </DataGrid>-->
+                
             </ContentControl>
+            <!--<DataGrid x:Name="MTC" 
+                          ItemsSource= "{Binding Transport}"
+                          IsReadOnly="True"
+                          SelectedItem="{Binding SelectedEntity, Mode=TwoWay}"
+                          SelectionMode="Single"
+                          SelectionUnit="FullRow"
+                          Margin="10,0,10,0">
+
+
+            </DataGrid>
             <StackPanel Grid.Row="2"
                         Grid.Column="1"
                         Orientation="Horizontal">
@@ -118,7 +139,7 @@
                         FontSize="14"
                         Style="{StaticResource UIButtonTheme}"
                         Content="Add Drivers"
-                        Command="{Binding AddMechanicCommand}">
+                        Command="{Binding AddCommand}">
                 </Button>
                 <Button Width="250"
                         BorderThickness="0"
@@ -126,7 +147,7 @@
                         FontSize="14"
                         Style="{StaticResource UIButtonTheme}"
                         Content="Edit"
-                        Command="{Binding EditMechanicCommand}">
+                        Command="{Binding EditCommand}">
 
                 </Button>
                 <Button Width="250"
@@ -135,10 +156,10 @@
                         FontSize="14"
                         Style="{StaticResource UIButtonTheme}"
                         Content="Delete"
-                        Command="{Binding DeleteMechanicCommand}">
+                        Command="{Binding DeleteCommand}">
 
                 </Button>
-            </StackPanel>
+            </StackPanel>-->
 
 
         </Grid>

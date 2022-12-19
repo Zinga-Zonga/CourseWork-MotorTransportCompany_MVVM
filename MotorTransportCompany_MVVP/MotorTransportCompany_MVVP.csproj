@@ -156,6 +156,7 @@
     <Compile Include="ViewModels\DriversAndCategoriesWindowViewModel.cs" />
     <Compile Include="ViewModels\DriverWindowViewModel.cs" />
     <Compile Include="ViewModels\GarageManagerWindowViewModel.cs" />
+    <Compile Include="ViewModels\MainWindowDriverViewModel.cs" />
     <Compile Include="ViewModels\MechanicsWindowViewModel.cs" />
     <Compile Include="ViewModels\TransportDistributionWindowViewModel.cs" />
     <Compile Include="ViewModels\TransportSpecificationViewModel.cs" />
@@ -169,6 +170,9 @@
     </Compile>
     <Compile Include="View\GarageManagerWindow.xaml.cs">
       <DependentUpon>GarageManagerWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\MainWindowDriverView.xaml.cs">
+      <DependentUpon>MainWindowDriverView.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\MechanicsWindow.xaml.cs">
       <DependentUpon>MechanicsWindow.xaml</DependentUpon>
@@ -278,6 +282,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Themes\TextBoxTheme.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\MainWindowDriverView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

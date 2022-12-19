@@ -6,6 +6,7 @@ using MotorTransportCompany_MVVP.Model.Entities;
 using MotorTransportCompany_MVVP.Model.Services;
 using MotorTransportCompany_MVVP.Util;
 using MotorTransportCompany_MVVP.Util.Dialogs;
+using Org.BouncyCastle.Asn1.Mozilla;
 using Org.BouncyCastle.Security;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
@@ -16,22 +17,13 @@ namespace MotorTransportCompany_MVVP.ViewModels
     internal class MainWindowViewModel : INotifyPropertyChanged
     {
         // Если обьект к которому мы при привязываемся имеет Такую-то вью модель, то мы даём такой-то функционал
+        public MainWindowDriverViewModel MainWindowDriverVM { get; set; }
         public MainWindowViewModel()
         {
-            _mapper = InitMappings();
-            FillTransportDataGrid();
-            FillMechanicsDataGrid();
-            FillGarageManagersDataGrid();
-            FillTransportDistributionDataGrid();
-            FillDriversDataGrid();
-            FillTransportSpecificationDataGrid();
-            FillDriversAndCategoriesDataGrid();
-
-            AddMechanicCommand = new RelayCommand(AddTransport, () => true);
-            EditMechanicCommand = new RelayCommand(EditTransport, () => true);
-            DeleteMechanicCommand = new RelayCommand(DeleteTransport, () => true);
+            MainWindowDriverVM = new MainWindowDriverViewModel();
+            SelectedViewModel = MainWindowDriverVM;
         }
-
+        public object SelectedViewModel { get; set; }
         public RelayCommand AddMechanicCommand { get; }
         public RelayCommand EditMechanicCommand { get; }
         public RelayCommand DeleteMechanicCommand { get; }
