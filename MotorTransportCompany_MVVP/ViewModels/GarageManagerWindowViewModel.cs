@@ -13,7 +13,7 @@ using MotorTransportCompany_MVVP.Util.Dialogs;
 
 namespace MotorTransportCompany_MVVP.ViewModels
 {
-    internal class GarageManagerWindowViewModel : IDialogViewModel
+    internal class GarageManagerWindowViewModel : IDialogViewModel, INotifyPropertyChanged
     {
         public int Id { get; set; }
         public string DepartmentName { get; set; }

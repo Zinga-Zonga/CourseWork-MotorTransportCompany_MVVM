@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MotorTransportCompany_MVVP.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -13,18 +14,22 @@ namespace MotorTransportCompany_MVVP.Util
         private readonly Func<bool> _canAction;
         private readonly Action<object> _actionParameterized;
         private readonly Func<object, bool> _canActionParameterized;
+        
 
         public RelayCommand(Action action, Func<bool> canAction)
         {
             _action = action;
             _canAction = canAction;
         }
-
-        public RelayCommand(Action<object> action, Func<object, bool> canAction)
+        public RelayCommand(Action action)
         {
-            _actionParameterized = action;
-            _canActionParameterized = canAction;
+            _action = action;
+            
         }
+
+
+
+
 
         #region ICommand Members
 

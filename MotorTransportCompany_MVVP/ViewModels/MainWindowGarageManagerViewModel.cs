@@ -131,7 +131,7 @@ namespace MotorTransportCompany_MVVP.ViewModels
 
             var mechanic = _mapper.Map<GarageManager>(viewModel);
 
-            _mechanicService.Delete(mechanic.Id);
+            _garageManagerService.Delete(mechanic.Id);
 
             FillGarageManagersDataGrid();
         }

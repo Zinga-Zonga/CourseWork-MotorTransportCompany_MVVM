@@ -156,7 +156,13 @@
     <Compile Include="ViewModels\DriversAndCategoriesWindowViewModel.cs" />
     <Compile Include="ViewModels\DriverWindowViewModel.cs" />
     <Compile Include="ViewModels\GarageManagerWindowViewModel.cs" />
+    <Compile Include="ViewModels\MainWindowDriversAndCategoriesViewModel.cs" />
     <Compile Include="ViewModels\MainWindowDriverViewModel.cs" />
+    <Compile Include="ViewModels\MainWindowGarageManagerViewModel.cs" />
+    <Compile Include="ViewModels\MainWindowMechanicViewModel.cs" />
+    <Compile Include="ViewModels\MainWindowTransportDistributionViewModel.cs" />
+    <Compile Include="ViewModels\MainWindowTransportSpecificationViewModel.cs" />
+    <Compile Include="ViewModels\MainWindowTransportViewModel.cs" />
     <Compile Include="ViewModels\MechanicsWindowViewModel.cs" />
     <Compile Include="ViewModels\TransportDistributionWindowViewModel.cs" />
     <Compile Include="ViewModels\TransportSpecificationViewModel.cs" />
@@ -171,8 +177,26 @@
     <Compile Include="View\GarageManagerWindow.xaml.cs">
       <DependentUpon>GarageManagerWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\MainWindowDriversAndCategoriesView.xaml.cs">
+      <DependentUpon>MainWindowDriversAndCategoriesView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\MainWindowDriverView.xaml.cs">
       <DependentUpon>MainWindowDriverView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\MainWindowGarageManagerView.xaml.cs">
+      <DependentUpon>MainWindowGarageManagerView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\MainWindowMechanicView.xaml.cs">
+      <DependentUpon>MainWindowMechanicView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\MainWindowTransportDistributionView.xaml.cs">
+      <DependentUpon>MainWindowTransportDistributionView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\MainWindowTransportSpecificationView.xaml.cs">
+      <DependentUpon>MainWindowTransportSpecificationView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\MainWindowTransportView.xaml.cs">
+      <DependentUpon>MainWindowTransportView.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\MechanicsWindow.xaml.cs">
       <DependentUpon>MechanicsWindow.xaml</DependentUpon>
@@ -285,7 +309,31 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="View\MainWindowDriversAndCategoriesView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="View\MainWindowDriverView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\MainWindowGarageManagerView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\MainWindowMechanicView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\MainWindowTransportDistributionView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\MainWindowTransportSpecificationView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\MainWindowTransportView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

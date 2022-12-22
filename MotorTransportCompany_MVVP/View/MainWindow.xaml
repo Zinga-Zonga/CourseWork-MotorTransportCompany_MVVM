@@ -18,6 +18,25 @@
         <DataTemplate DataType="{x:Type viewmodel:MainWindowDriverViewModel}">
             <view:MainWindowDriverView/>
         </DataTemplate>
+        <DataTemplate DataType="{x:Type viewmodel:MainWindowMechanicViewModel}">
+            <view:MainWindowMechanicView/>
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type viewmodel:MainWindowGarageManagerViewModel}">
+            <view:MainWindowGarageManagerView/>
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type viewmodel:MainWindowTransportViewModel}">
+            <view:MainWindowTransportView/>
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type viewmodel:MainWindowTransportDistributionViewModel}">
+            <view:MainWindowTransportDistributionView/>
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type viewmodel:MainWindowTransportSpecificationViewModel}">
+            <view:MainWindowTransportSpecificationView/>
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type viewmodel:MainWindowDriversAndCategoriesViewModel}">
+            <view:MainWindowDriversAndCategoriesView/>
+        </DataTemplate>
+        
     </Window.Resources>
     <Border Background="#272537"
             CornerRadius="20">
@@ -48,19 +67,51 @@
                              Foreground="White"
                              FontSize="14"
                              Style="{StaticResource ResourceKey=MenuButtonTheme}" RenderTransformOrigin="0.503,0.5"
-                             IsChecked="True"/>
+                             IsChecked="True"
+                             Command="{Binding MainWindowDriverCommand}"/>
+                <RadioButton Content="Механики"
+                             Height="50"
+                             Foreground="White"
+                             FontSize="14"
+                             Style="{StaticResource ResourceKey=MenuButtonTheme}" RenderTransformOrigin="0.503,0.5"
+                             Command="{Binding MainWindowMechanicCommand}"
+                             />
+                <RadioButton Content="Завгары"
+                             Height="50"
+                             Foreground="White"
+                             FontSize="14"
+                             Style="{StaticResource ResourceKey=MenuButtonTheme}" RenderTransformOrigin="0.503,0.5"
+                             Command="{Binding MainWindowGarageManagerCommand}"
+                             />
                 <RadioButton Content="Транспорт"
                              Height="50"
                              Foreground="White"
                              FontSize="14"
                              Style="{StaticResource ResourceKey=MenuButtonTheme}" RenderTransformOrigin="0.503,0.5"
+                             Command="{Binding MainWindowTransportCommand}"
                              />
-                <RadioButton Content="ЖОПА БОБРА"
+                <RadioButton Content="Распределение ТС"
                              Height="50"
                              Foreground="White"
                              FontSize="14"
                              Style="{StaticResource ResourceKey=MenuButtonTheme}" RenderTransformOrigin="0.503,0.5"
+                             Command="{Binding MainWindowTransportDistributionCommand}"
                              />
+                <RadioButton Content="Модели транспорта"
+                             Height="50"
+                             Foreground="White"
+                             FontSize="14"
+                             Style="{StaticResource ResourceKey=MenuButtonTheme}" RenderTransformOrigin="0.503,0.5"
+                             Command="{Binding MainWindowTransportSpecificationCommand}"
+                             />
+                <RadioButton Content="Категории водителей"
+                             Height="50"
+                             Foreground="White"
+                             FontSize="14"
+                             Style="{StaticResource ResourceKey=MenuButtonTheme}" RenderTransformOrigin="0.503,0.5"
+                             Command="{Binding MainWindowDriversAndCategoriesCommand}"
+                             />
+                
 
 
 
@@ -107,59 +158,7 @@
                             Grid.Column="1"
                             Grid.Row="1" RenderTransformOrigin="0.52,0.482"
                             x:Name="Pages" Content="{Binding SelectedViewModel}">
-                
-                <!--<DataGrid x:Name="MTC" 
-                          ItemsSource= "{Binding Transport}"
-                          IsReadOnly="True"
-                          SelectedItem="{Binding SelectedEntity, Mode=TwoWay}"
-                          SelectionMode="Single"
-                          SelectionUnit="FullRow"
-                          Margin="10,0,10,0">
-                            
-
-                </DataGrid>-->
-                
             </ContentControl>
-            <!--<DataGrid x:Name="MTC" 
-                          ItemsSource= "{Binding Transport}"
-                          IsReadOnly="True"
-                          SelectedItem="{Binding SelectedEntity, Mode=TwoWay}"
-                          SelectionMode="Single"
-                          SelectionUnit="FullRow"
-                          Margin="10,0,10,0">
-
-
-            </DataGrid>
-            <StackPanel Grid.Row="2"
-                        Grid.Column="1"
-                        Orientation="Horizontal">
-                <Button Width="250"
-                        BorderThickness="0"
-                        Foreground="White"
-                        FontSize="14"
-                        Style="{StaticResource UIButtonTheme}"
-                        Content="Add Drivers"
-                        Command="{Binding AddCommand}">
-                </Button>
-                <Button Width="250"
-                        BorderThickness="0"
-                        Foreground="White"
-                        FontSize="14"
-                        Style="{StaticResource UIButtonTheme}"
-                        Content="Edit"
-                        Command="{Binding EditCommand}">
-
-                </Button>
-                <Button Width="250"
-                        BorderThickness="0"
-                        Foreground="White"
-                        FontSize="14"
-                        Style="{StaticResource UIButtonTheme}"
-                        Content="Delete"
-                        Command="{Binding DeleteCommand}">
-
-                </Button>
-            </StackPanel>-->
 
 
         </Grid>
