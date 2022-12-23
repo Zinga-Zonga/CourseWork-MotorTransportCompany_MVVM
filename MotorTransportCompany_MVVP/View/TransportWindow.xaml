@@ -9,7 +9,7 @@
         utils:DialogResultHelper.DialogResult ="{Binding DialogResult}"
         Title="TransportWindow" Height="650" Width="400">
     <Border Background="#272522"
-            CornerRadius="20">
+            >
         <StackPanel
         Orientation="Vertical"
         VerticalAlignment="Center"

@@ -32,7 +32,7 @@
                         Foreground="White"
                         FontSize="14"
                         Style="{StaticResource UIButtonTheme}"
-                        Content="Add Driver"
+                        Content="Add Transport Distribution"
                         Command="{Binding AddCommand}">
             </Button>
             <Button Width="250"
@@ -40,7 +40,7 @@
                         Foreground="White"
                         FontSize="14"
                         Style="{StaticResource UIButtonTheme}"
-                        Content="Edit Driver"
+                        Content="Edit Transport Distribution"
                         Command="{Binding EditCommand}">
 
             </Button>

@@ -9,6 +9,7 @@ using System.ComponentModel;
 using System.Linq;
 using MotorTransportCompany_MVVP.Model.Domain;
 using AutoMapper.EquivalencyExpression;
+using System.Reflection;
 
 namespace MotorTransportCompany_MVVP.ViewModels
 {
@@ -90,31 +91,44 @@ namespace MotorTransportCompany_MVVP.ViewModels
             var res = _dialogService.OpenDialog(viewModel);
 
             if (res != true) return;
+            if (IsAnyNullOrEmpty(viewModel))
+            {
+                ChekOnAlreadyContainsCategories(viewModel);
 
-            ChekOnAlreadyContainsCategories(viewModel);
-
-            FillDriversAndCategoriesDataGrid();
+                FillDriversAndCategoriesDataGrid();
+            }
+            
         }
         private void EditDriverAndCategory()
         {
-            var viewModel = _mapper.Map<DriversAndCategoriesWindowViewModel>(SelectedEntity);
+            if(SelectedEntity != null)
+            {
+                var viewModel = _mapper.Map<DriversAndCategoriesWindowViewModel>(SelectedEntity);
 
-            var res = _dialogService.OpenDialog(viewModel);
+                var res = _dialogService.OpenDialog(viewModel);
 
-            if (res != true) return;
+                if (res != true) return;
+                if (IsAnyNullOrEmpty(viewModel))
+                {
+                    ChekOnAlreadyContainsCategories(viewModel);
 
-            ChekOnAlreadyContainsCategories(viewModel);
-
-            FillDriversAndCategoriesDataGrid();
+                    FillDriversAndCategoriesDataGrid();
+                }
+            }
+            
+            
         }
         private void DeleteDriverAndCategory()
         {
             var viewModel = _mapper.Map<DriversAndCategoriesWindowViewModel>(SelectedEntity);
 
+            if (IsAnyNullOrEmpty(viewModel))
+            {
+                DeleteAllCategories(viewModel);
 
-            DeleteAllCategories(viewModel);
-
-            FillDriversAndCategoriesDataGrid();
+                FillDriversAndCategoriesDataGrid();
+            }
+            
         }
         private void ChekOnAlreadyContainsCategories(DriversAndCategoriesWindowViewModel filledDriversAndCategoriesWindowViewModel)
         {
@@ -179,5 +193,17 @@ namespace MotorTransportCompany_MVVP.ViewModels
             }
         }
         #endregion
+        bool IsAnyNullOrEmpty(object myObject)
+        {
+            foreach (PropertyInfo pi in myObject.GetType().GetProperties())
+            {
+                string value = (string)pi.GetValue(myObject);
+                if (String.IsNullOrEmpty(value))
+                {
+                    return false;
+                }
+            }
+            return true;
+        }
     }
 }

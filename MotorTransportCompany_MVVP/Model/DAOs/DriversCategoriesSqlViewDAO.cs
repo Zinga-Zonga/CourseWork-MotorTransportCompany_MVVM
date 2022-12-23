@@ -52,7 +52,7 @@ namespace MotorTransportCompany_MVVP.Model.DAOs
                 List<DriversAndCategoriesSqlView> entities = new List<DriversAndCategoriesSqlView>();
                 MySqlConnection connaction = new MySqlConnection(connectionString);
                 connaction.Open();
-                MySqlCommand command = new MySqlCommand($"SELECT id_mechanic, department, name, surname, patronymic, birthday, age, sex, passport FROM `mechanics` JOIN departments ON mechanics.id_department = departments.id_department JOIN sex_types ON mechanics.id_sex = sex_types.id_sex WHERE id_mechanic = {id}", connaction);
+                MySqlCommand command = new MySqlCommand($"SELECT drivers.id_driver, departments.department, drivers.name, drivers.surname, drivers.patronymic, drivers.license, ( SELECT GROUP_CONCAT( license_categories.category SEPARATOR ', ' ) ) FROM drivers INNER JOIN drivers_categories ON drivers.id_driver = drivers_categories.id_driver INNER JOIN license_categories ON drivers_categories.id_category = license_categories.id_category INNER JOIN departments ON drivers.id_department = departments.id_department WHERE drivers.id_driver = {id} GROUP BY drivers.id_driver;", connaction);
                 using (MySqlDataReader reader = command.ExecuteReader())
                 {
                     while (reader.Read())

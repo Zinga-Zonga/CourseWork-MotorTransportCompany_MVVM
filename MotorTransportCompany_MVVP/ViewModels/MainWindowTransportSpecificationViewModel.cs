@@ -7,6 +7,8 @@ using System.Collections.ObjectModel;
 using MotorTransportCompany_MVVP.Model.Domain;
 using AutoMapper.EquivalencyExpression;
 using System.ComponentModel;
+using System.Reflection;
+using System;
 
 namespace MotorTransportCompany_MVVP.ViewModels
 {
@@ -79,35 +81,62 @@ namespace MotorTransportCompany_MVVP.ViewModels
 
             if (res != true) return;
 
-            var mechanic = _mapper.Map<TransportSpecification>(viewModel);
+            if (IsAnyNullOrEmpty(viewModel))
+            {
+                var mechanic = _mapper.Map<TransportSpecification>(viewModel);
 
-            _transportSpecificationService.Add(mechanic);
+                _transportSpecificationService.Add(mechanic);
 
-            FillTransportSpecificationDataGrid();
+                FillTransportSpecificationDataGrid();
+            }
+            
         }
         private void EditTransportSpecification()
         {
-            var viewModel = _mapper.Map<TransportSpecificationWindowViewModel>(SelectedEntity);
-            var res = _dialogService.OpenDialog(viewModel);
+            if(SelectedEntity != null)
+            {
+                var viewModel = _mapper.Map<TransportSpecificationWindowViewModel>(SelectedEntity);
+                var res = _dialogService.OpenDialog(viewModel);
 
-            if (res != true) return;
+                if (res != true) return;
 
-            var mechanic = _mapper.Map<TransportSpecification>(viewModel);
+                if (IsAnyNullOrEmpty(viewModel))
+                {
+                    var mechanic = _mapper.Map<TransportSpecification>(viewModel);
 
-            _transportSpecificationService.Update(mechanic);
+                    _transportSpecificationService.Update(mechanic);
 
-            FillTransportSpecificationDataGrid();
+                    FillTransportSpecificationDataGrid();
+                }
+            }
+            
         }
         private void DeleteTransportSpecification()
         {
-            var viewModel = _mapper.Map<TransportSpecificationWindowViewModel>(SelectedEntity);
+            if(SelectedEntity != null)
+            {
+                var viewModel = _mapper.Map<TransportSpecificationWindowViewModel>(SelectedEntity);
 
-            var mechanic = _mapper.Map<TransportSpecification>(viewModel);
+                var mechanic = _mapper.Map<TransportSpecification>(viewModel);
 
-            _transportSpecificationService.Delete(mechanic.Id);
+                _transportSpecificationService.Delete(mechanic.Id);
 
-            FillTransportSpecificationDataGrid();
+                FillTransportSpecificationDataGrid();
+            }
+            
         }
         #endregion
+        bool IsAnyNullOrEmpty(object myObject)
+        {
+            foreach (PropertyInfo pi in myObject.GetType().GetProperties())
+            {
+                string value = (string)pi.GetValue(myObject);
+                if (String.IsNullOrEmpty(value))
+                {
+                    return false;
+                }
+            }
+            return true;
+        }
     }
 }

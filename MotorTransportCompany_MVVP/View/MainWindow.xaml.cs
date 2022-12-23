@@ -1,5 +1,6 @@
 ﻿using MotorTransportCompany_MVVP.ViewModels;
 using System.Windows;
+using System.Windows.Input;
 
 namespace MotorTransportCompany_MVVP
 {
@@ -11,6 +12,15 @@ namespace MotorTransportCompany_MVVP
         {
             InitializeComponent();
             DataContext = new MainWindowViewModel();
+
+            
+        }
+        private void Window_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            if (e.LeftButton == MouseButtonState.Pressed)
+            {
+                DragMove();
+            }
         }
     }
 }

@@ -12,6 +12,7 @@ using System.Text;
 using System.Threading.Tasks;
 using AutoMapper.EquivalencyExpression;
 using MotorTransportCompany_MVVP.Model.Domain;
+using System.Reflection;
 
 namespace MotorTransportCompany_MVVP.ViewModels
 {
@@ -95,11 +96,16 @@ namespace MotorTransportCompany_MVVP.ViewModels
 
             if (res != true) return;
 
-            var mechanic = _mapper.Map<Transport>(viewModel);
+            if (IsAnyNullOrEmpty(viewModel))
+            {
+                var mechanic = _mapper.Map<Transport>(viewModel);
 
-            _transportService.Add(mechanic);
+                _transportService.Add(mechanic);
 
-            FillTransportDataGrid();
+                FillTransportDataGrid();
+            }
+
+            
         }
         private void EditTransport()
         {
@@ -109,23 +115,42 @@ namespace MotorTransportCompany_MVVP.ViewModels
 
             if (res != true) return;
 
-            var mechanic = _mapper.Map<Transport>(viewModel);
+            if (IsAnyNullOrEmpty(viewModel))
+            {
+                var mechanic = _mapper.Map<Transport>(viewModel);
 
-            _transportService.Update(mechanic);
+                _transportService.Update(mechanic);
 
-            FillTransportDataGrid();
+                FillTransportDataGrid();
+            }
+            
         }
         private void DeleteTransport()
         {
-            var viewModel = _mapper.Map<TransportWindowViewModel>(SelectedEntity);
+            if(SelectedEntity != null)
+            {
+                var viewModel = _mapper.Map<TransportWindowViewModel>(SelectedEntity);
 
-            var mechanic = _mapper.Map<Transport>(viewModel);
+                var mechanic = _mapper.Map<Transport>(viewModel);
 
-            _transportService.Delete(mechanic.Id);
+                _transportService.Delete(mechanic.Id);
 
-            FillTransportDataGrid();
+                FillTransportDataGrid();
+            }
+            
         }
         #endregion
-
+        bool IsAnyNullOrEmpty(object myObject)
+        {
+            foreach (PropertyInfo pi in myObject.GetType().GetProperties())
+            {
+                string value = (string)pi.GetValue(myObject);
+                if (String.IsNullOrEmpty(value))
+                {
+                    return false;
+                }
+            }
+            return true;
+        }
     }
 }

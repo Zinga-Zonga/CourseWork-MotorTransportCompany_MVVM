@@ -10,7 +10,7 @@
         
         Title="MechanicsWindow" Height="700" Width="300">
     <Border Background="#272522"
-            CornerRadius="20">
+            >
         <StackPanel
         Orientation="Vertical"
         VerticalAlignment="Center"
@@ -40,20 +40,20 @@
 
 
             </ComboBox>
-            <TextBlock Text="Name"
+            <TextBlock Text="Surname"
                        Foreground="White"
-                       Margin="0,5,0,5"
-                       />
-            <TextBox Text="{Binding Name}"
+                       Margin="0,5,0,5"/>
+            <TextBox Text="{Binding Surname}"
                      Height="25"
                      Background="#353300"
                      BorderThickness="0"
                      Foreground="White"
                      VerticalContentAlignment="Center"/>
-            <TextBlock Text="Surname"
+            <TextBlock Text="Name"
                        Foreground="White"
-                       Margin="0,5,0,5"/>
-            <TextBox Text="{Binding Surname}"
+                       Margin="0,5,0,5"
+                       />
+            <TextBox Text="{Binding Name}"
                      Height="25"
                      Background="#353300"
                      BorderThickness="0"

@@ -8,7 +8,7 @@
         utils:DialogResultHelper.DialogResult ="{Binding DialogResult}"
         xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
         mc:Ignorable="d"
-        Title="DriversAndCategoriesWindow" Height="400" Width="300">
+        Title="DriversAndCategoriesWindow" Height="450" Width="300">
     <Border Background="#272522">
         <Grid>
             <StackPanel

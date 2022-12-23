@@ -8,11 +8,9 @@
         xmlns:view="clr-namespace:MotorTransportCompany_MVVP.View"
         
         mc:Ignorable="d"
-        Title="MainWindow" Height="600" Width="950"
-        WindowStyle="None"
+        Title="Учёт АТП" Height="600" Width="950"
+        Background="#272537"
         ResizeMode="NoResize"
-        Background="Transparent"
-        AllowsTransparency="True"
         >
     <Window.Resources>
         <DataTemplate DataType="{x:Type viewmodel:MainWindowDriverViewModel}">
@@ -39,7 +37,7 @@
         
     </Window.Resources>
     <Border Background="#272537"
-            CornerRadius="20">
+           >
         <Grid>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="200">
@@ -135,21 +133,14 @@
                     <RowDefinition/>
                     <RowDefinition/>
                 </Grid.RowDefinitions>
-
-                <Button Style="{StaticResource MinimizeButtonTheme}"
-                    Grid.Column="10" Grid.Row="0">
-                </Button>
-                <Button Style="{StaticResource CloseButtonTheme}"
-                    Grid.Column="11" Grid.Row="0">
-                </Button>
             </Grid>
-            <TextBox Width="250"
+            <!--<TextBox Width="250"
                      Height="40"
                      VerticalContentAlignment="Center"
                      HorizontalAlignment="Left"
                      Margin="5"
                      Grid.Column="1"
-                     Style="{StaticResource ModernTextBox}"/>
+                     Style="{StaticResource ModernTextBox}"/>-->
 
 
 

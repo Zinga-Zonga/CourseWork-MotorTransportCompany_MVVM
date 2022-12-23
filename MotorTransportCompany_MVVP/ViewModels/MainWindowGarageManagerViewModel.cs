@@ -12,6 +12,7 @@ using System.Threading.Tasks;
 using MotorTransportCompany_MVVP.Model.Domain;
 using AutoMapper.EquivalencyExpression;
 using System.ComponentModel;
+using System.Reflection;
 
 namespace MotorTransportCompany_MVVP.ViewModels
 {
@@ -103,12 +104,15 @@ namespace MotorTransportCompany_MVVP.ViewModels
             var res = _dialogService.OpenDialog(viewModel);
 
             if (res != true) return;
+            if (IsAnyNullOrEmpty(viewModel))
+            {
+                var mechanic = _mapper.Map<GarageManager>(viewModel);
 
-            var mechanic = _mapper.Map<GarageManager>(viewModel);
+                _garageManagerService.Add(mechanic);
 
-            _garageManagerService.Add(mechanic);
-
-            FillGarageManagersDataGrid();
+                FillGarageManagersDataGrid();
+            }
+            
         }
 
         private void EditGarageManager()
@@ -119,24 +123,43 @@ namespace MotorTransportCompany_MVVP.ViewModels
 
             if (res != true) return;
 
-            var mechanic = _mapper.Map<GarageManager>(viewModel);
+            if (IsAnyNullOrEmpty(viewModel))
+            {
+                var mechanic = _mapper.Map<GarageManager>(viewModel);
 
-            _garageManagerService.Update(mechanic);
+                _garageManagerService.Update(mechanic);
 
-            FillGarageManagersDataGrid();
+                FillGarageManagersDataGrid();
+            }
+            
         }
         private void DeleteGarageManager()
         {
-            var viewModel = _mapper.Map<GarageManagerWindowViewModel>(SelectedEntity);
+            if(SelectedEntity != null)
+            {
+                var viewModel = _mapper.Map<GarageManagerWindowViewModel>(SelectedEntity);
 
-            var mechanic = _mapper.Map<GarageManager>(viewModel);
+                var mechanic = _mapper.Map<GarageManager>(viewModel);
 
-            _garageManagerService.Delete(mechanic.Id);
+                _garageManagerService.Delete(mechanic.Id);
 
-            FillGarageManagersDataGrid();
+                FillGarageManagersDataGrid();
+            }
+            
         }
 
         #endregion
-
+        bool IsAnyNullOrEmpty(object myObject)
+        {
+            foreach (PropertyInfo pi in myObject.GetType().GetProperties())
+            {
+                string value = (string)pi.GetValue(myObject);
+                if (String.IsNullOrEmpty(value))
+                {
+                    return false;
+                }
+            }
+            return true;
+        }
     }
 }

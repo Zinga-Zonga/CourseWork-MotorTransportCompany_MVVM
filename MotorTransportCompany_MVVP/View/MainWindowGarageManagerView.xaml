@@ -32,7 +32,7 @@
                         Foreground="White"
                         FontSize="14"
                         Style="{StaticResource UIButtonTheme}"
-                        Content="Add Driver"
+                        Content="Add Garage Manager"
                         Command="{Binding AddCommand}">
             </Button>
             <Button Width="250"
@@ -40,7 +40,7 @@
                         Foreground="White"
                         FontSize="14"
                         Style="{StaticResource UIButtonTheme}"
-                        Content="Edit Driver"
+                        Content="Edit Garage Manager"
                         Command="{Binding EditCommand}">
 
             </Button>

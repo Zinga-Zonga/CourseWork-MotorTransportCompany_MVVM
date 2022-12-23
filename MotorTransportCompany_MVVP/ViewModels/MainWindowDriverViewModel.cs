@@ -13,6 +13,7 @@ using System.Text;
 using System.Threading.Tasks;
 using MotorTransportCompany_MVVP.Util.Dialogs;
 using MotorTransportCompany_MVVP.Util;
+using System.Reflection;
 
 namespace MotorTransportCompany_MVVP.ViewModels
 {
@@ -99,12 +100,15 @@ namespace MotorTransportCompany_MVVP.ViewModels
             var res = _dialogService.OpenDialog(viewModel);
 
             if (res != true) return;
+            if (IsAnyNullOrEmpty(viewModel))
+            {
+                var mechanic = _mapper.Map<Driver>(viewModel);
 
-            var mechanic = _mapper.Map<Driver>(viewModel);
+                _driverService.Add(mechanic);
 
-            _driverService.Add(mechanic);
-
-            FillDriversDataGrid();
+                FillDriversDataGrid();
+            }
+            
         }
         private void EditDriver()
         {
@@ -114,24 +118,43 @@ namespace MotorTransportCompany_MVVP.ViewModels
 
             if (res != true) return;
 
-            var mechanic = _mapper.Map<Driver>(viewModel);
+            if (IsAnyNullOrEmpty(viewModel))
+            {
+                var mechanic = _mapper.Map<Driver>(viewModel);
 
-            _driverService.Update(mechanic);
+                _driverService.Update(mechanic);
 
-            FillDriversDataGrid();
+                FillDriversDataGrid();
+            }
+            
         }
         private void DeleteDriver()
         {
-            var viewModel = _mapper.Map<DriverWindowViewModel>(SelectedEntity);
+            if(SelectedEntity != null)
+            {
+                var viewModel = _mapper.Map<DriverWindowViewModel>(SelectedEntity);
 
-            var mechanic = _mapper.Map<Driver>(viewModel);
+                var mechanic = _mapper.Map<Driver>(viewModel);
 
-            _driverService.Delete(mechanic.Id);
+                _driverService.Delete(mechanic.Id);
 
-            FillDriversDataGrid();
+                FillDriversDataGrid();
+            }
+            
         }
         #endregion
-
+        bool IsAnyNullOrEmpty(object myObject)
+        {
+            foreach (PropertyInfo pi in myObject.GetType().GetProperties())
+            {
+                string value = (string)pi.GetValue(myObject);
+                if (String.IsNullOrEmpty(value))
+                {
+                    return false;
+                }
+            }
+            return true;
+        }
 
     }
 }

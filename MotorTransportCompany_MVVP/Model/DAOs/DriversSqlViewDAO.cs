@@ -3,9 +3,7 @@ using MySql.Data.MySqlClient;
 using System.Collections.Generic;
 namespace MotorTransportCompany_MVVP.Model.DAOs
 {
-    // SELECT drivers.id_driver, departments.department, drivers.name, drivers.surname, drivers.patronymic, drivers.birthday, drivers.age, sex_types.sex, drivers.passport, drivers.license, (SELECT GROUP_CONCAT(license_categories.category SEPARATOR ', ')) FROM drivers INNER JOIN drivers_categories ON drivers.id_driver = drivers_categories.id_driver INNER JOIN license_categories ON drivers_categories.id_category = license_categories.id_category INNER JOIN sex_types ON drivers.id_sex = sex_types.id_sex INNER JOIN departments ON drivers.id_department = departments.id_department group by drivers.id_driver;
-    // SELECT drivers_categories.id, departments.department, drivers.`name`, drivers.surname, drivers.patronymic, drivers.license, (SELECT GROUP_CONCAT(license_categories.category SEPARATOR ', ')) FROM drivers_categories INNER JOIN drivers ON drivers_categories.id_driver = drivers.id_driver INNER JOIN departments ON drivers.id_department = departments.id_department INNER JOIN license_categories ON drivers_categories.id_category = license_categories.id_category group by drivers.id_driver
-    // SELECT drivers.id_driver, departments.department, drivers.name, drivers.surname, drivers.patronymic, drivers.birthday, drivers.age, sex_types.sex, drivers.passport, drivers.license, (SELECT GROUP_CONCAT(license_categories.category SEPARATOR ', ')) FROM drivers INNER JOIN departments ON drivers.id_department = departments.id_department INNER JOIN drivers_categories ON drivers.id_driver = drivers_categories.id_driver INNER JOIN license_categories ON drivers_categories.id_category = license_categories.id_category INNER JOIN sex_types ON drivers.id_sex = sex_types.id_sex group by drivers.id_driver
+   
     internal class DriversSqlViewDAO : IViewDAO<DriverSqlView>
     {
         static string connectionString = "server=localhost;port=3306;username=root;password=root;database=motortransportcompany";

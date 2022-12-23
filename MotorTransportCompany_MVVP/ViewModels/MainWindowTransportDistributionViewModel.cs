@@ -7,6 +7,8 @@ using System.ComponentModel;
 using AutoMapper.EquivalencyExpression;
 using MotorTransportCompany_MVVP.Model.Domain;
 using MotorTransportCompany_MVVP.Model.Entities;
+using System.Reflection;
+using System;
 
 namespace MotorTransportCompany_MVVP.ViewModels
 {
@@ -84,37 +86,65 @@ namespace MotorTransportCompany_MVVP.ViewModels
 
             if (res != true) return;
 
-            var transportDistribution = _mapper.Map<TransportDistribution>(viewModel);
-
-            _transportDistributionService.Add(transportDistribution);
+            if(viewModel.FCS != null && viewModel.NumberAndModel != null)
+            {
+                var transportDistribution = _mapper.Map<TransportDistribution>(viewModel);
+                _transportDistributionService.Add(transportDistribution);
+            }
+           
+                
 
             FillTransportDistributionDataGrid();
         }
         private void EditTransportDistribution()
         {
-            var viewModel = _mapper.Map<TransportDistributionWindowViewModel>(SelectedEntity);
+            if(SelectedEntity != null)
+            {
+                var viewModel = _mapper.Map<TransportDistributionWindowViewModel>(SelectedEntity);
 
-            var res = _dialogService.OpenDialog(viewModel);
+                var res = _dialogService.OpenDialog(viewModel);
 
-            if (res != true) return;
+                if (res != true) return;
 
-            var mechanic = _mapper.Map<TransportDistribution>(viewModel);
+                if (IsAnyNullOrEmpty(viewModel))
+                {
+                    var mechanic = _mapper.Map<TransportDistribution>(viewModel);
 
-            _transportDistributionService.Update(mechanic);
+                    _transportDistributionService.Update(mechanic);
 
-            FillTransportDistributionDataGrid();
+                    FillTransportDistributionDataGrid();
+                }
+                
+            }
+            
         }
 
         private void DeleteTransportDistribution()
         {
-            var viewModel = _mapper.Map<TransportDistributionWindowViewModel>(SelectedEntity);
+            if(SelectedEntity != null)
+            {
+                var viewModel = _mapper.Map<TransportDistributionWindowViewModel>(SelectedEntity);
 
-            var mechanic = _mapper.Map<TransportDistribution>(viewModel);
+                var mechanic = _mapper.Map<TransportDistribution>(viewModel);
 
-            _transportDistributionService.Delete(mechanic.Id);
+                _transportDistributionService.Delete(mechanic.Id);
 
-            FillTransportDistributionDataGrid();
+                FillTransportDistributionDataGrid();
+            }
+            
         }
         #endregion
+        bool IsAnyNullOrEmpty(object myObject)
+        {
+            foreach (PropertyInfo pi in myObject.GetType().GetProperties())
+            {
+                string value = (string)pi.GetValue(myObject);
+                if (String.IsNullOrEmpty(value))
+                {
+                    return false;
+                }
+            }
+            return true;
+        }
     }
 }
