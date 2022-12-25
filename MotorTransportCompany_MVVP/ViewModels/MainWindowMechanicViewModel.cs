@@ -106,14 +106,14 @@ namespace MotorTransportCompany_MVVP.ViewModels
 
             if (res != true) return;
 
-            if (IsAnyNullOrEmpty(viewModel))
-            {
+            
+            
                 var mechanic = _mapper.Map<Mechanic>(viewModel);
 
                 _mechanicService.Add(mechanic);
 
                 FillMechanicsDataGrid();
-            }
+            
             
         }
         private void EditMechanic()
@@ -124,14 +124,14 @@ namespace MotorTransportCompany_MVVP.ViewModels
 
             if (res != true) return;
 
-            if (IsAnyNullOrEmpty(viewModel))
-            {
+            
+            
                 var mechanic = _mapper.Map<Mechanic>(viewModel);
 
                 _mechanicService.Update(mechanic);
 
                 FillMechanicsDataGrid();
-            }
+            
             
         }
         private void DeleteMechanic()
@@ -149,18 +149,7 @@ namespace MotorTransportCompany_MVVP.ViewModels
             
         }
         #endregion
-        bool IsAnyNullOrEmpty(object myObject)
-        {
-            foreach (PropertyInfo pi in myObject.GetType().GetProperties())
-            {
-                string value = (string)pi.GetValue(myObject);
-                if (String.IsNullOrEmpty(value))
-                {
-                    return false;
-                }
-            }
-            return true;
-        }
+        
 
 
     }

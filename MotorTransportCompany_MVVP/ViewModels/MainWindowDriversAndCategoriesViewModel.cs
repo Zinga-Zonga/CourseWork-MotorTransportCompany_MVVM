@@ -91,12 +91,12 @@ namespace MotorTransportCompany_MVVP.ViewModels
             var res = _dialogService.OpenDialog(viewModel);
 
             if (res != true) return;
-            if (IsAnyNullOrEmpty(viewModel))
-            {
+            
+            
                 ChekOnAlreadyContainsCategories(viewModel);
 
                 FillDriversAndCategoriesDataGrid();
-            }
+            
             
         }
         private void EditDriverAndCategory()
@@ -108,27 +108,28 @@ namespace MotorTransportCompany_MVVP.ViewModels
                 var res = _dialogService.OpenDialog(viewModel);
 
                 if (res != true) return;
-                if (IsAnyNullOrEmpty(viewModel))
-                {
+                
                     ChekOnAlreadyContainsCategories(viewModel);
 
                     FillDriversAndCategoriesDataGrid();
-                }
+                
             }
             
             
         }
         private void DeleteDriverAndCategory()
         {
-            var viewModel = _mapper.Map<DriversAndCategoriesWindowViewModel>(SelectedEntity);
-
-            if (IsAnyNullOrEmpty(viewModel))
+            if(SelectedEntity != null)
             {
+                var viewModel = _mapper.Map<DriversAndCategoriesWindowViewModel>(SelectedEntity);
+
                 DeleteAllCategories(viewModel);
 
                 FillDriversAndCategoriesDataGrid();
+
             }
-            
+
+
         }
         private void ChekOnAlreadyContainsCategories(DriversAndCategoriesWindowViewModel filledDriversAndCategoriesWindowViewModel)
         {
@@ -193,17 +194,6 @@ namespace MotorTransportCompany_MVVP.ViewModels
             }
         }
         #endregion
-        bool IsAnyNullOrEmpty(object myObject)
-        {
-            foreach (PropertyInfo pi in myObject.GetType().GetProperties())
-            {
-                string value = (string)pi.GetValue(myObject);
-                if (String.IsNullOrEmpty(value))
-                {
-                    return false;
-                }
-            }
-            return true;
-        }
+        
     }
 }

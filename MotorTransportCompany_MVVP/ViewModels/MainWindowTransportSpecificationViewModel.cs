@@ -81,14 +81,13 @@ namespace MotorTransportCompany_MVVP.ViewModels
 
             if (res != true) return;
 
-            if (IsAnyNullOrEmpty(viewModel))
-            {
-                var mechanic = _mapper.Map<TransportSpecification>(viewModel);
+            
+            var mechanic = _mapper.Map<TransportSpecification>(viewModel);
 
-                _transportSpecificationService.Add(mechanic);
+            _transportSpecificationService.Add(mechanic);
 
-                FillTransportSpecificationDataGrid();
-            }
+            FillTransportSpecificationDataGrid();
+            
             
         }
         private void EditTransportSpecification()
@@ -100,14 +99,13 @@ namespace MotorTransportCompany_MVVP.ViewModels
 
                 if (res != true) return;
 
-                if (IsAnyNullOrEmpty(viewModel))
-                {
+                
                     var mechanic = _mapper.Map<TransportSpecification>(viewModel);
 
                     _transportSpecificationService.Update(mechanic);
 
                     FillTransportSpecificationDataGrid();
-                }
+                
             }
             
         }
@@ -126,17 +124,6 @@ namespace MotorTransportCompany_MVVP.ViewModels
             
         }
         #endregion
-        bool IsAnyNullOrEmpty(object myObject)
-        {
-            foreach (PropertyInfo pi in myObject.GetType().GetProperties())
-            {
-                string value = (string)pi.GetValue(myObject);
-                if (String.IsNullOrEmpty(value))
-                {
-                    return false;
-                }
-            }
-            return true;
-        }
+        
     }
 }

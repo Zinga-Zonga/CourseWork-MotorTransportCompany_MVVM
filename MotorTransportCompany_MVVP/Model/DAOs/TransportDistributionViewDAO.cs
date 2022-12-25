@@ -1,12 +1,6 @@
-﻿using MotorTransportCompany_MVVP.Model.DAOs;
-using MotorTransportCompany_MVVP.Model.Domain;
-using MotorTransportCompany_MVVP.Model.Entities;
+﻿using MotorTransportCompany_MVVP.Model.Domain;
 using MySql.Data.MySqlClient;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace MotorTransportCompany_MVVP.Model.DAOs
 {
@@ -21,7 +15,7 @@ namespace MotorTransportCompany_MVVP.Model.DAOs
                 List<TransportDistributionSqlView> entities = new List<TransportDistributionSqlView>();
                 MySqlConnection connaction = new MySqlConnection(connectionString);
                 connaction.Open();
-                MySqlCommand command = new MySqlCommand($"SELECT transport_distribution.id, departments.department, drivers.name, drivers.surname, drivers.patronymic, transport.number, transport_specifications.model FROM transport_distribution INNER JOIN transport ON transport_distribution.id_transport = transport.id_transport INNER JOIN drivers ON transport_distribution.id_driver = drivers.id_driver INNER JOIN departments ON drivers.id_department = departments.id_department AND transport.id_department = departments.id_department INNER JOIN transport_specifications ON transport.id_transport_specification = transport_specifications.id_transport_specifications", connaction);
+                MySqlCommand command = new MySqlCommand($"CALL `GetTransportDistribution`();", connaction);
                 using (MySqlDataReader reader = command.ExecuteReader())
                 {
                     while (reader.Read())

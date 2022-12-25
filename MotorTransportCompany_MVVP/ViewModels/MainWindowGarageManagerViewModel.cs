@@ -104,14 +104,14 @@ namespace MotorTransportCompany_MVVP.ViewModels
             var res = _dialogService.OpenDialog(viewModel);
 
             if (res != true) return;
-            if (IsAnyNullOrEmpty(viewModel))
-            {
+            
+            
                 var mechanic = _mapper.Map<GarageManager>(viewModel);
 
                 _garageManagerService.Add(mechanic);
 
                 FillGarageManagersDataGrid();
-            }
+            
             
         }
 
@@ -123,14 +123,14 @@ namespace MotorTransportCompany_MVVP.ViewModels
 
             if (res != true) return;
 
-            if (IsAnyNullOrEmpty(viewModel))
-            {
+            
+            
                 var mechanic = _mapper.Map<GarageManager>(viewModel);
 
                 _garageManagerService.Update(mechanic);
 
                 FillGarageManagersDataGrid();
-            }
+            
             
         }
         private void DeleteGarageManager()
@@ -149,17 +149,6 @@ namespace MotorTransportCompany_MVVP.ViewModels
         }
 
         #endregion
-        bool IsAnyNullOrEmpty(object myObject)
-        {
-            foreach (PropertyInfo pi in myObject.GetType().GetProperties())
-            {
-                string value = (string)pi.GetValue(myObject);
-                if (String.IsNullOrEmpty(value))
-                {
-                    return false;
-                }
-            }
-            return true;
-        }
+        
     }
 }

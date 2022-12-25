@@ -100,14 +100,14 @@ namespace MotorTransportCompany_MVVP.ViewModels
             var res = _dialogService.OpenDialog(viewModel);
 
             if (res != true) return;
-            if (IsAnyNullOrEmpty(viewModel))
-            {
-                var mechanic = _mapper.Map<Driver>(viewModel);
+            
+            
+            var mechanic = _mapper.Map<Driver>(viewModel);
 
-                _driverService.Add(mechanic);
+            _driverService.Add(mechanic);
 
-                FillDriversDataGrid();
-            }
+            FillDriversDataGrid();
+            
             
         }
         private void EditDriver()
@@ -118,14 +118,12 @@ namespace MotorTransportCompany_MVVP.ViewModels
 
             if (res != true) return;
 
-            if (IsAnyNullOrEmpty(viewModel))
-            {
-                var mechanic = _mapper.Map<Driver>(viewModel);
+            var mechanic = _mapper.Map<Driver>(viewModel);
 
-                _driverService.Update(mechanic);
+            _driverService.Update(mechanic);
 
-                FillDriversDataGrid();
-            }
+            FillDriversDataGrid();
+
             
         }
         private void DeleteDriver()
@@ -143,18 +141,7 @@ namespace MotorTransportCompany_MVVP.ViewModels
             
         }
         #endregion
-        bool IsAnyNullOrEmpty(object myObject)
-        {
-            foreach (PropertyInfo pi in myObject.GetType().GetProperties())
-            {
-                string value = (string)pi.GetValue(myObject);
-                if (String.IsNullOrEmpty(value))
-                {
-                    return false;
-                }
-            }
-            return true;
-        }
+        
 
     }
 }

@@ -1,6 +1,5 @@
 ﻿using MotorTransportCompany_MVVP.Model.Entities;
 using MySqlConnector;
-using System;
 using System.Collections.Generic;
 
 namespace MotorTransportCompany_MVVP.Model.DAOs

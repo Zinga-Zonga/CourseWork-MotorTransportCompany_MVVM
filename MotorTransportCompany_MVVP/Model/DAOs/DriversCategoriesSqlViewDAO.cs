@@ -17,7 +17,8 @@ namespace MotorTransportCompany_MVVP.Model.DAOs
                 List<DriversAndCategoriesSqlView> entities = new List<DriversAndCategoriesSqlView>();
                 MySqlConnection connaction = new MySqlConnection(connectionString);
                 connaction.Open();
-                MySqlCommand command = new MySqlCommand($"SELECT drivers.id_driver, departments.department, drivers.name, drivers.surname, drivers.patronymic, drivers.license, ( SELECT GROUP_CONCAT( license_categories.category SEPARATOR ', ' ) ) FROM drivers INNER JOIN drivers_categories ON drivers.id_driver = drivers_categories.id_driver INNER JOIN license_categories ON drivers_categories.id_category = license_categories.id_category INNER JOIN departments ON drivers.id_department = departments.id_department GROUP BY drivers.id_driver", connaction);
+                // Процедурка
+                MySqlCommand command = new MySqlCommand($"CALL `GetDriversAndCategories`();", connaction);
                 using (MySqlDataReader reader = command.ExecuteReader())
                 {
                     while (reader.Read())
