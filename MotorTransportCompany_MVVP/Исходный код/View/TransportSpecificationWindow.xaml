@@ -1,0 +1,80 @@
+﻿<Window x:Class="MotorTransportCompany_MVVP.View.TransportSpecificationWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:MotorTransportCompany_MVVP.View"
+        mc:Ignorable="d"
+        xmlns:utils="clr-namespace:MotorTransportCompany_MVVP.Util"
+        utils:DialogResultHelper.DialogResult ="{Binding DialogResult}"
+        Title="TransportSpecificationWindow" Height="500" Width="300">
+    <Border Background="#272522"
+            >
+        <StackPanel
+        Orientation="Vertical"
+        VerticalAlignment="Center"
+        Margin="35">
+            <TextBlock Text="Id"
+                       Foreground="White"
+                       Margin="0,5,0,5"
+                       IsEnabled="False"
+                       IsHitTestVisible="False"/>
+            <TextBox Text="{Binding Id}"
+                     Background="#353300"
+                     BorderThickness="0"
+                     IsReadOnly="True"
+                     Height="25"
+                     VerticalContentAlignment="Center"/>
+            <TextBlock Text="Model"
+                       Foreground="White"
+                       Margin="0,5,0,5"
+                       />
+            <TextBox Text="{Binding Model}"
+                     Height="25"
+                     Background="#353300"
+                     BorderThickness="0"
+                     Foreground="White"
+                     VerticalContentAlignment="Center"/>
+            <TextBlock Text="Fuel"
+                       Foreground="White"
+                       Margin="0,5,0,5"/>
+            <ComboBox ItemsSource="{Binding FuelTypes}"
+                      SelectedItem="{Binding FuelType}"
+                      Background="#353300"
+                      BorderThickness="0"
+                      VerticalContentAlignment="Center"
+                      >
+            </ComboBox>
+            <TextBlock Text="Fuel Consumption"
+                       Foreground="White"
+                       Margin="0,5,0,5"/>
+            <TextBox Text="{Binding  FuelConsumption}"
+                     Height="25"
+                     Background="#353300"
+                     BorderThickness="0"
+                     Foreground="White"
+                     VerticalContentAlignment="Center"/>
+            <TextBlock Text="Trunk"
+                       Foreground="White"
+                       Margin="0,5,0,5"/>
+            <TextBox Text="{Binding TrunkVolume}"
+                     Height="25"
+                     Background="#353300"
+                     BorderThickness="0"
+                     Foreground="White"
+                     VerticalContentAlignment="Center"/>
+            
+            
+
+            <Button Command="{Binding OkCommand}"
+                    Style="{StaticResource UIButtonTheme}"
+                    Margin="0,15,0,0"
+                    Content="OK"
+                    Foreground="White"/>
+
+
+        </StackPanel>
+
+    </Border>
+
+</Window>
